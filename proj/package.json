@@ -19,11 +19,17 @@
   "devDependencies": {},
   "scripts": {
     "browserify": "NODE_PATH=src/ browserify src/index.js",
-    "mocha": "NODE_PATH=src/ mocha --compilers js:babel-register mocha/**/*"
+    "mocha": "NODE_PATH=src/ mocha --compilers js:babel-register mocha/**/*",
+    "ava": "NODE_PATH=src/ ava ava/**/*"
   },
   "browserify": {
     "transform": [
       "babelify"
+    ]
+  },
+  "ava":{
+    "require": [
+      "babel-register"
     ]
   },
   "babel": {
