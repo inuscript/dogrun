@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "ava": "^0.13.0",
+    "babel-loader": "^6.2.4",
     "babel-preset-es2016": "^6.0.6",
     "babel-register": "^6.7.2",
     "babelify": "^7.2.0",
@@ -20,14 +21,15 @@
   "scripts": {
     "browserify": "NODE_PATH=src/ browserify src/index.js",
     "mocha": "NODE_PATH=src/ mocha --compilers js:babel-register mocha/**/*",
-    "ava": "NODE_PATH=src/ ava ava/**/*"
+    "ava": "NODE_PATH=src/ ava ava/**/*",
+    "webpack": "webpack -c"
   },
   "browserify": {
     "transform": [
       "babelify"
     ]
   },
-  "ava":{
+  "ava": {
     "require": [
       "babel-register"
     ]
