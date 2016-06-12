@@ -13,6 +13,7 @@ const enhancer = BaseComponent => {
       this.state = {
         time: new Date()
       }
+      // 500msに1度state update
       setInterval( () => {
         this.setState({ time : new Date() })
       }, 500)
