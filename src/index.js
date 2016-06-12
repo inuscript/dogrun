@@ -14,7 +14,9 @@ const Message = ({background, color, msg}) => {
   return <div style={style}>{msg}</div>
 }
 
+const ErrorMsgRaw = ({msg}) => (<Message msg={msg} color={"#a94442"} background={"#f2dede"}/> )
+
 const Main = () => {
-  return <Message msg="Error! Error! Error!" color={"#a94442"} background={"#f2dede"}/>
+  return <ErrorMsgRaw msg={"Error!!!"} />
 }
 ReactDom.render(<Main />, document.getElementById('container'))
