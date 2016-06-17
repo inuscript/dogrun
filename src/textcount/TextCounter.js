@@ -11,17 +11,21 @@ const Text = ({text, count, onChange}) => {
   </div>)
 }
 
-const withCount = mapProps( ({text}) => {
+const withCount = mapProps( ({text, onChange}) => {
   return {
+    onChange: onChange,
     text: text,
-    count: text.length
+    count: text.length,
   }
 })
-let withChangeHandler = withHandlers({
-  onChange: (e) => {
-    this.setState({text: e.target.value})
-  }
-})
+
+  // const withChangeHandler = withHandlers({
+  //   onChange: props => e => {
+  //     console.log(e)
+  //     this.setState({text: e.target.value})
+  //   }
+  // })
+  // 
 
 export default class TextCounter extends Component{
   constructor(){
@@ -32,12 +36,18 @@ export default class TextCounter extends Component{
   }
   render(){
     let enhancer = compose(
-      withCount,
-      withChangeHandler
+      withCount
     )
+
     let wrap = enhancer(Text)
-    console.log(wrap)
-    return wrap({text: this.state.text})
+    return wrap({ 
+      text: this.state.text,
+      onChange: (e) => {
+        console.log(e)
+        console.log(e.target.value)
+        this.setState({text: e.target.value})
+      }
+    })
     // return <Text 
     //   text={this.state.text} 
     //   count={this.state.text.length} 
