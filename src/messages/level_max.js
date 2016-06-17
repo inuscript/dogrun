@@ -41,8 +41,6 @@ const levelEnhancer = mapProps( (props) => {
   return props
 })
 
-const LevelMsg = compose(messageEnhancer, levelEnhancer)(Message)
-
 const exampleEnhancer = (title, cmp) => {
   const ErrSample = withProps({level: "error", msg: "level = error"})(cmp)
   const WarnSample = withProps({level: "warn", msg: "level = warn"})(cmp)
@@ -58,3 +56,6 @@ const exampleEnhancer = (title, cmp) => {
   // return functional stateless component
   return () => component
 }
+
+const LevelMsg = compose(messageEnhancer, levelEnhancer)(Message)
+
