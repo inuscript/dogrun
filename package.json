@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
+    "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "recompose": "^0.20.0"
   },
