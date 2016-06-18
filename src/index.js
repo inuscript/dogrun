@@ -4,6 +4,7 @@ const ReactDom = require('react-dom')
 const Messages = require('./messages')
 const State = require('./state')
 const Timer = require('./timer')
+import PropsExample from './props'
 import TextCounter from './textcount/TextCounter'
 
 const Main = () => {
@@ -12,6 +13,7 @@ const Main = () => {
       <TextCounter />
       <Timer />
       <State />
+      <PropsExample />
       {/*<Messages />*/}
     </div>
   )
