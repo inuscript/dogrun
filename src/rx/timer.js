@@ -10,7 +10,6 @@ const Observable = require('rxjs/Observable').Observable
 
 const TimerView = (props) => {
   let {timeElapsed} = props
-  console.log(props)
   return <div>{timeElapsed}</div>
 }
 
@@ -18,6 +17,7 @@ const enhance = mapPropsStream(props$ => {
   const timeElapsed$ = Observable.interval(1000).pluck('value')
   return props$.combineLatest(timeElapsed$, (props, timeElapsed) => {
     // console.log(props, timeElapsed)
+    // console.log(prop)
     let item = Object.assign({}, props, {timeElapsed})
     return item
   })
