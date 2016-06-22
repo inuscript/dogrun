@@ -1,11 +1,12 @@
 'use babel'
-const React = require('react')
-const ReactDom = require('react-dom')
-const Messages = require('./messages')
-const State = require('./state')
+import React from 'react'
+import ReactDom from 'react-dom'
+import Messages from './messages'
+import State from './state'
 import Timer from './rx/timer'
 import PropsExample from './props'
 import TextCounter from './textcount/TextCounter'
+
 const Main = () => {
   return (
     <div>
