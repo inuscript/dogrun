@@ -7,10 +7,12 @@ import List from './list'
 import Timer from './rx/timer'
 import PropsExample from './props'
 import TextCounter from './textcount/TextCounter'
+import Pure from './pure'
 
 const Main = () => {
   return (
     <div>
+      <Pure />
       <List />
       <TextCounter />
       <Timer />

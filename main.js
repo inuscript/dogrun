@@ -4,6 +4,11 @@ const {app} = electron;
 // Module to create native browser window.
 const {BrowserWindow} = electron;
 
+const os = require('os')
+const path = require('path')
+
+const fs = require('fs')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
@@ -25,6 +30,14 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  const extensionDir = path.resolve(os.homedir(), "Library/Application Support/Google/Chrome/Default/Extensions/")
+  const id = "fmkadmapgofadopljbjfkapdkoienihi"
+  const versions = fs.readdirSync(`${extensionDir}/${id}`).sort()
+  const version = versions.pop()
+
+  const extensionPath = `${extensionDir}/${id}/${version}`
+  BrowserWindow.addDevToolsExtension(extensionPath)
 }
 
 // This method will be called when Electron has finished
