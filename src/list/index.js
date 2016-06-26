@@ -5,7 +5,7 @@ import renderComponent from 'recompose/renderComponent'
 import compose from 'recompose/compose'
 import withProps from 'recompose/withProps'
 import nest from 'recompose/nest'
-const Item = ({name}) => <li>{name}</li>
+const Item = ({name ,key}) => <li key={key}>{name}</li>
 const itemFn = createEagerFactory(Item)
 
 
