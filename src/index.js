@@ -8,10 +8,12 @@ import Timer from './rx/timer'
 import PropsExample from './props'
 import TextCounter from './textcount/TextCounter'
 import Pure from './pure'
+import Trees from './trees'
 
 const Main = () => {
   return (
     <div>
+      <Trees />
       <Pure />
       <List />
       <TextCounter />
