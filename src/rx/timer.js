@@ -13,9 +13,9 @@ const TimerView = ({time}) => {
 }
 
 const enhance = mapPropsStream(props$ => {
-  const timeElapsed$ = Observable.interval(1000).take(4)
+  const timeElapsed$ = Observable.interval(1000) //.take(4)
   return props$.combineLatest(timeElapsed$, (props, timeElapsed) => {
-    // console.log(prop)
+    console.log(props)
     let item = Object.assign({}, props, {timeElapsed})
     return item
 
