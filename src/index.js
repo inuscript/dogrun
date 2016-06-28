@@ -13,11 +13,11 @@ import Trees from './trees'
 const Main = () => {
   return (
     <div>
-      <Trees />
+      <Timer />
+      {/*<Trees />*/}
       <Pure />
       <List />
       <TextCounter />
-      <Timer />
       <State />
       <PropsExample />
       {/*<Messages />*/}
