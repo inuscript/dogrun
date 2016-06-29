@@ -14,7 +14,7 @@ import Trees from './trees'
 const Main = () => {
   return (
     <div>
-      <Timer />
+      {/*<Timer />*/}
       <RxTodo />
       {/*<Trees />*/}
       <Pure />

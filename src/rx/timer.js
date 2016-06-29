@@ -4,7 +4,7 @@ import {
 } from 'recompose'
 import rxjsconfig from 'recompose/rxjsObservableConfig'
 import { Observable } from '@reactivex/rxjs'
-
+// 
 setObservableConfig(rxjsconfig)
 
 
@@ -15,7 +15,7 @@ const TimerView = ({time}) => {
 const enhance = mapPropsStream(props$ => {
   console.log(props$)
   const timeElapsed$ = Observable.interval(1000) //.take(4)
-  return props$.combineLatest(timeElapsed$, (props, timeElapsed) => {
+  return props$.combineLatest(timeElapsed$, (props, timeElapsed) => { // = propsToVdom
     console.log(timeElapsed)
     let item = Object.assign({}, props, {timeElapsed})
     return item
