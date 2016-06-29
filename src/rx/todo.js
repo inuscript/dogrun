@@ -21,7 +21,7 @@ const Counter = componentFromStream(props$ => {
   //   .startWith(0)
   //   .scan((count, n) => count + n, 0)
   console.log(props$)
-  return Observable.of(<div>observable</div>)
+  return Observable.of(<div>rx observable</div>)
   // return props$.combineLatest(
   //   count$,
   //   (props, count) =>
