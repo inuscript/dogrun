@@ -5,6 +5,7 @@ import Messages from './messages'
 import State from './state'
 import List from './list'
 import Timer from './rx/timer'
+import RxTodo from './rx/todo'
 import PropsExample from './props'
 import TextCounter from './textcount/TextCounter'
 import Pure from './pure'
@@ -14,6 +15,7 @@ const Main = () => {
   return (
     <div>
       <Timer />
+      <RxTodo />
       {/*<Trees />*/}
       <Pure />
       <List />
