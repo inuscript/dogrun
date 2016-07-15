@@ -3,11 +3,15 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { combineEpics, createEpicMiddleware } from 'redux-observable'
 import { connect, Provider } from 'react-redux'
 
+import 'rxjs/add/operator/mapTo'
+
 const INCREMENT = 'INCREMENT'
 
 const pingEpic = action$ => {
   console.log(action$.ofType('PING'))
-  return action$.ofType('PING')
+  console.log(action$.ofType('PING').mapTo)
+  return action$
+    .ofType('PING')
     .mapTo({ type: 'PONG' });
 }
 
@@ -15,8 +19,7 @@ const pingEpic = action$ => {
 export const rootEpic = combineEpics(
   pingEpic
 )
-const epicMiddleware = createEpicMiddleware(rootEpic);
-const enhancer = applyMiddleware(epicMiddleware)
+const epicMiddleware = createEpicMiddleware(pingEpic);
 
 const pingReducer = (state = 0, action) => {
   switch(action.type){
@@ -30,13 +33,15 @@ const pingReducer = (state = 0, action) => {
 
 const reducer = combineReducers({ping: pingReducer})
 
-const store = createStore(reducer, {}, enhancer)
+const store = createStore(reducer, {} 
+  , applyMiddleware(epicMiddleware)
+)
 
 const Counter = ({dispatch, ping}) => {
   return (
     <div>
       {ping}
-      <button onClick={ dispatch({type: 'PING'}) }>ping</button>
+      <button onClick={ (e) => dispatch({type: 'PING'}) }>ping</button>
     </div>
   )
 }
