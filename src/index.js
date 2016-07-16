@@ -5,11 +5,7 @@ import { connect, Provider } from 'react-redux'
 
 import 'rxjs/add/operator/mapTo'
 
-const INCREMENT = 'INCREMENT'
-
 const pingEpic = action$ => {
-  console.log(action$.ofType('PING'))
-  console.log(action$.ofType('PING').mapTo)
   return action$
     .ofType('PING')
     .mapTo({ type: 'PONG' });
