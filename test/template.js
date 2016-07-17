@@ -1,8 +1,7 @@
 import test from 'ava'
 import configureMockStore from 'redux-mock-store';
 import { createEpicMiddleware, combineEpics } from 'redux-observable';
-
-import 'rxjs/add/operator/map'
+import Rx from 'rxjs/Rx';
 
 test('Epic Playground', t => {
   const pingEpic = action$ => action$

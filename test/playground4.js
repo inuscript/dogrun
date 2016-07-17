@@ -4,7 +4,7 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable';
 
 import Rx from 'rxjs/Rx';
 
-test('XXX', t => {
+test('Max Until', t => {
   const pingEpic = action$ => action$
     .ofType('PING')
     // .startWith({payload: 10})
