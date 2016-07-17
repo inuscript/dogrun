@@ -24,7 +24,6 @@ test( t => {
   }
 
   const rootEpic = combineEpics(pingEpic, pongEpic)
-  // const rootEpic = combineEpics(pongEpic, pingEpic)
   const epicMiddleware = createEpicMiddleware(rootEpic);
   const mockStore = configureMockStore([epicMiddleware]);
 
