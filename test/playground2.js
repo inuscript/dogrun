@@ -7,7 +7,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/filter'
 // import 'rxjs/add/operator/empty'
 
-test(t => {
+
+test('Filter action (meta)', t => {
   const pingEpic = action$ => {
     return action$
       .ofType('PING')
