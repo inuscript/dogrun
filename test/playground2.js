@@ -4,14 +4,24 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable';
 
 import 'rxjs/add/operator/mapTo'
 import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/filter'
+// import 'rxjs/add/operator/empty'
 
-test("XXX", t => {
+test(t => {
   const pingEpic = action$ => {
     return action$
       .ofType('PING')
-      .map(e => {
-        return { type: 'PONG' }
+      .filter( action => {
+        return !(action.meta && action.meta.filterd)
       })
+      // .mapTo({type: 'PONG'})
+      .map( a => Object.assign({}, a, {
+        // type: 'PONG', 
+        payload: a.payload * 2, 
+        meta: {
+          filterd: true
+        }
+      } ))
   }
   const epicMiddleware = createEpicMiddleware(pingEpic);
   const mockStore = configureMockStore([epicMiddleware]);
@@ -19,6 +29,6 @@ test("XXX", t => {
   // let action$ = new Subject()
   let store = mockStore()
 
-  store.dispatch({ type: 'PING' })
+  store.dispatch({ type: 'PING', payload: 10 })
   console.log(store.getActions())
 })
