@@ -5,13 +5,18 @@ import Rx from 'rxjs/Rx';
 
 
 test('XXX', t => {
+  const addComp = action$ => Observable.takeUntil(action$.ofType('ADD_COMPLETE'))
 
   const pingEpic = action$ => action$
     .ofType('ADD')
+    // .window(addComp(action$))
+    // .windowCount(3)
     .takeUntil(action$.ofType('ADD_COMPLETE'))
-    .map( action => action.payload)
+    // .windowWhen(action$.ofType('ADD_COMPLETE'))
+    .pluck('payload')
       .startWith(0)
       .reduce((acc, curr) => {
+        console.log(acc, curr, "reduce")
         return acc + curr
       })
     .map( sum => ({
@@ -26,7 +31,7 @@ test('XXX', t => {
   store.dispatch({ type: 'ADD', payload: 1 })
   store.dispatch({ type: 'ADD', payload: 2 })
   store.dispatch({ type: 'ADD_COMPLETE' })
-  store.dispatch({ type: 'ADD', payload: 3 })
+  store.dispatch({ type: 'ADD', payload: 4 })
   store.dispatch({ type: 'ADD_COMPLETE' })
 
   console.log(store.getActions())
