@@ -27,6 +27,11 @@
     "start": "npm run start:budo",
     "test": "eater --require=script/enable-babel"
   },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

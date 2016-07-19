@@ -26,4 +26,8 @@ const Main = () => {
     </div>
   )
 }
-ReactDom.render(<Main />, document.getElementById('container'))
+
+ReactDom.render(
+  <Main />, 
+  document.body.appendChild(document.createElement('div'))
+)
