@@ -5,25 +5,25 @@ import Rx from 'rxjs/Rx';
 
 
 test('XXX', t => {
-  const addComp = action$ => Observable.takeUntil(action$.ofType('ADD_COMPLETE'))
+  // const addComp = action$ => Observable.takeUntil(action$.ofType('ADD_COMPLETE'))
 
   const pingEpic = action$ => {
-    const add = action$
+    return action$
       .ofType('ADD')
+      .takeUntil(action$.ofType('ADD_COMPLETE'))
       .pluck('payload')
       .startWith(0)
       .reduce((acc, curr) => {
         console.log(acc, curr, "reduce")
         return acc + curr
       })
-      .map( sum => ({
-        type: 'PONG!!!',
-        payload: sum
-      }))
-    return action$
-      .window(action$.ofType('ADD_START'))
-        .takeUntil(action$.ofType('ADD_COMPLETE'))
-        .combineLatest(add)
+      // .window(action$.ofType('ADD_START'))
+        // .merge()
+          .map( sum => ({
+            type: 'PONG!!!',
+            payload: sum
+          }))
+
         // .pluck('payload')
           
   }
