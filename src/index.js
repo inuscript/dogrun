@@ -7,6 +7,7 @@ import List from './list'
 import Timer from './rx/timer'
 import RxTodo from './rx/todo'
 import PropsExample from './props'
+import Validate from './validate'
 import TextCounter from './textcount/TextCounter'
 import Pure from './pure'
 import Trees from './trees'
@@ -14,8 +15,9 @@ import Trees from './trees'
 const Main = () => {
   return (
     <div>
+      <Validate />
       {/*<Timer />*/}
-      <RxTodo />
+      {/*<RxTodo />*/}
       {/*<Trees />*/}
       <Pure />
       <List />
