@@ -30,8 +30,19 @@ const Errors = ({errors}) => {
   return <ul style="background:red;color:white">{ errs }</ul>
 }
 
-const validate = (validateFunction) => (WrapInputComponent) => {
-  <WrapInputComponent {...props} />
+const validate = (validateFunction) => (BaseComponent) => {
+  return (props) => {
+    const errors = validateFunction(props)
+    const appendProps = {
+      errors: errors
+    }
+    return (
+      <div>
+        <Errors errors={errors} />
+        <BaseComponent {...props} />
+      </div>
+    )
+  }
 }
 
 const MainComponent = ({dispatch, name, errors}) => {
