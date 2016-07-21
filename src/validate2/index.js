@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { connect, Provider } from 'react-redux'
-import * as validators from './validatiors'
+import * as validators from './validators'
 import * as actions from './actions'
 import reducer from './reducer'
 
@@ -59,9 +59,31 @@ const withValidateError = (validateFunction) => (BaseComponent) => {
   }
 }
 
-
 const NameInput = withValidateError(validators.nameValidation)(Input)
 const PasswordInput = withValidateError(validators.passwordValidation)(HiddenInput)
+
+const withValidateForm = ({ onSend, validator }) => (InputComponents) => {
+  return class ValidateForms extends Component{
+    constructor(props){
+      super(props)
+      this.state = {
+        errors: {},
+        showError: false
+      }
+    }
+    handleSend(){
+      onSend() // HOCs setting  
+    }
+    render(){
+      return (
+        <div>
+          <InputComponents />
+          <button onClick={ e => dispatch(actions.send())}>send</button>
+        </div>
+      )
+    }
+  }
+}
 
 const MainComponent = ({dispatch, password, name, error}) => {
   return (
@@ -79,7 +101,6 @@ const MainComponent = ({dispatch, password, name, error}) => {
           onChange={ e => dispatch(actions.changePassword(e.target.value))}
           showError={error.showError}
         />
-        <button onClick={ e => dispatch(actions.send())}>send</button>
       </div>
     </div>
   )
