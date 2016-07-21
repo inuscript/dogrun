@@ -2,10 +2,34 @@ import React from 'react'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { connect, Provider } from 'react-redux'
 
+// actions
+const changeName = (name) => ({
+  type: 'CHANGE_NAME',
+  payload: name
+})
+
+const changePassword = (password) => ({
+  type: 'CHANGE_PASSWORD',
+  payload: password
+})
+
+const send = (name) => ({
+  type: 'SEND',
+})
+
 // reducer
 const nameReducer = (state = '', action) => {
   switch (action.type) {
     case 'CHANGE_NAME': 
+      return action.payload
+    default: 
+      return state;
+  }
+}
+
+const passwordReducer = (state = '', action) => {
+  switch (action.type) {
+    case 'CHANGE_PASSWORD': 
       return action.payload
     default: 
       return state;
@@ -24,25 +48,27 @@ const errorReducer = (state = {showError: false, errors: []}, action) => {
 
 const reducer = combineReducers({
   name: nameReducer,
+  password: passwordReducer,
   error: errorReducer
 })
 
-// actions
-const changeName = (name) => ({
-  type: 'CHANGE_NAME',
-  payload: name
-})
-
-const send = (name) => ({
-  type: 'SEND',
-})
 
 // store
 const store = createStore(reducer, {})
 
 //view
-const Input = ({value, onChange}) => (
-  <input value={value} onChange={onChange} />
+const Input = ({label, value, onChange}) => (
+  <div>
+    <span>{label}</span>
+    <input value={value} onChange={onChange} />
+  </div>
+)
+
+const HiddenInput = ({label, value, onChange}) => (
+  <div>
+    <span>{label}</span>
+    <input type="password" value={value} onChange={onChange} />
+  </div>
 )
 
 const Errors = ({errors, showError}) => {
@@ -80,15 +106,35 @@ const nameValidation = ({value}) => {
   return []
 }
 
-const NameInput = withValidateError(nameValidation)(Input)
+const passwordValidation = ({value}) => {
+  if(!value){
+    return ['Password is must need']
+  }
+  if(value.match(/^[a-z]+$/) || value.match(/^[1-9]+$/)){
+    return ['Password least 1 number and alphabet']
+  }
+  return []
+}
 
-const MainComponent = ({dispatch, name, error}) => {
+const NameInput = withValidateError(nameValidation)(Input)
+const PasswordInput = withValidateError(passwordValidation)(HiddenInput)
+
+const MainComponent = ({dispatch, password, name, error}) => {
   return (
     <div>
       <div>
         <div>name: {name}</div>
-        <NameInput value={name} 
+        <div>passowrd: {password}</div>
+        <NameInput
+          label={"name"}
+          value={name} 
           onChange={ e => dispatch(changeName(e.target.value))}
+          showError={error.showError}
+        />
+        <PasswordInput 
+          label={"password"}
+          value={password} 
+          onChange={ e => dispatch(changePassword(e.target.value))}
           showError={error.showError}
         />
         <button onClick={ e => dispatch(send())}>send</button>
