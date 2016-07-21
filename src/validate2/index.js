@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { connect, Provider } from 'react-redux'
-import * as validators from './validators'
+import validateAll , * as validators from './validators'
 import * as actions from './actions'
 import reducer from './reducer'
 
@@ -43,25 +43,6 @@ const Errors = ({errors, showError}) => {
   return <ul style={style}>{ errs }</ul>
 }
 
-const withValidateError = (validateFunction) => (BaseComponent) => {
-  return (props) => {
-    const errors = validateFunction(props)
-    const { showError } = props
-    const appendProps = {
-      errors: errors
-    }
-    return (
-      <div>
-        <Errors errors={errors} showError={showError}/>
-        <BaseComponent {...props} {...appendProps}/>
-      </div>
-    )
-  }
-}
-
-const NameInput = withValidateError(validators.nameValidation)(Input)
-const PasswordInput = withValidateError(validators.passwordValidation)(HiddenInput)
-
 const withValidateForm = ({ onSend, validator }) => (InputComponents) => {
   return class ValidateForms extends Component{
     constructor(props){
@@ -71,38 +52,46 @@ const withValidateForm = ({ onSend, validator }) => (InputComponents) => {
         showError: false
       }
     }
-    handleSend(){
+    handleSend(e){
+      this.setState({
+        errors: validateAll(this.props),
+        showError: true
+      })
       onSend() // HOCs setting  
     }
     render(){
+      const { state, props } = this
       return (
         <div>
-          <InputComponents />
-          <button onClick={ e => dispatch(actions.send())}>send</button>
+          <Errors errors={this.state.errors} showError={this.state.showError}/>
+          <InputComponents {...props}/>
+          <button onClick={ e => this.handleSend(e)}send</button>
         </div>
       )
     }
   }
 }
 
-const MainComponent = ({dispatch, password, name, error}) => {
+const MyFormFields = ({dispatch, password, name}) => (
+  <div>
+    <Input
+      label={"name"}
+      value={name} 
+      onChange={ e => dispatch(actions.changeName(e.target.value))}
+    />
+    <HiddenInput
+      label={"password"}
+      value={password} 
+      onChange={ e => dispatch(actions.changePassword(e.target.value))}
+    />
+  </div>
+)
+
+const MyForm = withValidateForm({})(MyFormFields)
+
+const MainComponent = (props) => {
   return (
-    <div>
-      <div>
-        <NameInput
-          label={"name"}
-          value={name} 
-          onChange={ e => dispatch(actions.changeName(e.target.value))}
-          showError={error.showError}
-        />
-        <PasswordInput 
-          label={"password"}
-          value={password} 
-          onChange={ e => dispatch(actions.changePassword(e.target.value))}
-          showError={error.showError}
-        />
-      </div>
-    </div>
+    <MyForm {...props} />
   )
 }
 

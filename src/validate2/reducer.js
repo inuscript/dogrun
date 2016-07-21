@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux'
+
 // reducer
 const nameReducer = (state = '', action) => {
   switch (action.type) {
@@ -20,6 +22,5 @@ const passwordReducer = (state = '', action) => {
 export default combineReducers({
   name: nameReducer,
   password: passwordReducer,
-  error: errorReducer
 })
 
