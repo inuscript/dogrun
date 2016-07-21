@@ -22,7 +22,7 @@
     "electron-prebuilt": "^1.2.7"
   },
   "scripts": {
-    "start:budo": "budo src/index.js --live",
+    "start:budo": "budo src/index.js -H localhost --live",
     "start:electron": "electron ./electron/main.js",
     "start": "npm run start:budo",
     "test": "eater --require=script/enable-babel"
