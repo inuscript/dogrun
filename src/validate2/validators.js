@@ -17,3 +17,11 @@ export const passwordValidation = ({value}) => {
   }
   return []
 }
+
+
+export default ({name, passowrd}) => {
+  return {
+    name: nameValidation(name),
+    passowrd: passowrdValidation(password)
+  }
+}

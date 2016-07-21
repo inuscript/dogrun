@@ -67,8 +67,6 @@ const MainComponent = ({dispatch, password, name, error}) => {
   return (
     <div>
       <div>
-        <div>name: {name}</div>
-        <div>passowrd: {password}</div>
         <NameInput
           label={"name"}
           value={name} 
