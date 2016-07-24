@@ -1,4 +1,7 @@
 export const nameValidation = ({value}) => {
+  if(!value){
+    return ['name is empty']
+  }
   if(value.length < 4){
     return ['name least 4 char']
   }
@@ -19,9 +22,9 @@ export const passwordValidation = ({value}) => {
 }
 
 
-export default ({name, passowrd}) => {
+export default ({name, password}) => {
   return {
     name: nameValidation(name),
-    passowrd: passowrdValidation(password)
+    password: passwordValidation(password)
   }
 }

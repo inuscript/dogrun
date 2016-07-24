@@ -34,13 +34,24 @@ const HiddenInput = ({label, value, onChange}) => (
   </div>
 )
 
-const Errors = ({errors, showError}) => {
-  if(!errors || errors.length === 0 || !showError){
+const Errors = ({errors}) => {
+  if(!errors || errors.length === 0){
     return null
   }
   const errs = errors.map( (err, i) => (<li key={err}>{err}</li>) )
   const style = {background:"red", color:"white"}
   return <ul style={style}>{ errs }</ul>
+}
+
+const ErrorsList = ({errorMap, showError}) => {
+  if(!errorMap || !showError){
+    return null
+  }
+  const errors = Object.keys(errorMap).map((k) => {
+    const v = errorMap[k]
+    return <Errors key={k} errors={v} />
+  })
+  return <div>{errors}</div>
 }
 
 const withValidateForm = ({ onSend, validator }) => (InputComponents) => {
@@ -56,22 +67,24 @@ const withValidateForm = ({ onSend, validator }) => (InputComponents) => {
       this.setState({
         errors: validateAll(this.props),
         showError: true
+      }, () => {
+        onSend(e) // HOCs setting        
       })
-      onSend() // HOCs setting  
     }
     render(){
       const { state, props } = this
       return (
         <div>
-          <Errors errors={this.state.errors} showError={this.state.showError}/>
-          <InputComponents {...props}/>
-          <button onClick={ e => this.handleSend(e)}send</button>
+          <ErrorsList errorMap={state.errors} showError={state.showError} />
+          <InputComponents {...props} />
+          <button onClick={ e => this.handleSend(e)}>send</button>
         </div>
       )
     }
   }
 }
 
+// あれ？dispatch渡すのにRerender時に構築するタイミングだとうまくいかないやつどなんだっけ
 const MyFormFields = ({dispatch, password, name}) => (
   <div>
     <Input
@@ -87,9 +100,12 @@ const MyFormFields = ({dispatch, password, name}) => (
   </div>
 )
 
-const MyForm = withValidateForm({})(MyFormFields)
+const MyForm = withValidateForm({onSend: (e) => {
+  
+}})(MyFormFields)
 
 const MainComponent = (props) => {
+  
   return (
     <MyForm {...props} />
   )
