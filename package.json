@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
+  "private": true,
   "dependencies": {
     "@reactivex/rxjs": "^5.0.0-beta.10",
     "react": "^15.1.0",
