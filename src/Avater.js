@@ -9,6 +9,13 @@ export default class Avater extends Component{
   }
   componentWillMount(props){
     // loadingSomething(props.name)
+    //   .then( (name, description) => {
+    //     this.setState({
+    //       loadComplete: true,
+    //       name: "hogehoge",
+    //       description: "fugafuga"
+    //     })
+    //   })
     setTimeout( () => {
       this.setState({
         loadComplete: true,
@@ -18,11 +25,11 @@ export default class Avater extends Component{
     }, 1000)
   }
   render(){
-    if(this.state.loadComplete){
+    if(!this.state.loadComplete){
       return <div>お待ち下さい・・・・</div>
     }
     return <div>
-      <div>{this.state.name}</div>
+      <div>name: {this.state.name}</div>
     </div>
   }
 }
