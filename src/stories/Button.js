@@ -9,7 +9,7 @@ const buttonStyles = {
   padding: '3px 10px',
   margin: 10,
 };
-
+const Label = ({ label } ) 
 const Button = ({ children, onClick }) => (
   <button
     style={buttonStyles}
