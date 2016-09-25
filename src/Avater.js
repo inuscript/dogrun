@@ -1,4 +1,13 @@
+
 import React, { Component } from 'react';
+
+const loadingSomething = (name) => {
+  return new Promise( (res, rej ) => {
+    setTimeout( () => {
+      res(name, "fugafuga")
+    },1000)
+  })
+}
 
 export default class Avater extends Component{
   constructor(){
@@ -8,21 +17,14 @@ export default class Avater extends Component{
     }
   }
   componentWillMount(props){
-    // loadingSomething(props.name)
-    //   .then( (name, description) => {
-    //     this.setState({
-    //       loadComplete: true,
-    //       name: "hogehoge",
-    //       description: "fugafuga"
-    //     })
-    //   })
-    setTimeout( () => {
-      this.setState({
-        loadComplete: true,
-        name: "hogehoge",
-        description: "fugafuga"
+    loadingSomething(this.props.name)
+      .then( (name, description) => {
+        this.setState({
+          loadComplete: true,
+          name,
+          description
+        })
       })
-    }, 1000)
   }
   render(){
     if(!this.state.loadComplete){
