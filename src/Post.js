@@ -8,11 +8,17 @@ const PrivatePost = ({title, author, children, titleRender}) => {
   </div>
 }
 
-export const FooPost = (props) => {
-  return <PrivatePost {...props}
-    titleRender={ ({title, author}) => (<div>Title: {title} Author: {author}</div>)} />
+const postItem = (titleRender) => {
+  return ({title, author, children}) => {
+    return <div>
+      <div>{ titleRender({title, author}) }</div>
+      <div>{ children }</div>
+    </div>
+  }
 }
-export const BazPost = (props) => {
-  return <PrivatePost {...props}
-    titleRender={ ({title, author}) => (<div> {title} ( {author} )</div>) } />
-}
+
+const FooTitle = ({title, author}) => (<div>Title: {title} Author: {author}</div>)
+export const FooPost = postItem(FooTitle)
+
+const BazTitle = ({title, author}) => (<div> {title} ( {author} )</div>)
+export const BazPost = postItem(BazTitle)

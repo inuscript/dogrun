@@ -132,7 +132,7 @@ class App extends Component {
           <Title>hoge</Title>
           <Body>hoge</Body>
         </Post> */}
-        {/* <Avater name="inuscript"/> */}
+        <Avater name="inuscript"/>
       </div>
     );
   }
