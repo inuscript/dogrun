@@ -1,16 +1,5 @@
-
-import React, { Component } from 'react';
-
-// Mock fetch request
-const fetchAccount = (name) => {
-  return new Promise( (res, rej ) => {
-    setTimeout( () => {
-      res({name,
-        description: "おはようございます",
-        thumbUrl: "https://pbs.twimg.com/profile_images/622925791416881152/gDKsJVcW_bigger.png"})
-    },1000)
-  })
-}
+import React, { Component } from 'react'
+import fetchAccount from './fetchAccount'
 
 export default class Profile extends Component{
   constructor(){
