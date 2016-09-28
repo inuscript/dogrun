@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Avater from './Avater'
+import Postx from './Posty'
 import {FooPost, BazPost} from './Post'
 
 const FooDecorate = ({children}) => {
@@ -23,24 +24,24 @@ GoodLabel.propTypes = {
 const BadLabel = ({label}) => {
   return <div>{label}</div>
 }
-const Post = ({title, author, children, titleComponent}) => {
-  const TitleComponent = titleComponent
-  return <div>
-    <div><TitleComponent {...{title, author}} /></div>
-    <div>{children}</div>
-  </div>
-}
-const Post2 = ({title, author, children, titleRender}) => {
-  return <div>
-    <div>{ titleRender({title, author}) }</div>
-    <div>{ children }</div>
-  </div>
-}
-Post2.defaultProps = {
-  titleRender : ({title, author}) => (<div>{title} {author}</div>)
-}
-
-
+// const Post = ({title, author, children, titleComponent}) => {
+//   const TitleComponent = titleComponent
+//   return <div>
+//     <div><TitleComponent {...{title, author}} /></div>
+//     <div>{children}</div>
+//   </div>
+// }
+// const Post2 = ({title, author, children, titleRender}) => {
+//   return <div>
+//     <div>{ titleRender({title, author}) }</div>
+//     <div>{ children }</div>
+//   </div>
+// }
+// Post2.defaultProps = {
+//   titleRender : ({title, author}) => (<div>{title} {author}</div>)
+// }
+// 
+// 
 {/* Post.propTypes = {
   children: React.PropTypes.node,
 } */}
@@ -72,6 +73,23 @@ Post2.defaultProps = {
 //     <div>{tweet}</div>
 //   </div>
 // }
+const Post = ({title, author, children}) => {
+  return <div>
+    <div>{title} : {author}</div>
+    <div>{children}</div>
+  </div>
+}
+
+
+
+
+const MyPost = () => {
+  const titleNode = (<BazDecorate>Titleですよ</BazDecorate>)
+  return <Post title={titleNode} author="bob">
+    <FooDecorate>ほげ</FooDecorate>
+  </Post>
+}
+
 
 const SomeTitle = ({title, author}) => {
   return <div>{title} (author: {author})</div>
@@ -87,6 +105,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Postx />
         {/* <GoodLabel children="foo" />
         <GoodLabel>foo</GoodLabel> */}
         {/* <BadLabel>foo</BadLabel> */}
@@ -97,14 +116,14 @@ class App extends Component {
           titleComponent={SomeTitleClassCmp} >
           <FooDecorate>ほげ</FooDecorate>
         </Post> */}
-        <FooPost author="myname"
+        {/* <FooPost author="myname"
           title="hoge">
           <FooDecorate>ほげ</FooDecorate>
         </FooPost>
         <BazPost author="myname"
           title="hoge">
           <FooDecorate>ほげ</FooDecorate>
-        </BazPost>
+        </BazPost> */}
         {/* <Post2 author="myname"
           title="hoge">
           <FooDecorate>ほげ</FooDecorate>
@@ -132,7 +151,7 @@ class App extends Component {
           <Title>hoge</Title>
           <Body>hoge</Body>
         </Post> */}
-        <Avater name="inuscript"/>
+        <Avater account="inuscript"/>
       </div>
     );
   }

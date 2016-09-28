@@ -12,21 +12,7 @@ const fetchAccount = (name) => {
   })
 }
 
-
-const WaitMessage = () => (<div>お待ち下さい・・・・</div>)
-const Profile = ({thumbUrl, name, description}) => {
-  return (
-    <div>
-      <div>
-        <img src={thumbUrl} />
-      </div>
-      <div> @{name} </div>
-      <div> {description} </div>
-    </div>
-  )
-}
-
-export default class ProfileContainer extends Component{
+export default class Profile extends Component{
   constructor(){
     super()
     this.state = {
@@ -45,9 +31,16 @@ export default class ProfileContainer extends Component{
       })
   }
   render(){
-    if(!this.state.loadComplete){
-      return <WaitMessage />
+    const {thumbUrl, name, description, loadComplete } = this.state
+    if(!loadComplete){
+      return <div>お待ち下さい・・・・</div>
     }
-    return <Profile {...this.state} />
+    return <div>
+      <div>
+        <img src={thumbUrl} />
+      </div>
+      <div> @{name} </div>
+      <div> {description}</div>
+    </div>
   }
 }
