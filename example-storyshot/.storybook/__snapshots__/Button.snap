@@ -1,0 +1,35 @@
+exports[`with some emoji`] = `
+<button
+  onClick={[Function anonymous]}
+  style={
+    Object {
+      "backgroundColor": "#FFFFFF",
+      "border": "1px solid #eee",
+      "borderRadius": 4,
+      "cursor": "pointer",
+      "fontSize": 15,
+      "margin": 10,
+      "padding": "3px 10px"
+    }
+  }>
+  😀 😎 👍 💯
+</button>
+`;
+
+exports[`with text`] = `
+<button
+  onClick={[Function anonymous]}
+  style={
+    Object {
+      "backgroundColor": "#FFFFFF",
+      "border": "1px solid #eee",
+      "borderRadius": 4,
+      "cursor": "pointer",
+      "fontSize": 15,
+      "margin": 10,
+      "padding": "3px 10px"
+    }
+  }>
+  Hello Button
+</button>
+`;
