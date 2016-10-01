@@ -1,0 +1,21 @@
+{
+  "name": "the-dogrun",
+  "version": "0.0.1",
+  "description": "Playground for @inuscript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inuscript/the-dogrun.git"
+  },
+  "keywords": [],
+  "author": "inuscript <inuscript@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inuscript/the-dogrun/issues"
+  },
+  "homepage": "https://github.com/inuscript/the-dogrun#readme"
+}
