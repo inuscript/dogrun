@@ -1,0 +1,45 @@
+{
+  "name": "proj",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "ava": "^0.13.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2016": "^6.0.6",
+    "babel-register": "^6.7.2",
+    "babelify": "^7.2.0",
+    "browserify": "^13.0.0",
+    "mocha": "^2.4.5",
+    "rollup": "^0.25.4",
+    "webpack": "^1.12.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "browserify": "NODE_PATH=src/ browserify src/index.js",
+    "mocha": "NODE_PATH=src/ mocha --compilers js:babel-register mocha/**/*",
+    "ava": "NODE_PATH=src/ ava ava/**/*",
+    "webpack": "webpack -c"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
