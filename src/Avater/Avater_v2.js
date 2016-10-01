@@ -14,11 +14,11 @@ const ProfileItem = ({thumbUrl, name, description}) => {
   )
 }
 
-const Profile = ({loadComplete, data}) => {
+const Profile = ({loadComplete, ...rest}) => {
   if(!loadComplete){
     return <WaitMessage />
   }
-  return <ProfileItem {...data} />
+  return <Profile {...rest} />
 }
 
 export default class ProfileContainer extends Component{
@@ -33,11 +33,9 @@ export default class ProfileContainer extends Component{
       .then( ({name, description, thumbUrl}) => {
         this.setState({
           loadComplete: true,
-          data: {
-            name,
-            description,
-            thumbUrl,
-          }
+          name,
+          description,
+          thumbUrl,
         })
       })
   }

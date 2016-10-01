@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import fetchAccount from './fetchAccount'
+import branch from 'recompose/branch'
+import renderComponent from 'recompose/renderComponent'
 
 const WaitMessage = () => (<div>お待ち下さい・・・・</div>)
 const ProfileItem = ({thumbUrl, name, description}) => {
@@ -13,13 +15,12 @@ const ProfileItem = ({thumbUrl, name, description}) => {
     </div>
   )
 }
-
-const Profile = ({loadComplete, data}) => {
-  if(!loadComplete){
-    return <WaitMessage />
-  }
-  return <ProfileItem {...data} />
-}
+const withWait = branch(
+  ({loadComplete}) => loadComplete,
+  t => t,
+  renderComponent(WaitMessage)
+)
+const ProfileWithWait = withWait(ProfileItem)
 
 export default class ProfileContainer extends Component{
   constructor(){
@@ -33,15 +34,13 @@ export default class ProfileContainer extends Component{
       .then( ({name, description, thumbUrl}) => {
         this.setState({
           loadComplete: true,
-          data: {
-            name,
-            description,
-            thumbUrl,
-          }
+          name,
+          description,
+          thumbUrl,
         })
       })
   }
   render(){
-    return <Profile {...this.state} />
+    return <ProfileWithWait {...this.state} />
   }
 }
