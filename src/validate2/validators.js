@@ -21,7 +21,6 @@ export const passwordValidation = ({value}) => {
   return []
 }
 
-
 export default ({name, password}) => {
   return {
     name: nameValidation(name),
