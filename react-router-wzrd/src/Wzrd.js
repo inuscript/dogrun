@@ -17,23 +17,30 @@ class WizerdLink extends Component {
 const First = () => (
   <div>
     <div>First</div>
-    <Match pattern="/2" component={Second} />
-    <Link to="/2">next</Link>
+    <Link to={{
+      pathname: "/2",
+      query: { sort: 'name' },
+      state: { fromDashboard: true }
+    }}>next</Link>
   </div>
 )
-const Second = () => (
-  <div>
-    <div>Second</div>
-    {/* <WizerdLink>next</WizerdLink> */}
-    <Match pattern="/3" component={Third} />
-    <Link to="/3">next</Link>
-  </div>
-)
+const Second = (props) => {
+  console.log(props)
+  return (
+    <div>
+      <div>Second</div>
+      {/* <WizerdLink>next</WizerdLink> */}
+      <Match pattern="/3" component={Third} />
+      <Link to="/3">next</Link>
+    </div>
+  )
+}
 const Third = () => <div>Third</div>
 
 export default () => {
   return <Router>
     <div>
+      <Match pattern="/2" component={Second} />
       <Match pattern="/" exactly component={First} />
     </div>
   </Router>
