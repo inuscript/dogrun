@@ -1,6 +1,5 @@
 // Redirect pattern
 import React, { Component } from 'react'
-
 import Router from 'react-router/BrowserRouter'
 import { Match, Link, Redirect } from 'react-router'
 
