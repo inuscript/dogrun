@@ -2,9 +2,19 @@ import React, { Component, PropTypes } from 'react'
 import Router from 'react-router/BrowserRouter'
 import { Match, Link, Redirect } from 'react-router'
 
-const First = () => <div>First</div>
+const First = ({nextToBase}) => {
+  return <div>
+    <div>First</div>
+    <Link to={nextToBase} />
+  </div>
+}
 const Second = () => <div>Second</div>
 const Third = () => <div>Third</div>
+
+const withNextLinkBase = (Component) => {
+  return (...props) => {
+     <Component />
+}
 
 const wizardLink = (pathname) => {
   switch(pathname){
