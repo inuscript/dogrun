@@ -3,6 +3,10 @@ import logo from './logo.svg';
 import Wzrd from './Wzrd4'
 import './App.css';
 
+const Hoge = () => {
+  return null
+  return <div>a</div>
+}
 class App extends Component {
   render() {
     return (
@@ -11,6 +15,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
+        <Hoge />
         <Wzrd />
       </div>
     );

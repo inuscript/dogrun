@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/inuscript/the-dogrun/issues"
   },
-  "homepage": "https://github.com/inuscript/the-dogrun#readme"
+  "homepage": "https://github.com/inuscript/the-dogrun#readme",
+  "dependencies": {
+    "jsrsasign": "^6.1.2"
+  }
 }
