@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "inuscript <inuscript@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "c1": "webpack --config c1/webpack.config.js"
+  },
   "dependencies": {
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^1.0.1",
