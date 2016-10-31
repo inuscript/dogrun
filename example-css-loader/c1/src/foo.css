@@ -1,3 +1,5 @@
+@import './bar.css';
+
 .foo{
   color: red;
 }
@@ -6,5 +8,5 @@
 }
 .bar{
   color: blue;
-  background: url('/some.png')
+  background: url('/2.jpg')
 }
