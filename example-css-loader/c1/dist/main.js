@@ -56,7 +56,7 @@
 
 
 	// module
-	exports.push([module.id, ".foo{\n  color: red;\n}", ""]);
+	exports.push([module.id, ".foo{\n  color: red;\n}\n.baz{\n  color: blue;\n}\n.bar{\n  color: blue;\n}", ""]);
 
 	// exports
 

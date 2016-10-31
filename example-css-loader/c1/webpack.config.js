@@ -6,7 +6,10 @@ module.exports = {
     loaders: [{
       test: /\.css/,
       // loaders: ['style', 'css']
-      loader: 'css'
+      loader: 'css',
+      // query: {
+      //   module: true
+      // }
     }],
   },
   output: {
