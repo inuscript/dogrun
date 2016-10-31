@@ -45,6 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	const foo = __webpack_require__(1)
+	console.log(foo)
 
 /***/ },
 /* 1 */
