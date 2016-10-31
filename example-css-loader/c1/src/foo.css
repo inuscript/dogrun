@@ -1,9 +1,10 @@
 .foo{
   color: red;
 }
-.baz{
+:local(.baz){
   color: blue;
 }
 .bar{
   color: blue;
+  background: url('/some.png')
 }

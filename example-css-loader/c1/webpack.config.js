@@ -7,9 +7,10 @@ module.exports = {
       test: /\.css/,
       // loaders: ['style', 'css']
       loader: 'css',
-      // query: {
-      //   module: true
-      // }
+      query: {
+        // root: '.'
+        // module: true
+      }
     }],
   },
   output: {

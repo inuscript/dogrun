@@ -56,10 +56,12 @@
 
 
 	// module
-	exports.push([module.id, ".foo{\n  color: red;\n}\n.baz{\n  color: blue;\n}\n.bar{\n  color: blue;\n}", ""]);
+	exports.push([module.id, ".foo{\n  color: red;\n}\n._1q1aJ9Ywd_O0FUSFtBM7Xe{\n  color: blue;\n}\n.bar{\n  color: blue;\n  background: url('/some.png')\n}", ""]);
 
 	// exports
-
+	exports.locals = {
+		"baz": "_1q1aJ9Ywd_O0FUSFtBM7Xe"
+	};
 
 /***/ },
 /* 2 */
