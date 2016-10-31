@@ -57,14 +57,14 @@
 	var content = __webpack_require__(2);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(5)(content, {});
+	var update = __webpack_require__(6)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./foo.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./foo.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js?root=.!./foo.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js?root=.!./foo.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -82,7 +82,7 @@
 	exports.i(__webpack_require__(4), "");
 
 	// module
-	exports.push([module.id, ".foo{\n  color: red;\n}\n._1q1aJ9Ywd_O0FUSFtBM7Xe{\n  color: blue;\n}\n.bar{\n  color: blue;\n  /*background: url('/some.png')*/\n}", ""]);
+	exports.push([module.id, ".foo{\n  color: red;\n}\n._1q1aJ9Ywd_O0FUSFtBM7Xe{\n  color: blue;\n}\n.bar{\n  color: blue;\n  background: url(" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./2.jpg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + ")\n}", ""]);
 
 	// exports
 	exports.locals = {
@@ -162,7 +162,8 @@
 	};
 
 /***/ },
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

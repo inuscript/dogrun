@@ -8,5 +8,5 @@
 }
 .bar{
   color: blue;
-  background: url('/2.jpg')
+  background: url('./2.jpg')
 }
