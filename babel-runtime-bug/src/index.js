@@ -1,1 +1,1 @@
-import a from './hoge'
+export * from './hoge'
