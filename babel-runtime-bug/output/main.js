@@ -46,19 +46,11 @@
 
 	'use strict';
 
-	exports.__esModule = true;
-
 	var _hoge = __webpack_require__(1);
 
-	Object.keys(_hoge).forEach(function (key) {
-	  if (key === "default" || key === "__esModule") return;
-	  Object.defineProperty(exports, key, {
-	    enumerable: true,
-	    get: function get() {
-	      return _hoge[key];
-	    }
-	  });
-	});
+	var _hoge2 = _interopRequireDefault(_hoge);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
 /* 1 */
