@@ -46,47 +46,34 @@
 
 	'use strict';
 
-	var _foo = __webpack_require__(1);
+	import _Object$defineProperty from 'babel-runtime/core-js/object/define-property';
+	import _Object$keys from 'babel-runtime/core-js/object/keys';
+	exports.__esModule = true;
 
-	var _foo2 = _interopRequireDefault(_foo);
+	var _hoge = __webpack_require__(1);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	_Object$keys(_hoge).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
 
-	console.log(Mod);
+	  _Object$defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _hoge[key];
+	    }
+	  });
+	});
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _classCallCheck2 = __webpack_require__(2);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Hoge = function Hoge() {
-	  (0, _classCallCheck3.default)(this, Hoge);
-	  this.sta = "bee";
-	};
-
-	exports.default = Hoge;
-
-/***/ },
-/* 2 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	exports.__esModule = true;
+	var style = {};
 
-	exports.default = function (instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
+	var hoge = exports.hoge = function hoge() {
+	  return "fuga";
 	};
 
 /***/ }
