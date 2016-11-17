@@ -1,5 +1,4 @@
-const style = {}
 
-export const hoge = ( ) => {
+export const hoge = () => {
   return "fuga"
 }

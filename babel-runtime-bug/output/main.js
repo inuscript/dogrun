@@ -46,16 +46,13 @@
 
 	'use strict';
 
-	import _Object$defineProperty from 'babel-runtime/core-js/object/define-property';
-	import _Object$keys from 'babel-runtime/core-js/object/keys';
 	exports.__esModule = true;
 
 	var _hoge = __webpack_require__(1);
 
-	_Object$keys(_hoge).forEach(function (key) {
+	Object.keys(_hoge).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
-
-	  _Object$defineProperty(exports, key, {
+	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
 	      return _hoge[key];
@@ -70,8 +67,6 @@
 	"use strict";
 
 	exports.__esModule = true;
-	var style = {};
-
 	var hoge = exports.hoge = function hoge() {
 	  return "fuga";
 	};
