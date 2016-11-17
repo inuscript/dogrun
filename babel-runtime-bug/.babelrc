@@ -5,11 +5,20 @@
     {
       "plugins": [
         "transform-runtime",
-        "transform-class-properties",
-      ]
+      ],
     },
-    ["es2015", {"loose": true} ],
-    "stage-3",
-    "react"
+    {
+      "passPerPreset": false,
+      "presets": [
+        {
+          "plugins": [
+            "transform-class-properties",
+          ]
+        },
+        ["es2015", {"loose": true} ],
+        "stage-3",
+        "react"
+      ]
+    }
   ]
 }
