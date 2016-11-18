@@ -1,4 +1,4 @@
 
-export const hoge = () => {
-  return "fuga"
+export class hoge {
+  state = { a: "b" }
 }
