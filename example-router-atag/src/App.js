@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Match, Link } from 'react-router'
+import { BrowserRouter, Match, Link, NavigationPrompt } from 'react-router'
 import logo from './logo.svg';
 import './App.css';
 
@@ -15,32 +15,26 @@ const Header = () => (
 
 const Menu = () => (
   <ul>
-    <li><Link to='/dog1'>dog1(Link)</Link></li>
-    <li><a href='/dog1'>dog1(a)</a></li>
+    <li><Link to='/dog/1'>dog1(Link)</Link></li>
+    <li><a href='/dog/1'>dog1(a)</a></li>
+    <li><Link to='/cat' target="_self">cat</Link></li>
   </ul>
 )
 
-const DogPage1 = () => (
-  <ul>
-    <li>This is Dog1</li>
-    <li><Link to='/dog2'>dog2</Link></li>
+const DogPage = (props) => {
+  return <ul>
+    <li>This is Dog {props.params.id}</li>
+    <li><Link to='/dog/2'>dog2</Link></li>
     <li><a href='/cat'>cat</a></li>
   </ul>
-)
-
-const DogPage2 = () => (
-  <ul>
-    <li>This is Dog2</li>
-    <li><Link to='/dog1'>dog1</Link></li>
-    <li><a href='/cat'>cat</a></li>
-  </ul>
-)
+}
 
 const CatPage = () => (
   <ul>
     <li>This is Cat</li>
-    <li><a href='/dog1'>dog1</a></li>
-    <li><a href='/dog2'>dog2</a></li>
+    <li><a href='/dog/1'>dog1</a></li>
+    <li><a href='/dog/2'>dog2</a></li>
+    <NavigationPrompt message={"really?"} />
   </ul>
 )
 
@@ -50,8 +44,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Header />
-          <Match pattern='/dog1' component={DogPage1} />
-          <Match pattern='/dog2' component={DogPage2} />
+          <Match pattern='/dog/:id' component={DogPage} />
           <Match pattern='/cat' component={CatPage} />
         </div>
       </BrowserRouter>
