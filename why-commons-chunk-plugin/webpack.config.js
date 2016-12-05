@@ -11,6 +11,7 @@ module.exports = {
   plugins:[
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
+      // async: true,
       // minChunks: module => {
       //   // console.log(/node_modules/.test(module.resource))
       //   return /node_modules/.test(module.resource)
