@@ -1,20 +1,38 @@
-webpackJsonp([0],{
-
-/***/ 2:
+webpackJsonp([0],[
+/* 0 */,
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-// const libA = require('./lib/libA')
-// const libB = require('./lib/libB')
+const libC = __webpack_require__(2)
+
+module.exports = () => {
+  console.log("this is B")
+  libC()
+}
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+module.exports = () => {
+  console.log("this is C")
+}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+const libA = __webpack_require__(0)
+const libB = __webpack_require__(1)
+
+libA()
+libB()
+
+// const assign = require("object-assign")
+// const leftPad = require("left-pad")
 // 
-// libA()
-// libB()
-
-const assign = __webpack_require__(1)
-const leftPad = __webpack_require__(0)
-
-assign({"a": "b"},{ "c": "d"})
-leftPad(" foo")
+// assign({"a": "b"},{ "c": "d"})
+// leftPad(" foo")
 
 /***/ }
-
-},[2]);
+],[3]);
