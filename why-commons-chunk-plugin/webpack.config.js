@@ -1,9 +1,9 @@
 const webpack = require('webpack')
 module.exports = {
-  entry: {
-    index: "./src/index.js",
-    index2: "./src/index2.js",
-  },
+  // entry: {
+  //   index: "./src/index.js",
+  //   index2: "./src/index2.js",
+  // },
   output: {
     filename: "[name].js",
     path: "dist/"
@@ -11,10 +11,10 @@ module.exports = {
   plugins:[
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
-      minChunks: 2,
-      children: true,
+      // minChunks: 2,
+      // children: true,
       // minSize: 3,
-      // async: "vendor",
+      async: true,
       filename: "vendor.js"
     })
   ]
