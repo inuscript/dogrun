@@ -11,7 +11,8 @@ module.exports = {
   plugins:[
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
-      minChunks: Infinity,
+      minChunks: 2,
+      async: true
       filename: "vendor.js"
     })
   ]
