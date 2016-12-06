@@ -135,4 +135,13 @@
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/ })
 /************************************************************************/
-/******/ ([]);
+/******/ ([
+/* 0 */
+/***/ function(module, exports) {
+
+module.exports = () => {
+  console.log("this is C")
+}
+
+/***/ }
+/******/ ]);

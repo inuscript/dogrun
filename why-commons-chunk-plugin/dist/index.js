@@ -1,12 +1,5 @@
-webpackJsonp([0,2],[
-/* 0 */
-/***/ function(module, exports) {
-
-module.exports = () => {
-  console.log("this is C")
-}
-
-/***/ },
+webpackJsonp([0],[
+/* 0 */,
 /* 1 */
 /***/ function(module, exports) {
 

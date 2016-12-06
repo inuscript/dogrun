@@ -12,7 +12,8 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
       minChunks: 2,
-      async: true
+      // minSize: 2,
+      // async: true,
       filename: "vendor.js"
     })
   ]
