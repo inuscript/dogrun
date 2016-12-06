@@ -2,20 +2,16 @@ const webpack = require('webpack')
 module.exports = {
   entry: {
     index: "./src/index.js",
-    vendor: ["./src/lib/libA.js"]
+    index2: "./src/index2.js",
   },
   output: {
-    filename: "bundle.js",
+    filename: "[name].js",
     path: "dist/"
   },
   plugins:[
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
-      // async: true,
-      // minChunks: module => {
-      //   // console.log(/node_modules/.test(module.resource))
-      //   return /node_modules/.test(module.resource)
-      // },
+      minChunks: Infinity,
       filename: "vendor.js"
     })
   ]
