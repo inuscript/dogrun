@@ -1,25 +1,5 @@
 "use strict";
 
-require("core-js/modules/es6.typed.data-view");
-
-require("core-js/modules/es6.typed.int8-array");
-
-require("core-js/modules/es6.typed.uint8-array");
-
-require("core-js/modules/es6.typed.uint8-clamped-array");
-
-require("core-js/modules/es6.typed.int16-array");
-
-require("core-js/modules/es6.typed.uint16-array");
-
-require("core-js/modules/es6.typed.int32-array");
-
-require("core-js/modules/es6.typed.uint32-array");
-
-require("core-js/modules/es6.typed.float32-array");
-
-require("core-js/modules/es6.typed.float64-array");
-
 require("core-js/modules/es6.map");
 
 require("core-js/modules/es6.set");
@@ -96,14 +76,6 @@ require("core-js/modules/es6.array.of");
 
 require("core-js/modules/es6.array.copy-within");
 
-require("core-js/modules/es6.array.find");
-
-require("core-js/modules/es6.array.find-index");
-
-require("core-js/modules/es6.array.fill");
-
-require("core-js/modules/es6.array.iterator");
-
 require("core-js/modules/es6.number.is-finite");
 
 require("core-js/modules/es6.number.is-integer");
@@ -118,39 +90,9 @@ require("core-js/modules/es6.number.min-safe-integer");
 
 require("core-js/modules/es6.number.max-safe-integer");
 
-require("core-js/modules/es6.math.acosh");
-
-require("core-js/modules/es6.math.asinh");
-
-require("core-js/modules/es6.math.atanh");
-
-require("core-js/modules/es6.math.cbrt");
-
 require("core-js/modules/es6.math.clz32");
 
-require("core-js/modules/es6.math.cosh");
-
-require("core-js/modules/es6.math.expm1");
-
-require("core-js/modules/es6.math.fround");
-
-require("core-js/modules/es6.math.hypot");
-
-require("core-js/modules/es6.math.imul");
-
-require("core-js/modules/es6.math.log1p");
-
-require("core-js/modules/es6.math.log10");
-
-require("core-js/modules/es6.math.log2");
-
 require("core-js/modules/es6.math.sign");
-
-require("core-js/modules/es6.math.sinh");
-
-require("core-js/modules/es6.math.tanh");
-
-require("core-js/modules/es6.math.trunc");
 
 require("core-js/modules/es7.array.includes.js");
 
