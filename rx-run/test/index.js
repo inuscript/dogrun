@@ -7,6 +7,23 @@ const configureMockStore = require('redux-mock-store').default
 
 const { createEpicMiddleware } = require('redux-observable')
 
+
+
+const assertAction = (targetEpic, dispatchAction, expectAction, cb) => {
+  const _epicMiddleware = createEpicMiddleware(targetEpic);
+  const _mockStore = configureMockStore([_epicMiddleware]);
+
+  const store = _mockStore();
+  store.dispatch(dispatchAction)
+  const unsubscribe = store.subscribe( () => {
+    expect(store.getActions()).toEqual(expectAction)
+    unsubscribe()
+    cb()
+  })
+}
+
+///////////////
+
 const payload = { id: 123 };
 
 
@@ -32,23 +49,8 @@ const fetchUserEpic = action$ => {
     .mergeMap(action => fakeApi.get(`/api/users/${action.payload}`))
     .map( ({ data }) => fetchUserFulfilled(data) )
 }
-
 const epicMiddleware = createEpicMiddleware(fetchUserEpic);
 const mockStore = configureMockStore([epicMiddleware]);
-
-
-const assertAction = (targetEpic, dispatchAction, expectAction, cb) => {
-  const _epicMiddleware = createEpicMiddleware(targetEpic);
-  const _mockStore = configureMockStore([_epicMiddleware]);
-
-  const store = _mockStore();
-  store.dispatch(dispatchAction)
-  const unsubscribe = store.subscribe( () => {
-    expect(store.getActions()).toEqual(expectAction)
-    unsubscribe()
-    cb()
-  })
-}
 
 describe('fetchUserEpic', () => {
   it('produces the user model', (done) => {
