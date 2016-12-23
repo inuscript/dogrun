@@ -1,10 +1,11 @@
-
+const { Observable } = require("rxjs/Observable")
 const expect = require("expect")
 const axios = require("axios")
 const configureMockStore = require('redux-mock-store').default
 
-const { createEpicMiddleware } = require('redux-observable')
 require("rxjs")
+
+const { createEpicMiddleware } = require('redux-observable')
 
 
 
@@ -45,38 +46,29 @@ const fetchUserFulfilled = payload => {
 
 const fetchUserEpic = action$ => {
   return action$.ofType(FETCH_USER)
-    .mergeMap(action => fakeApi.get(`/api/users/${action.payload}`))
-    .map( ({ data }) => fetchUserFulfilled(data) )
+    .mergeMap(action =>
+      Observable.fromPromise(fakeApi.get(`/api/users/${action.payload}`))
+        .map( ({ data }) => {
+          return fetchUserFulfilled(data)
+        })
+      )
 }
 const epicMiddleware = createEpicMiddleware(fetchUserEpic);
 const mockStore = configureMockStore([epicMiddleware]);
 
 describe('fetchUserEpic', () => {
-  it('produces the user model', (done) => {
+
+  it.only('produces the user model', (done) => {
+  //   うまくいかないパターン。
     const store = mockStore();
     store.dispatch({ type: FETCH_USER })
-    const unsubscribe = store.subscribe( () => {
+    process.nextTick( () => {
+      console.log(store.getActions())
       expect(store.getActions()).toEqual([
         { type: FETCH_USER },
         { type: FETCH_USER_FULFILLED, payload }
       ])
-      unsubscribe()
       done()
     })
   })
-  it('produces the user model', (done) => {
-    assertAction(fetchUserEpic, { type: FETCH_USER }, [
-      { type: FETCH_USER },
-      { type: FETCH_USER_FULFILLED, payload }
-    ], done)
-  })
-  // it('produces the user model', (done) => {
-  //   うまくいかないパターン。
-  // const store = mockStore();
-  //   store.dispatch({ type: FETCH_USER })
-  //   expect(store.getActions()).toEqual([
-  //     { type: FETCH_USER }, // こっちしか来ない
-  //     { type: FETCH_USER_FULFILLED, payload }
-  //   ])
-  // })
 })

@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@reactivex/rxjs@^5.0.1":
+  version "5.0.1"
+  resolved "@reactivex-rxjs-5.0.1.tgz#faed3a2a4c5876dd6f383bec42d3e021d4d682a4"
+  dependencies:
+    symbol-observable "^1.0.1"
+
 assertion-error@^1.0.1:
   version "1.0.2"
   resolved assertion-error-1.0.2.tgz#13ca515d86206da0bac66e834dd397d87581094c
