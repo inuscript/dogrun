@@ -1,12 +1,12 @@
 import React from 'react'
 import { Provider, connect } from 'react-redux'
 import { configureStore } from './store'
-import { actions } from './ducks'
+import { actionCreators } from './ducks'
 
 const Search = ({ word, changeInput }) => {
   return <input value={ word } onChange={ e => changeInput(e.target.value)} />
 }
-const SearchContainer = connect(state => state, actions)(Search)
+const SearchContainer = connect(state => state, actionCreators)(Search)
 
 const Result = ({ result }) => {
   return <ul>
