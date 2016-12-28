@@ -1,14 +1,13 @@
 import React from 'react'
 import { Provider, connect } from 'react-redux'
-import { configureStore, } from './ducks'
-
-const Input = (props) =>  <input {...props} />
+import { configureStore } from './store'
+import { actions } from './ducks'
 
 const Search = ({ word, changeInput }) => {
-  return <input value={word} onChange={changeInput} />
+  return <input value={ word } onChange={ e => changeInput(e.target.value)} />
 }
 
-const SearchContainer = connect(state => state, )(Search)
+const SearchContainer = connect(state => state, actions)(Search)
 
 export default class App extends React.Component{
   constructor(){
@@ -17,7 +16,7 @@ export default class App extends React.Component{
   }
   render(){
     return (
-      <Provider store={store}>
+      <Provider store={this.store} >
         <SearchContainer />
       </Provider>
     )

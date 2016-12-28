@@ -1,4 +1,8 @@
+import { createStore, combineReducers } from "redux"
+import { reducers } from './ducks'
+const rootReducer = combineReducers(reducers, {})
 
 export const configureStore = () => {
-  createStore(rootReducer)
+  return createStore(rootReducer)
 }
+
