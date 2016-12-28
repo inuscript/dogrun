@@ -1,21 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Provider, connect } from 'react-redux'
+import { configureStore, } from './ducks'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+const Input = (props) =>  <input {...props} />
+
+const Search = ({ word, changeInput }) => {
+  return <input value={word} onChange={changeInput} />
 }
 
-export default App;
+const SearchContainer = connect(state => state, )(Search)
+
+export default class App extends React.Component{
+  constructor(){
+    super()
+    this.store = configureStore()
+  }
+  render(){
+    return (
+      <Provider store={store}>
+        <SearchContainer />
+      </Provider>
+    )
+  }
+}
