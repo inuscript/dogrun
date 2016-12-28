@@ -1,14 +1,12 @@
-import { actions } from './ducks'
+import { actions, actionCreators } from './ducks'
 import { searchApi } from './api'
 
 export const searchMiddleware = store => next => action => {
-  if(action.type !== actions.CHANGE_INPUT){
-    // SKIP
-    return next(action)
+  if(action.type === actions.CHANGE_INPUT){
+    searchApi(action.payload)
+      .then( result => {
+        store.dispatch(actionCreators.loadResult(result))
+      })
   }
-  searchApi(action.payload)
-    .then( result => {
-      console.log(result)
-    })
   return next(action)
 }

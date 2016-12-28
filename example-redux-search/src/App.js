@@ -10,7 +10,7 @@ const SearchContainer = connect(state => state, actionCreators)(Search)
 
 const Result = ({ result }) => {
   return <ul>
-    {result.map( r => <li>{r}</li>)}
+    {result.map( (r, i) => <li key={i}>{r}</li>)}
   </ul>
 }
 const ResultContainer = connect(state => state)(Result)

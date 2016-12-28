@@ -25,10 +25,14 @@ const changeInput = (input) => ({
   type: CHANGE_INPUT,
   payload: input
 })
+const loadResult = (result) => ({
+  type: LOAD_RESULT,
+  payload: result
+})
 
 export const actions = {
   LOAD_RESULT,
   CHANGE_INPUT
 }
-export const actionCreators = { changeInput }
+export const actionCreators = { changeInput, loadResult }
 export const reducers = { result, word }
