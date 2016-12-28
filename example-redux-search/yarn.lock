@@ -882,14 +882,14 @@ babel-register@^6.16.0, babel-register@^6.18.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@6.11.6, babel-runtime@^6.9.1:
+babel-runtime@6.11.6:
   version "6.11.6"
   resolved babel-runtime-6.11.6.tgz#6db707fef2d49c49bfa3cb64efdb436b518b8222
   dependencies:
     core-js "^2.4.0"
     regenerator-runtime "^0.9.5"
 
-babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.20.0, babel-runtime@^6.9.0:
+babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.20.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1:
   version "6.20.0"
   resolved babel-runtime-6.20.0.tgz#87300bdcf4cd770f09bf0048c64204e17806d16f
   dependencies:
@@ -2135,6 +2135,12 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782
 
+flux-standard-action@^0.6.1:
+  version "0.6.1"
+  resolved flux-standard-action-0.6.1.tgz#6f34211b94834ea1c3cc30f4e7afad3d0fbf71a2
+  dependencies:
+    lodash.isplainobject "^3.2.0"
+
 follow-redirects@1.0.0:
   version "1.0.0"
   resolved follow-redirects-1.0.0.tgz#8e34298cbd2e176f254effec75a1c78cc849fd37
@@ -2541,7 +2547,7 @@ interpret@^0.6.4:
   version "0.6.6"
   resolved interpret-0.6.6.tgz#fecd7a18e7ce5ca6abfb953e1f86213a49f1625b
 
-invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.1:
+invariant@^2.0.0, invariant@^2.2.0:
   version "2.2.2"
   resolved invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360
   dependencies:
@@ -3248,6 +3254,14 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55
 
+lodash.isplainobject@^3.2.0:
+  version "3.2.0"
+  resolved lodash.isplainobject-3.2.0.tgz#9a8238ae16b200432960cd7346512d0123fbf4c5
+  dependencies:
+    lodash._basefor "^3.0.0"
+    lodash.isarguments "^3.0.0"
+    lodash.keysin "^3.0.0"
+
 lodash.keys@^3.0.0:
   version "3.1.2"
   resolved lodash.keys-3.1.2.tgz#4dbc0472b156be50a0b286855d1bd0b0c656098a
@@ -3256,11 +3270,18 @@ lodash.keys@^3.0.0:
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
 
+lodash.keysin@^3.0.0:
+  version "3.0.8"
+  resolved lodash.keysin-3.0.8.tgz#22c4493ebbedb1427962a54b445b2c8a767fb47f
+  dependencies:
+    lodash.isarguments "^3.0.0"
+    lodash.isarray "^3.0.0"
+
 lodash.pickby@^4.6.0:
   version "4.6.0"
   resolved lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff
 
-"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
+"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
   version "4.17.3"
   resolved lodash-4.17.3.tgz#557ed7d2a9438cac5fd5a43043ca60cb455e01f7
 
@@ -4349,21 +4370,15 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-reduce-reducers@^0.1.0:
-  version "0.1.2"
-  resolved reduce-reducers-0.1.2.tgz#fa1b4718bc5292a71ddd1e5d839c9bea9770f14b
-
-redux-actions@^1.2.0:
-  version "1.2.0"
-  resolved redux-actions-1.2.0.tgz#4f421f1aa74c827d5e8abce6c009d5872c4af3e6
-  dependencies:
-    invariant "^2.2.1"
-    lodash "^4.13.1"
-    reduce-reducers "^0.1.0"
-
 redux-observable@^0.12.2:
   version "0.12.2"
   resolved redux-observable-0.12.2.tgz#4bc1657c7eedace577e114b74ffe6f6fb2b36ccf
+
+redux-promise@^0.5.3:
+  version "0.5.3"
+  resolved redux-promise-0.5.3.tgz#e97e6c9d3bf376eacb79babe6d906da20112d6d8
+  dependencies:
+    flux-standard-action "^0.6.1"
 
 redux@^3.6.0:
   version "3.6.0"
@@ -5216,9 +5231,13 @@ whatwg-encoding@^1.0.1:
   dependencies:
     iconv-lite "0.4.13"
 
-whatwg-fetch@1.0.0, whatwg-fetch@>=0.10.0:
+whatwg-fetch@1.0.0:
   version "1.0.0"
   resolved whatwg-fetch-1.0.0.tgz#01c2ac4df40e236aaa18480e3be74bd5c8eb798e
+
+whatwg-fetch@>=0.10.0:
+  version "2.0.1"
+  resolved whatwg-fetch-2.0.1.tgz#078b9461bbe91cea73cbce8bb122a05f9e92b772
 
 whatwg-url@^4.1.0:
   version "4.1.1"
