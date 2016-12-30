@@ -12,9 +12,9 @@ const BotPlayer = ( { handsUp } ) => {
   return <div>●</div>
 }
 
-const BotPlayers = ( { playerNum } ) => {
+const BotPlayers = ( { bots, hands } ) => {
   return <div>{
-    
+    bots.map( (bot, i) => <BotPlayer key={i} handsUp={!!hands[i]} /> )
   }</div>
 }
 

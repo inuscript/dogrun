@@ -1,6 +1,6 @@
 import { combineReducers } from "redux"
 import { createReducer } from 'redux-act'
-import * as actions from '../actions'
+import * as actions from './actions'
 
 const game = combineReducers({
   gameState: createReducer({
@@ -10,17 +10,13 @@ const game = combineReducers({
   timer: createReducer({
     [actions.incrementTime]: (state, payload) => state + 1
   }, 0),
-  playerNum: createReducer({
-    [actions.resetGame]: (state, payload) => 6
-  }, 6)
+  playerNum: () => 6,
+  timeout: () => 30
 })
 
-const bot = combineReducers({
-  setting: createReducer({
-    [actions.setupBots]: (state, payload) => payload
-  }, {}),
-  num: createReducer({}, 6)
-})
+const bots = createReducer({
+  [actions.setupBots]: (state, payload) => payload
+}, [])
 
 const hands = createReducer({
   [actions.handsUp]: (state, {playerNum}) => {
@@ -35,7 +31,7 @@ const hands = createReducer({
 
 
 export default combineReducers({
-  bot,
+  bots,
   game,
   hands
 })
