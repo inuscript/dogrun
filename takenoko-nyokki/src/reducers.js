@@ -11,7 +11,7 @@ const game = combineReducers({
     [actions.incrementTime]: (state, payload) => state + 1
   }, 0),
   playerNum: () => 6,
-  timeout: () => 30
+  timeout: () => 15
 })
 
 const bots = createReducer({

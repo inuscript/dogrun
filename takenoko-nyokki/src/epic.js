@@ -41,8 +41,19 @@ const tickHandsupEpic = (action$, store) =>
       return r[0] ? r[0] : { type: "DUMMY"}
     })
 
+
+const judgeEpic = (action$, store) =>
+  action$.ofType(actions.handsUp.getType())
+    .bufferTime(1000)
+    .filter( h => h.length > 1)
+    .map( a => {
+      console.log(a)
+      return {type: "DUMMY"}
+    })
+
 export const epics = combineEpics(
   startTimerEpic,
   setupBotEpic,
-  tickHandsupEpic
+  tickHandsupEpic,
+  judgeEpic
 )
