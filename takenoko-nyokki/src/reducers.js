@@ -29,9 +29,14 @@ const hands = createReducer({
   }
 }, {})
 
+const sandbox = (state, {type, payload }) =>{
+  console.log(type, payload)
+  return {}
+}
 
 export default combineReducers({
   bots,
   game,
-  hands
+  hands,
+  sandbox
 })

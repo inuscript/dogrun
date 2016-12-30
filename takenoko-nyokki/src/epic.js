@@ -55,5 +55,6 @@ export const epics = combineEpics(
   startTimerEpic,
   setupBotEpic,
   tickHandsupEpic,
-  judgeEpic
+  judgeEpic,
+  sandboxEpic
 )

@@ -1,5 +1,7 @@
 import { createAction } from 'redux-act'
 
+export const sandbox = createAction("SANDBOX")
+
 export const resetGame = createAction("RESET_GAME")
 export const start = createAction("START")
 export const stop = createAction("STOP")
