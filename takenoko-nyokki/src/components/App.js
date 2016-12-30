@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 const BotPlayer = ( { handsUp } ) => {
   if(handsUp){
-    return <div>◯</div>
+    return <div>◯＜ニョッキ</div>
   }
   return <div>●</div>
 }
@@ -29,6 +29,11 @@ const Flex = styled.div`
   justify-content: space-between;
 `
 
+const Player = ( { handsUp } ) => {
+  return <div>
+    <button onClick={ () => handsUp(7)}>Nyokki</button>
+  </div>
+}
 const TimerController = ( { start, stop, game }) => {
   const { timer, playerNum } = game
   return (
@@ -44,6 +49,7 @@ const TimerController = ( { start, stop, game }) => {
 const Takenoko = ( props ) => {
   return <div>
     <TimerController {...props} />
+    <Player {...props} />
     <BotPlayers {...props} />
   </div>
 }

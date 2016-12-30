@@ -19,11 +19,11 @@ const bots = createReducer({
 }, [])
 
 const hands = createReducer({
-  [actions.handsUp]: (state, {playerNum}) => {
+  [actions.handsUp]: (state, { id } ) => {
     // return Object.assign({},
     return {
       ...state,
-      [playerNum]: true
+      [id]: true
     }
     // )
   }
