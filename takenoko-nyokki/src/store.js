@@ -1,16 +1,16 @@
-import { createStore, combineReducers, applyMiddleware } from "redux"
+import { createStore, applyMiddleware, compose } from "redux"
 import { createEpicMiddleware } from "redux-observable"
 import { epics } from './epic'
-
-import { createAction, handleActions } from 'redux-actions'
-const ping = ()
-
-const reducers = {}
+import DevTools from './DevTools'
+import { reducers } from './core'
 
 export const configureStore = () => {
   return createStore(
-    combineReducers(reducers, {}),
-    applyMiddleware(createEpicMiddleware(epics))
+    reducers,
+    compose(
+      applyMiddleware(createEpicMiddleware(epics)),
+      DevTools.instrument()
+    )
   )
 }
 
