@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose } from "redux"
 import { createEpicMiddleware } from "redux-observable"
 import { epics } from './epic'
-import DevTools from './DevTools'
-import { reducers } from './core'
+import DevTools from './components/DevTools'
+import reducers from './reducers'
 
 export const configureStore = () => {
   return createStore(
