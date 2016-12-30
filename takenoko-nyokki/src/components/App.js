@@ -18,8 +18,15 @@ const BotPlayers = ( { playerNum } ) => {
   }</div>
 }
 
+const Box = styled.div`
+  width: 50vw;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+`
 const Flex = styled.div`
   display:flex;
+  justify-content: space-between;
 `
 
 const TimerController = ( { start, stop, game }) => {
@@ -51,10 +58,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <div>
+        <Box>
           <Container/>
           <DevTools />
-        </div>
+        </Box>
       </Provider>
     )
   }
