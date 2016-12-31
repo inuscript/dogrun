@@ -1,27 +1,15 @@
 import React, { Component } from 'react';
 import { createStore } from 'redux'
 import { Provider, connect } from 'react-redux'
-import updeep from 'updeep'
 import { createAction } from 'redux-actions'
-
+import { createReducer } from './lib/'
 const initialState = {
   todos: [],
   visibilityFilter: 'SHOW_ALL'
 }
-// const createReduceAction = (type, key, reducer) => {
-//   const payloadCreator = (...params) => {
-//     return { [key]: reducer(...params) }
-//   }
-//   return createAction(type, payloadCreator)
-// }
 
 // God reducer
-const reducer = (state = initialState, { payload } ) => {
-  if(typeof payload !== "object"){
-    return state
-  }
-  return updeep(payload, state)
-}
+const reducer = createReducer(initialState)
 
 let nextTodoId = 0
 const creteNewTodo = (text) => ({
