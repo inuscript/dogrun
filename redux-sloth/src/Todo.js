@@ -8,6 +8,12 @@ const initialState = {
   todos: [],
   visibilityFilter: 'SHOW_ALL'
 }
+// const createReduceAction = (type, key, reducer) => {
+//   const payloadCreator = (...params) => {
+//     return { [key]: reducer(...params) }
+//   }
+//   return createAction(type, payloadCreator)
+// }
 
 // God reducer
 const reducer = (state = initialState, { payload } ) => {
@@ -29,6 +35,9 @@ const addTodo = createAction('ADD_TODO', (text) => ({
     return [ ...todos, creteNewTodo(text) ]
   }
 }) )
+// const addTodo = createReduceAction('ADD_TODO', 'todos', (text) => (
+//   (todos) => { [ ...todos, creteNewTodo(text) ] }
+// ) )
 
 const toggleTodoComplete = (todo, id ) => {
   if(todo.id !== id){
