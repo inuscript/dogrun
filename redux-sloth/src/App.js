@@ -1,19 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createStore } from 'redux'
+import { Provider, connect } from 'react-redux'
+import updeep from 'updeep'
+import { createAction } from 'redux-actions'
+
+const initialState = {
+  counter: 0
+}
+
+const reducer = (state = initialState, { payload } ) => {
+  if(typeof payload !== "object"){
+    return state
+  }
+  return updeep(payload, state)
+}
+
+const increment = createAction('INCREMENT', () => ({ counter: (i) => i + 1 }))
+const decrement = createAction('DECREMENT', () => ({ counter: (i) => i - 1 }))
+const actions = {
+  increment, decrement
+}
+
+const Counter = ({increment, decrement, counter}) => {
+  return (
+    <div>
+      <div>{counter}</div>
+      <button onClick={increment}>increment</button>
+      <button onClick={decrement}>decrement</button>
+    </div>
+  )
+}
+const CounterContainer = connect(state => state, actions)(Counter)
 
 class App extends Component {
+  constructor(){
+    super()
+    this.store = createStore(reducer)
+  }
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Provider store={this.store}>
+        <CounterContainer />
+      </Provider>
     );
   }
 }
