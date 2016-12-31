@@ -8,7 +8,20 @@ const emulateState = (initialState, action) => {
   return mockReducer(initialState, action)
 }
 
-it("createAction", () => {
+it("with plain action", () => {
+  const actionCreator = (text) => ({
+    type: 'ADD_TODO',
+    payload: {
+      todos: (todos) => [ ...todos, text ]
+    }
+  })
+  const actualState = emulateState({ todos: ["foo"] }, actionCreator("baz"))
+  expect(actualState).toEqual({
+    todos: ["foo", "baz"]
+  })
+})
+
+it("with redux-actions/createAction", () => {
   const actionCreator = createAction('ADD_TODO', (text) => ({
     todos: (todos) => {
       return [ ...todos, text ]
@@ -35,5 +48,16 @@ it("replaceValue", () => {
   const actualState = emulateState({ someValue: "zoo" }, actionCreator("bee"))
   expect(actualState).toEqual({
     someValue: "bee"
+  })
+})
+
+it("removeValue", () => {
+  const actionCreator = createReducerAction('ADD_TODO', 'someValue', () => {
+    return undefined
+  })
+  const actualState = emulateState({ someValue: "zoo", fooValue: "boo" }, actionCreator())
+  expect(actualState).toEqual({
+    someValue: undefined,
+    fooValue: "boo"
   })
 })
