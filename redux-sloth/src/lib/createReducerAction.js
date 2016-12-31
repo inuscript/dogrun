@@ -1,8 +1,10 @@
 import { createAction } from 'redux-actions'
 
-export default function (type, key, reducer){
+const identity = value => value
+
+export default function (type, key, updateFunction = identity){
   const payloadCreator = (...params) => {
-    return { [key]: reducer(...params) }
+    return { [key]: updateFunction(...params) }
   }
   return createAction(type, payloadCreator)
 }
