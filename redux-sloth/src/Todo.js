@@ -5,8 +5,8 @@ import updeep from 'updeep'
 import { createAction } from 'redux-actions'
 
 const initialState = {
-  counter: 0,
-  todos: []
+  todos: [],
+  visibilityFilter: 'SHOW_ALL'
 }
 
 // God reducer
@@ -37,12 +37,16 @@ const toggleTodoComplete = (todo, id ) => {
   return Object.assign({}, todo, {
     completed: !todo.completed
   })
-
 }
 
 const toggleTodo = createAction('TOGGLE_TODO', (id) => ({
   todos: (todos) => todos.map( todo => toggleTodoComplete(todo, id) )
 }) )
+
+const setVisibilityFilter = createAction('SET_VISIBILITY_FILTER', (filter) => ({
+  visibilityFilter: filter
+}) )
+
 
 const Todo = ({ onClick, completed, text, id }) => (
   <li
@@ -64,6 +68,7 @@ const TodoList = ({ todos, dispatch }) => (
     )}
   </ul>
 )
+
 const AddTodo = ({ dispatch }) => {
   let input
   return (
@@ -87,8 +92,57 @@ const AddTodo = ({ dispatch }) => {
   )
 }
 
-const TodoListContainer = connect(state => state)(TodoList)
+const Link = ({ active, children, onClick }) => {
+  if (active) {
+    return <span>{children}</span>
+  }
+  return (
+    <a href="#"
+       onClick={e => {
+         e.preventDefault()
+         onClick()
+       }}
+    >{children}</a>
+  )
+}
+
+const Footer = ( { dispatch } ) => (
+  <p>
+    Show:
+    {" "}
+    <Link onClick={ () => dispatch(setVisibilityFilter("SHOW_ALL")) }>
+      All
+    </Link>
+    {", "}
+    <Link onClick={ () => dispatch(setVisibilityFilter("SHOW_ACTIVE")) }>
+      Active
+    </Link>
+    {", "}
+    <Link onClick={ () => dispatch(setVisibilityFilter("SHOW_COMPLETED")) }>
+      Completed
+    </Link>
+  </p>
+)
+
+const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return todos
+    case 'SHOW_COMPLETED':
+      return todos.filter(t => t.completed)
+    case 'SHOW_ACTIVE':
+      return todos.filter(t => !t.completed)
+  }
+}
+const todoMapStateToProps = (state) => {
+  return {
+    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+  }
+}
+
+const TodoListContainer = connect(todoMapStateToProps)(TodoList)
 const AddTodoContainer = connect(state => state)(AddTodo)
+const FooterContainer = connect(state => state)(Footer)
 const DebugContainer = connect(state => state)( (props) => {
   console.log(props)
   return null
@@ -105,6 +159,7 @@ class App extends Component {
         <div>
           <AddTodoContainer />
           <TodoListContainer />
+          <FooterContainer />
           <DebugContainer />
         </div>
       </Provider>
