@@ -11,15 +11,22 @@ const incr = (action$, store) =>
   action$.ofType("ADD")
     .map( () => increment(store.getState().counter))
 
-const fizzBuzz = (action$) => {
+const fizzBuzz = (action$, store) => {
   let [ other1, fizzbuzz ] = action$
     .ofType("INCREMENT")
     .partition( ({payload}) => payload % 15)
-    .do( a => console.log(a))
-    .ignoreElements()
+
+  let [ other2, buzz ] = other1
+    .partition( ({payload}) => payload % 5)
+
+  let [ other3, fizz ] = other2
+    .partition( ({payload}) => payload % 3)
+
   return Rx.Observable.merge(
     fizzbuzz.map( () => doFizzBuzz("fizzbuzz") ),
-    other1.map( () => doReset() )
+    buzz.map( () => doFizzBuzz("buzz") ),
+    fizz.map( () => doFizzBuzz("fizz") ),
+    other3.map( () => doReset() )
   )
 }
 
