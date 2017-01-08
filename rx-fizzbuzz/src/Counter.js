@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider, connect } from 'react-redux'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { createAction } from 'redux-actions'
-import epicMiddleware from './epic'
+import epicMiddleware from './epicPartition'
 
 const countUp = createAction("ADD")
 
@@ -35,8 +35,8 @@ const Counter = ( {counter, fizzBuzz, countUp} ) => {
   return <div>
     <button onClick={() => countUp(1)}>count</button>
     <div>
-      <span>{counter}</span>
-      <span>{fizzBuzz}</span>
+      <div>{counter}</div>
+      <div>{fizzBuzz}</div>
     </div>
   </div>
 }

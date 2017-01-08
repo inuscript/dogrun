@@ -26,7 +26,7 @@ const fizzBuzz = (action$, store) => {
     fizzbuzz.map( () => doFizzBuzz("fizzbuzz") ),
     buzz.map( () => doFizzBuzz("buzz") ),
     fizz.map( () => doFizzBuzz("fizz") ),
-    other3.map( () => doReset() )
+    other3.map( ({payload}) => doFizzBuzz(payload) )
   )
 }
 
