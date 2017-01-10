@@ -10,7 +10,7 @@ const promise2 = new Promise( (res, rej) => setTimeout( () => res("baz"), 200) )
 
 const playgroudEpic = action$ =>
   action$.ofType("START")
-    .combineLatest(promise1, promise2)
+    .combineAll(promise1, promise2)
     .map( ([action, ...result]) => {
       return {
         type: "FINISH",
