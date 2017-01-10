@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "redux-observable": "^0.12.2",
+    "rxjs": "^5.0.3"
+  }
+}
