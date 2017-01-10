@@ -7,17 +7,14 @@ const action$ = ActionsObservable.of({ type: 'START' })
 
 const promise1 = new Promise( (res, rej) => setTimeout( () => res("foo"), 100) )
 const promise2 = new Promise( (res, rej) => setTimeout( () => res("baz"), 200) )
-const m = Promise.all([promise1, promise2])
-  .then( (a, b) => {
-    return [a, b]
-  })
 
 const playgroudEpic = action$ =>
   action$.ofType("START")
-    .mergeMap(a => {
-      console.log(m)
-      return m
-    })
+    .zip(
+      promise1,
+      promise2,
+      (action, ...result) => result
+    )
     .map( a => {
       return {
         type: "FINISH",
