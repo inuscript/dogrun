@@ -10,6 +10,16 @@ const promise2 = new Promise( (res, rej) => setTimeout( () => res("baz"), 200) )
 
 const playgroudEpic = action$ =>
   action$.ofType("START")
+    .combineLatest(promise1, promise2)
+    .map( ([action, ...result]) => {
+      return {
+        type: "FINISH",
+        payload: result
+      }
+    })
+
+const playgroudEpic2 = action$ =>
+  action$.ofType("START")
     .zip(
       promise1,
       promise2,
