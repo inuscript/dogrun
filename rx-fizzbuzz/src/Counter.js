@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider, connect } from 'react-redux'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { createAction } from 'redux-actions'
-import epicMiddleware from './epicPartition'
+import epicMiddleware from './epic'
 
 const countUp = createAction("ADD")
 

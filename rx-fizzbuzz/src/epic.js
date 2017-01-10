@@ -12,15 +12,12 @@ const incr = (action$, store) =>
     .map( () => increment(store.getState().counter))
 
 const fizzBuzz = (action$) => {
-  let [ other1, fizzbuzz ] = action$
-    .ofType("INCREMENT")
-    .partition( ({payload}) => payload % 15)
-    .do( a => console.log(a))
-    .ignoreElements()
-  return Rx.Observable.merge(
-    fizzbuzz.map( () => doFizzBuzz("fizzbuzz") ),
-    other1.map( () => doReset() )
-  )
+  const f = action$.filter(({payload}) => payload % 3 === 0).map( () => "fizz")
+  const b = action$.filter(({payload}) => payload % 5 === 0).map( () => "buzz")
+
+  return Rx.Observable.zip(f, b, (f,b) => {
+    return doFizzBuzz(f + b)
+  })
 }
 
 const rootEpics = combineEpics(incr, fizzBuzz)
