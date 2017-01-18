@@ -3,9 +3,7 @@ const foo = (a) =>
   ;
 
 const add = (a,b) =>
-  a
-  +
-  b
+  a  +  b
   ;
 
 foo("foo");
