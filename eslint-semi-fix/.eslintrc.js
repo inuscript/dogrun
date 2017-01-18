@@ -11,6 +11,7 @@ module.exports = {
       "error",
       "always"
     ],
-    "no-extra-semi": 2
+    "no-extra-semi": 2,
+    "no-unexpected-multiline": 2
   }
 };
