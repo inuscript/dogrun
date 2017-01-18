@@ -11,7 +11,7 @@ module.exports = {
       "error",
       "always"
     ],
-    "semi-spacing": [2,  {"before": false, "after": false}],
+    "semi-spacing": [2,  {"before": true, "after": false}],
     "no-extra-semi": 2,
     "space-in-parens":2,
 

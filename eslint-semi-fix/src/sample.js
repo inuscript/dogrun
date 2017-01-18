@@ -1,6 +1,7 @@
-const foo = (a) =>
-  a.length
+const foo = (a) => {
+  return a.length
   ;
+};
 
 const add = (a,b) =>
   a  +  b
