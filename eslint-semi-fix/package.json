@@ -8,7 +8,7 @@
     "eslint": "^3.13.1"
   },
   "scripts": {
-    "start": "eslint src/*",
+    "lint": "eslint src/*",
     "eslint": "eslint"
   }
 }

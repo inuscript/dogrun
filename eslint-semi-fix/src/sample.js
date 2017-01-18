@@ -1,3 +1,4 @@
-const foo = (a)
-  => a.length
-  ;
+const foo = (a) => a.length
+;
+
+foo("foo");
