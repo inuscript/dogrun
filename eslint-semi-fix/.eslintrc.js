@@ -11,8 +11,10 @@ module.exports = {
       "error",
       "always"
     ],
+    "semi-spacing": 2,
     "indent": ["error", 2],
     "no-extra-semi": 2,
-    "no-unexpected-multiline": 2
+    "no-unexpected-multiline": 2,
+    "operator-linebreak": [2, "none"]
   }
 };
