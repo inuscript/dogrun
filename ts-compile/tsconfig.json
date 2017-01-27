@@ -2,7 +2,8 @@
     "compilerOptions": {
         "allowJs": true,
         "target": "es3",
-        "outFile": "./dist"
+        "outDir": "./dist",
+        "module": "es2015"
     },
     "include": [
         "src/**/*"

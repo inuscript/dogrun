@@ -1,4 +1,4 @@
-
+import mod from "./module"
 const a = () => {
-    return "b"
+    mod()
 }
