@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "target": "es3",
+        "outFile": "./dist"
+    },
+    "include": [
+        "src/**/*"
+    ]
+}
