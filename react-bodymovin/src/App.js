@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import bodymovin from 'bodymovin'
 import axios from "axios"
 
@@ -32,11 +30,12 @@ class BodyMovinContainer extends Component{
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div style={{width: 400}}>
         <BodyMovinContainer />
       </div>
     );
   }
 }
+
 
 export default App;
