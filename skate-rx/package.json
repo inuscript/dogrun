@@ -1,0 +1,9 @@
+{
+  "name": "skate-rx",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@webcomponents/custom-elements": "^1.0.0-alpha.3"
+  }
+}
