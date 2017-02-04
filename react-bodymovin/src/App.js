@@ -12,14 +12,16 @@ const getData = () => {
 
 class BodyMovinContainer extends Component{
   componentDidMount(){
-    getData().then( data => {
-      bodymovin.loadAnimation({
-        container: this.container, // the dom element
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        animationData: data
-      })
+    const { animationData } = this.props
+    if(!animationData){
+      return 
+    }
+    bodymovin.loadAnimation({
+      container: this.container, // the dom element
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: animationData
     })
   }
   render(){
@@ -28,6 +30,7 @@ class BodyMovinContainer extends Component{
 }
 
 class App extends Component {
+  
   render() {
     return (
       <div style={{width: 400}}>
