@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
         "allowJs": true,
+        // "allowSyntheticDefaultImports": true,
         "target": "es3",
         "outDir": "./dist",
-        "module": "es2015"
+        "module": "commonjs"
     },
     "include": [
         "src/**/*"
