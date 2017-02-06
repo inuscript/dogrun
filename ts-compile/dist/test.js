@@ -1,4 +1,5 @@
-import mod from "./module";
+"use strict";
+var module_1 = require("./module");
 var a = function () {
-    mod();
+    module_1["default"]();
 };
