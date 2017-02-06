@@ -3,7 +3,7 @@
         "allowJs": true,
         "target": "es3",
         "outDir": "./dist",
-        "module": "commonJs"
+        "module": "es2015"
     },
     "include": [
         "src/**/*"
