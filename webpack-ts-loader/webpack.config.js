@@ -15,7 +15,9 @@ module.exports = ( env ) => {
         { test: /\.ts$/, use: [{
           loader: 'ts-loader',
           options: {
-            compileOption: moduleType
+            compileOption: {
+              module: moduleType
+            }
           }
         }]},
       ]

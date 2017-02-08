@@ -5,11 +5,15 @@
     "webpack": "^2.2.1"
   },
   "scripts": {
-    "build": "npm run build:treesharking; npm run build:commonjs",
     "build:commonjs": "webpack --env.moduleType=commonjs",
-    "build:treesharking": "webpack --env.moduleType=es2015"
+    "build:treesharking": "webpack --env.moduleType=es2015",
+    "build": "npm-run-all build:*",
+    "start:commonjs": "node output/commonjs/bundle.js",
+    "start:treesharking": "node output/treesharking/bundle.js",
+    "start": "npm-run-all build:* start:*"
   },
   "dependencies": {
+    "npm-run-all": "^4.0.1",
     "typescript": "^2.1.5",
     "url-loader": "^0.5.7"
   }
