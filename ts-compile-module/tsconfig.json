@@ -4,7 +4,7 @@
         "allowSyntheticDefaultImports": true,
         "target": "es3",
         "outDir": "./dist",
-        "module": "commonjs"
+        "module": "system"
     },
     "include": [
         "src/**/*"

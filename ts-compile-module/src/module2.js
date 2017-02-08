@@ -1,0 +1,3 @@
+exports = () => {
+    console.log("foo")
+}
