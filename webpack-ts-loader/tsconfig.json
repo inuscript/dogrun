@@ -1,7 +1,12 @@
 {
+    "compileOnSave": true,
     "compilerOptions": {
-        "target": "es5"
+        "target": "es5",
+        "module": "commonjs"
     },
+    "files": [
+        "src/**/*.ts"
+    ],
     "typeRoot": [
         "typings"
     ]

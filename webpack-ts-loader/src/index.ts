@@ -2,7 +2,7 @@ import * as txt1 from "./foo.txt"
 import txt2 from "./foo.txt"
 
 console.log("===========")
-console.log("import * from txt1")
+console.log("import * as txt1")
 console.log("=>", txt1)
 console.log("===========")
 console.log("===========")

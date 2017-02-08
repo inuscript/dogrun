@@ -81,7 +81,7 @@ module.exports = "data:text/plain;base64,aGVsbG8="
 var txt1 = __webpack_require__(0);
 var foo_txt_1 = __webpack_require__(0);
 console.log("===========");
-console.log("import * from txt1");
+console.log("import * as txt1");
 console.log("=>", txt1);
 console.log("===========");
 console.log("===========");

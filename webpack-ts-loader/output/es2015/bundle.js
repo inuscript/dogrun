@@ -83,7 +83,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 console.log("===========");
-console.log("import * from txt1");
+console.log("import * as txt1");
 console.log("=>", __WEBPACK_IMPORTED_MODULE_0__foo_txt__);
 console.log("===========");
 console.log("===========");
