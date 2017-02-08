@@ -2,7 +2,7 @@ module.exports = {
   entry: './src/index.ts',
   output: {
     publicPath: "output",
-    filename: 'bundle.js'
+    filename: 'output/bundle.js'
   },
   resolve: {
     extensions: ['.ts', '.js']
