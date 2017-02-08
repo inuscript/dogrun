@@ -5,7 +5,9 @@
     "webpack": "^2.2.1"
   },
   "scripts": {
-    "build:commonjs": "webpack --env.moduleType=commonjs"
+    "build": "npm run build:treesharking; npm run build:commonjs",
+    "build:commonjs": "webpack --env.moduleType=commonjs",
+    "build:treesharking": "webpack --env.moduleType=es2015"
   },
   "dependencies": {
     "typescript": "^2.1.5",
