@@ -70,7 +70,7 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-hello
+module.exports = "data:text/plain;base64,aGVsbG8="
 
 /***/ }),
 /* 1 */
@@ -80,8 +80,14 @@ hello
 
 var txt1 = __webpack_require__(0);
 var foo_txt_1 = __webpack_require__(0);
-console.log(txt1 + "\t (import * as img1 from \"./img.jpg\" )");
-console.log(foo_txt_1.default + "\t (import img2 from \"./img.jpg\")");
+console.log("===========");
+console.log("import * from txt1");
+console.log("=>", txt1);
+console.log("===========");
+console.log("===========");
+console.log("import txt2");
+console.log("=>", foo_txt_1.default);
+console.log("===========");
 
 
 /***/ })

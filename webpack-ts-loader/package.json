@@ -6,10 +6,10 @@
   },
   "scripts": {
     "build:commonjs": "webpack --env.moduleType=commonjs",
-    "build:treesharking": "webpack --env.moduleType=es2015",
+    "build:es2015": "webpack --env.moduleType=es2015",
     "build": "npm-run-all build:*",
     "start:commonjs": "node output/commonjs/bundle.js",
-    "start:treesharking": "node output/treesharking/bundle.js",
+    "start:es2015": "node output/es2015/bundle.js",
     "start": "npm-run-all build:* start:*"
   },
   "dependencies": {

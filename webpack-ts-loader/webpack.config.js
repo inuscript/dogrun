@@ -7,7 +7,6 @@ module.exports = ( env ) => {
       module: moduleType
     }
   }
-  console.log(tsLoaderOption)
 
   return {
     entry: './src/index.ts',
@@ -20,7 +19,7 @@ module.exports = ( env ) => {
     },
     module: {
       rules: [
-        { test: /\.jpg$/, use: 'url-loader' },
+        { test: /\.txt$/, use: 'url-loader' },
         { test: /\.ts$/, use: [{
           loader: 'ts-loader',
           options: tsLoaderOption

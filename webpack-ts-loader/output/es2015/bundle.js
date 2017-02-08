@@ -70,7 +70,7 @@
 /* 0 */
 /***/ (function(module, exports) {
 
-hello
+module.exports = "data:text/plain;base64,aGVsbG8="
 
 /***/ }),
 /* 1 */
@@ -82,8 +82,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foo_txt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__foo_txt__);
 
 
-console.log(__WEBPACK_IMPORTED_MODULE_0__foo_txt__ + "\t (import * as img1 from \"./img.jpg\" )");
-console.log(__WEBPACK_IMPORTED_MODULE_0__foo_txt___default.a + "\t (import img2 from \"./img.jpg\")");
+console.log("===========");
+console.log("import * from txt1");
+console.log("=>", __WEBPACK_IMPORTED_MODULE_0__foo_txt__);
+console.log("===========");
+console.log("===========");
+console.log("import txt2");
+console.log("=>", __WEBPACK_IMPORTED_MODULE_0__foo_txt___default.a);
+console.log("===========");
 
 
 /***/ })
