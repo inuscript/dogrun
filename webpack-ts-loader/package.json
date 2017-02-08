@@ -5,7 +5,7 @@
     "webpack": "^2.2.1"
   },
   "scripts": {
-    "start": "webpack"
+    "build:commonjs": "webpack --env.moduleType=commonjs"
   },
   "dependencies": {
     "typescript": "^2.1.5",
