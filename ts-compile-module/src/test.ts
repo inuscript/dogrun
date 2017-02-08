@@ -1,4 +1,4 @@
-import mod from "./module"
+import mod from "./module.js"
 console.log(mod)
 const a = () => {
     mod()

@@ -1,7 +1,3 @@
-
-export default () => {
+module.exports = () => {
     console.log("foo")
 }
-// module.exports = () => {
-//     console.log("foo")
-// }

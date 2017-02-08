@@ -1,8 +1,3 @@
-"use strict";
-exports.__esModule = true;
-exports["default"] = function () {
+module.exports = function () {
     console.log("foo");
 };
-// module.exports = () => {
-//     console.log("foo")
-// } 
