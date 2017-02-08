@@ -13,10 +13,11 @@ const promise2 = new Promise( (res, rej) => setTimeout( () => res("baz"), 200) )
 // console.log(Rx.Observable.zipAll)
 // console.log(Rx.Observable.of(4).zipAll())
 
+
 const playgroudEpic = action$ =>
   action$.ofType("START")
-    .combineLatest(promise1, promise2)
-    .map( ([action, ...result]) => {
+    .switchMap( () => Rx.Observable.forkJoin(promise1, promise2) )
+    .map( (result) => {
       return {
         type: "FINISH",
         payload: result

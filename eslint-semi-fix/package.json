@@ -1,0 +1,15 @@
+{
+  "name": "eslint-semi-fix",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "inuscript <inuscript@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^3.13.1"
+  },
+  "scripts": {
+    "lint": "eslint src/*",
+    "fix": "eslint src/* --fix",
+    "eslint": "eslint"
+  }
+}

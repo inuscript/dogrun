@@ -6,6 +6,12 @@
   "scripts": {
     "build": "tsc"
   },
+  "lib": [
+    "es2015",
+    "es2016",
+    "es2017",
+    "dom"
+  ],
   "dependencies": {
     "typescript": "^2.1.5"
   }
