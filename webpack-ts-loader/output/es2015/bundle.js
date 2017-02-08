@@ -74,16 +74,14 @@ hello
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foo_txt__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__foo_txt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__foo_txt__);
 
-
-console.log(__WEBPACK_IMPORTED_MODULE_0__foo_txt__ + "\t (import * as img1 from \"./img.jpg\" )");
-console.log(__WEBPACK_IMPORTED_MODULE_0__foo_txt___default.a + "\t (import img2 from \"./img.jpg\")");
+var txt1 = __webpack_require__(0);
+var foo_txt_1 = __webpack_require__(0);
+console.log(txt1 + "\t (import * as img1 from \"./img.jpg\" )");
+console.log(foo_txt_1.default + "\t (import img2 from \"./img.jpg\")");
 
 
 /***/ })
