@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "file-loader": "^0.10.0",
+    "ts-loader": "^2.0.0",
+    "webpack": "^2.2.1"
+  },
+  "scripts": {
+    "start": "webpack"
+  },
+  "dependencies": {
+    "typescript": "^2.1.5",
+    "url-loader": "^0.5.7"
+  }
+}
