@@ -1,9 +1,9 @@
 module.exports = ( env ) => {
   const { moduleType } = env
   const tsLoaderOption = {
-    compileOptions: {
-      logLevel: "debug",
-      logInfoToStdOut: true,
+    logLevel: "debug",
+    logInfoToStdOut: true,
+    compilerOptions: {
       module: moduleType
     }
   }
