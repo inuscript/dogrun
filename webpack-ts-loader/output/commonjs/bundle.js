@@ -63,32 +63,14 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = "data:text/plain;base64,aGVsbG8="
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var txt1 = __webpack_require__(0);
-var foo_txt_1 = __webpack_require__(0);
-console.log("===========");
-console.log("import * as txt1");
-console.log("=>", txt1);
-console.log("===========");
-console.log("===========");
-console.log("import txt2");
-console.log("=>", foo_txt_1.default);
-console.log("===========");
-
+throw new Error("Module build failed: \u001b[31mA file specified in tsconfig.json could not be found: /Users/inuscript/github/the-dogrun/webpack-ts-loader/src/**/*.ts\u001b[39m");
 
 /***/ })
 /******/ ]);
