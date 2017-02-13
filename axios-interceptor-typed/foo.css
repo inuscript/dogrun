@@ -1,0 +1,5 @@
+.item {
+  -moz-appearance: none;
+  appearance: none;
+  user-select: "aa";
+}

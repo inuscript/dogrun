@@ -1,0 +1,14 @@
+{
+  "name": "axios-interceptor-typed",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "inuscript <inuscript@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.15.3",
+    "typescript": "^2.1.6"
+  },
+  "scripts": {
+    "test": "node test.js"
+  }
+}
