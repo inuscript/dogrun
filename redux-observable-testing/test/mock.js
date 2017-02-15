@@ -13,7 +13,7 @@ const assert = require("assert")
 const { createEpicMiddleware } = require("redux-observable")
 
 describe("epic test", () => {
-  it.only("ping epic with mockStore", () => {
+  it("ping epic with mockStore", () => {
     const mockStore = configureStore([
       createEpicMiddleware(pingEpic)
     ])
