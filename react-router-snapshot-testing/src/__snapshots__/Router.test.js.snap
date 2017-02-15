@@ -1,0 +1,20 @@
+exports[`snapshot /baz routing 1`] = `
+<div
+  className="baz">
+  baz
+</div>
+`;
+
+exports[`snapshot /foo routing 1`] = `
+<div
+  className="foo">
+  foo
+</div>
+`;
+
+exports[`snapshot default routing 1`] = `
+<div
+  className="default">
+  default
+</div>
+`;
