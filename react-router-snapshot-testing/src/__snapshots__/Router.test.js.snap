@@ -18,3 +18,10 @@ exports[`snapshot default routing 1`] = `
   default
 </div>
 `;
+
+exports[`snapshot memory routing 1`] = `
+<div
+  className="default">
+  default
+</div>
+`;

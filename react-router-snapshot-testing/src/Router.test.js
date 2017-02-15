@@ -1,6 +1,6 @@
 import React from 'react';
 import Router from "./Router"
-import { StaticRouter } from "react-router-dom"
+import { StaticRouter, MemoryRouter } from "react-router-dom"
 import { create } from 'react-test-renderer'
 import { shallow, mount, render } from "enzyme"
 const mockContext = {}
@@ -12,7 +12,7 @@ describe("snapshot", () => {
     ).toJSON()
     expect(tree).toMatchSnapshot()  
   })
-
+  
   it('/foo routing', () => {
     const tree = create(
       <StaticRouter context={mockContext} location="/foo"><Router /></StaticRouter>
@@ -26,12 +26,20 @@ describe("snapshot", () => {
     ).toJSON()
     expect(tree).toMatchSnapshot()  
   })
+
+  it('memory routing', () => {
+    const tree = create(
+      <MemoryRouter context={mockContext}><Router /></MemoryRouter>
+    ).toJSON()
+    expect(tree).toMatchSnapshot()  
+  })
+
 })
 
 describe("shallow", () => {
 
   it('/shallow shallow', () => {
-    // shallowだとうまく取れなさそう
+    // shallowだとうまくfindが出来ない。renderかmountで可能
     const wrapper = render(
       <StaticRouter context={mockContext} location="/shallow"><Router /></StaticRouter>
     )
