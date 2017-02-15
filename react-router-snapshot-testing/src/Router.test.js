@@ -1,5 +1,5 @@
 import React from 'react';
-import { SomeRouter } from "./App"
+import { SomeRouter, DynamicRouter } from "./App"
 import { StaticRouter, MemoryRouter } from "react-router-dom"
 import { create } from 'react-test-renderer'
 import { shallow, mount, render } from "enzyme"
@@ -8,21 +8,21 @@ const mockContext = {}
 describe("snapshot", () => {
   it('default routing', () => {
     const tree = create(
-      <StaticRouter context={mockContext}><SomeRouter /></StaticRouter>
+      <MemoryRouter initialEntries={["/"]} ><SomeRouter /></MemoryRouter>
     ).toJSON()
     expect(tree).toMatchSnapshot()  
   })
   
   it('/foo routing', () => {
     const tree = create(
-      <StaticRouter context={mockContext} location="/foo"><SomeRouter /></StaticRouter>
+      <MemoryRouter initialEntries={["/foo"]}><SomeRouter /></MemoryRouter>
     ).toJSON()
     expect(tree).toMatchSnapshot()  
   })
 
   it('/baz routing', () => {
     const tree = create(
-      <StaticRouter context={mockContext} location="/baz"><SomeRouter /></StaticRouter>
+      <MemoryRouter initialEntries={["/baz"]}><SomeRouter /></MemoryRouter>
     ).toJSON()
     expect(tree).toMatchSnapshot()  
   })
@@ -57,4 +57,20 @@ describe("shallow", () => {
     // console.log(wrapper.html()) // これは取れてる
   })
 
+})
+
+
+describe.only("dynamic snapshot", () => {
+  it('/user/bob', () => {
+    const tree = create(
+      <MemoryRouter initialEntries={["/user/bob"]} ><DynamicRouter /></MemoryRouter>
+    ).toJSON()
+    expect(tree).toMatchSnapshot()  
+  })
+  it('/userbob', () => {
+    const tree = create(
+      <MemoryRouter initialEntries={["/unknown"]} ><DynamicRouter /></MemoryRouter>
+    ).toJSON()
+    expect(tree).toMatchSnapshot()  
+  })
 })

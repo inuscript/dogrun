@@ -14,12 +14,30 @@ export const SomeRouter = ({path = ""}) => {
 
 class App extends Component {
   render() {
+    // RouterとRoute定義は分けておくとテストしやすい
     return (
       <BrowserRouter>
         <SomeRouter />
       </BrowserRouter>
     );
   }
+}
+
+
+const Hello = ({match}) => {
+  return <div>Hello {match.params.name}</div>
+}
+const NotFound = () => (
+  <div>Oops</div>
+)
+
+export const DynamicRouter = ({path = ""}) => {
+  return (
+    <Switch>
+      <Route path={`${path}/user/:name`} component={Hello}></Route>
+      <Route component={NotFound}></Route>
+    </Switch>
+  )
 }
 
 export default App;
