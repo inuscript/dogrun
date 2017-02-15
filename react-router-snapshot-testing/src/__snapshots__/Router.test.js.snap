@@ -20,8 +20,14 @@ exports[`snapshot default routing 1`] = `
 `;
 
 exports[`snapshot memory routing 1`] = `
-<div
-  className="default">
-  default
+<div>
+  <div
+    className="baz">
+    baz
+  </div>
+  <div
+    className="foo">
+    foo
+  </div>
 </div>
 `;

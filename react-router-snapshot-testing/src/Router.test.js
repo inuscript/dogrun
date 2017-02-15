@@ -29,7 +29,10 @@ describe("snapshot", () => {
 
   it('memory routing', () => {
     const tree = create(
-      <MemoryRouter context={mockContext}><Router /></MemoryRouter>
+      <div>
+        <MemoryRouter initialEntries={["/baz"]}><Router /></MemoryRouter>
+        <MemoryRouter initialEntries={["/foo"]}><Router /></MemoryRouter>
+      </div>
     ).toJSON()
     expect(tree).toMatchSnapshot()  
   })
@@ -43,8 +46,12 @@ describe("shallow", () => {
     const wrapper = render(
       <StaticRouter context={mockContext} location="/shallow"><Router /></StaticRouter>
     )
-    // console.log(wrapper.())
-    // console.log(wrapper.find(".shallowTarget").length)
+    expect(wrapper.find(".shallowTarget").length).toBe(1)
+  })
+  it('memory routing', () => {
+    const wrapper = render(
+      <MemoryRouter initialEntries={["/shallow"]}><Router /></MemoryRouter>
+    )
     expect(wrapper.find(".shallowTarget").length).toBe(1)
   })
 
