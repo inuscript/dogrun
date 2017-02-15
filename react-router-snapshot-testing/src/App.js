@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router"
-import logo from './logo.svg';
-import './App.css';
+
+export const SomeRouter = ({path = ""}) => {
+  return (
+    <Switch>
+      <Route path={`${path}/foo`}><div className="foo">foo</div></Route>
+      <Route path={`${path}/baz`}><div className="baz">baz</div></Route>
+      <Route path={`${path}/shallow`}><div><div className="shallowTarget">shallow</div></div></Route>
+      <Route><div className="default">default</div></Route>
+    </Switch>
+  )
+}
 
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          <Route path="/foo"><div>foo</div></Route>
-          <Route path="/baz"><div>baz</div></Route>
-        </Switch>
+        <SomeRouter />
       </BrowserRouter>
     );
   }
