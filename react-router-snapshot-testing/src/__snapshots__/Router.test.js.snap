@@ -1,16 +1,3 @@
-exports[`dynamic snapshot /user/bob 1`] = `
-<div>
-  Hello 
-  bob
-</div>
-`;
-
-exports[`dynamic snapshot /userbob 1`] = `
-<div>
-  Oops
-</div>
-`;
-
 exports[`snapshot /baz routing 1`] = `
 <div
   className="baz">

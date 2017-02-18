@@ -1,9 +1,8 @@
 import React from 'react';
-import { SomeRouter, DynamicRouter } from "./App"
-import { StaticRouter, MemoryRouter } from "react-router-dom"
+import { MemoryRouter } from "react-router-dom"
 import { create } from 'react-test-renderer'
-import { shallow, mount, render } from "enzyme"
-const mockContext = {}
+
+import { SomeRouter, DynamicRouter } from "./App"
 
 describe("snapshot", () => {
   it('default routing', () => {
@@ -39,38 +38,45 @@ describe("snapshot", () => {
 
 })
 
-// shallowだとうまくfindが出来ない。renderかmountで可能
+  // shallowだとうまくfindが出来ない。renderかmountで可能
+  import { mount, render } from "enzyme"
 
 describe("shallow", () => {
-
-  it('/shallow shallow', () => {
-    const wrapper = render(
-      <StaticRouter context={mockContext} location="/shallow"><SomeRouter /></StaticRouter>
-    )
-    expect(wrapper.find(".shallowTarget").length).toBe(1)
-  })
+  // const mockContext = {}
+  // 
+  // it('/shallow shallow', () => {
+  //   const wrapper = render(
+  //     <StaticRouter context={mockContext} location="/shallow"><SomeRouter /></StaticRouter>
+  //   )
+  //   expect(wrapper.find(".shallowTarget").length).toBe(1)
+  // })
   it('memory routing', () => {
     const wrapper = render(
-      <MemoryRouter initialEntries={["/shallow"]}><SomeRouter /></MemoryRouter>
+      <MemoryRouter initialEntries={["/mount"]}><SomeRouter /></MemoryRouter>
     )
-    expect(wrapper.find(".shallowTarget").length).toBe(1)
-    // console.log(wrapper.html()) // これは取れてる
+    expect(wrapper.find(".testTarget").length).toBe(1)
   })
 
 })
 
 
-describe.only("dynamic snapshot", () => {
+describe("dynamic snapshot", () => {
   it('/user/bob', () => {
-    const tree = create(
+    const wrapper = render(
       <MemoryRouter initialEntries={["/user/bob"]} ><DynamicRouter /></MemoryRouter>
-    ).toJSON()
-    expect(tree).toMatchSnapshot()  
+    )
+    expect(wrapper.text()).toBe("Hello bob")
   })
-  it('/userbob', () => {
-    const tree = create(
+  it('/user/sam', () => {
+    const wrapper = render(
+      <MemoryRouter initialEntries={["/user/sam"]} ><DynamicRouter /></MemoryRouter>
+    )
+    expect(wrapper.text()).toBe("Hello sam")
+  })
+  it('/unknown', () => {
+    const wrapper = render(
       <MemoryRouter initialEntries={["/unknown"]} ><DynamicRouter /></MemoryRouter>
-    ).toJSON()
-    expect(tree).toMatchSnapshot()  
+    )
+    expect(wrapper.text()).toBe("Oops")
   })
 })
