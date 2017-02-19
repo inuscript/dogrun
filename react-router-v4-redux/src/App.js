@@ -12,6 +12,7 @@ import { Provider, connect } from 'react-redux'
 // but for our demo we'll use this fake one
 const initialLocation = { pathname: '/', search: '', hash: '' }
 const locationReducer = (state = initialLocation, action) => {
+  console.log(state, action)
   return action.type === 'LOCATION_CHANGE' ?
     action.location : state
 }
@@ -47,15 +48,13 @@ const App = connect(mapStateToAppProps)((props) => (
   //    it won't go there. It goes to whichever location you
   //    pass to it.
   <BrowserRouter
-    history={props.history}
-    location={props.location}
-    onChange={(location) => {
-      // 3. Dispatch location changes
-      props.dispatch({
-        type: 'LOCATION_CHANGE',
-        location
-      })
-    }}
+    // onChange={(location) => {
+    //   // 3. Dispatch location changes
+    //   props.dispatch({
+    //     type: 'LOCATION_CHANGE',
+    //     location
+    //   })
+    // }}
   >
     <div>
     <ul>
@@ -66,7 +65,7 @@ const App = connect(mapStateToAppProps)((props) => (
       <li><Link to="/five">Five</Link></li>
     </ul>
     <Switch>
-      <Route path="/" exactly render={() => (
+      <Route path="/" exact render={() => (
         <div>
           <p>Open the console to see the logger middleware.</p>
         </div>
@@ -85,10 +84,10 @@ const App = connect(mapStateToAppProps)((props) => (
 ////////////////////////////////////////////////////////////
 // you don't need this history, it's passed in for the fake
 // browser window.
-const ReduxExample = ({ history }) => (
-  <Provider store={store}>
+const ReduxExample = ({ history }) => {
+  return <Provider store={store}>
     <App history={history}/>
   </Provider>
-)
+}
 
 export default ReduxExample
