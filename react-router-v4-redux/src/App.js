@@ -1,6 +1,6 @@
 /*eslint no-console: 0*/
 import React from 'react'
-import { Redirect, BrowserRouter, Route, Link, Switch } from 'react-router-dom'
+import { Redirect, BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider, connect } from 'react-redux'
 
@@ -38,6 +38,9 @@ const mapStateToAppProps = (state) => ({
 })
 
 
+const AsyncLink = ( ({conditiion, to}) => {
+  return (conditiion) ? <Redirect to={to} /> : null
+})
 ////////////////////////////////////////////////////////////
 const App = connect(mapStateToAppProps)((props) => (
   // 2. use Router as a controlled component, exactly like
