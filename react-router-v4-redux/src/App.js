@@ -43,17 +43,22 @@ const mapStateToAppProps = (state) => ({
 // })
 class Lazy extends React.Component {
   state = {
-    val: "C"
+    val: "C",
+    startLazyFunction: false,
+    startTransition: false
   }
   render(){
-    const { to, ...rest } = this.props
+    const { to, onClick, ...rest } = this.props
     switch(this.state.val){
       case "A":
         return <div></div>
       case "B":
         return <Redirect to={to} />
       default:
-        return <Link to={to} {...rest} />
+        return <Link to={to} {...rest} onClick={ e => {
+          e.preventDefault()
+          onClick(to)
+        }}/>
     }
   }
 }
