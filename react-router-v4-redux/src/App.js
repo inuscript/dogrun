@@ -32,9 +32,31 @@ const mapStateToAppProps = (state) => ({
 })
 
 
-const AsyncLink = ( ({conditiion, to}) => {
-  return (conditiion) ? <Redirect to={to} /> : null
-})
+// const AsyncLink = ( ({conditiion, onClick, to, ...rest}) => {
+//   return (conditiion) 
+//     ? <Redirect to={to} /> 
+//     : <Link to={to}
+//        onClick={ () => {
+//          onClick(to)
+//       }
+//     } {...rest} />
+// })
+class Lazy extends React.Component {
+  state = {
+    val: "C"
+  }
+  render(){
+    const { to, ...rest } = this.props
+    switch(this.state.val){
+      case "A":
+        return <div></div>
+      case "B":
+        return <Redirect to={to} />
+      default:
+        return <Link to={to} {...rest} />
+    }
+  }
+}
 
 ////////////////////////////////////////////////////////////
 
@@ -47,6 +69,7 @@ const App = connect(mapStateToAppProps)((props) => (
         <li><Link to="/three">Three</Link></li>
         <li><Link to="/four">Four</Link></li>
         <li><Link to="/five">Five</Link></li>
+        <li><Lazy to="/five">Five</Lazy></li>
       </ul>
       <Switch>
         <Route path="/" exact render={() => (
