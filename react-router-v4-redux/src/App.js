@@ -1,15 +1,9 @@
 /*eslint no-console: 0*/
 import React from 'react'
-import { Redirect, BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider, connect } from 'react-redux'
 
-
-////////////////////////////////////////////////////////////
-// 1. reducer to keep the location in redux state
-
-// in a real redux app you'd want to use `window.location`
-// but for our demo we'll use this fake one
 const initialLocation = { pathname: '/', search: '', hash: '' }
 const locationReducer = (state = initialLocation, action) => {
   console.log(state, action)
@@ -41,44 +35,31 @@ const mapStateToAppProps = (state) => ({
 const AsyncLink = ( ({conditiion, to}) => {
   return (conditiion) ? <Redirect to={to} /> : null
 })
+
 ////////////////////////////////////////////////////////////
+
 const App = connect(mapStateToAppProps)((props) => (
-  // 2. use Router as a controlled component, exactly like
-  //    controlling an input with redux state. Used this way
-  //    it doesn't listen to the history, and doesn't have
-  //    any of its own state, it only notifies the App that
-  //    the user is attempting to go to a new location, but
-  //    it won't go there. It goes to whichever location you
-  //    pass to it.
-  <BrowserRouter
-    // onChange={(location) => {
-    //   // 3. Dispatch location changes
-    //   props.dispatch({
-    //     type: 'LOCATION_CHANGE',
-    //     location
-    //   })
-    // }}
-  >
+  <BrowserRouter>
     <div>
-    <ul>
-      <li><Link to="/one">One</Link></li>
-      <li><Link to="/two">Two</Link></li>
-      <li><Link to="/three">Three</Link></li>
-      <li><Link to="/four">Four</Link></li>
-      <li><Link to="/five">Five</Link></li>
-    </ul>
-    <Switch>
-      <Route path="/" exact render={() => (
-        <div>
-          <p>Open the console to see the logger middleware.</p>
-        </div>
-      )}/>
-      <Route path="/one" render={() => <h3>One</h3>}/>
-      <Route path="/two" render={() => <h3>Two</h3>}/>
-      <Route path="/three" render={() => <h3>Three</h3>}/>
-      <Route path="/four" render={() => <h3>Four</h3>}/>
-      <Route path="/five" render={() => <h3>Five</h3>}/>
-    </Switch>
+      <ul>
+        <li><Link to="/one">One</Link></li>
+        <li><Link to="/two">Two</Link></li>
+        <li><Link to="/three">Three</Link></li>
+        <li><Link to="/four">Four</Link></li>
+        <li><Link to="/five">Five</Link></li>
+      </ul>
+      <Switch>
+        <Route path="/" exact render={() => (
+          <div>
+            <p>Open the console to see the logger middleware.</p>
+          </div>
+        )}/>
+        <Route path="/one" render={() => <h3>One</h3>}/>
+        <Route path="/two" render={() => <h3>Two</h3>}/>
+        <Route path="/three" render={() => <h3>Three</h3>}/>
+        <Route path="/four" render={() => <h3>Four</h3>}/>
+        <Route path="/five" render={() => <h3>Five</h3>}/>
+      </Switch>
     </div>
   </BrowserRouter>
 ))
