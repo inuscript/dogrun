@@ -15,16 +15,18 @@ const { patchApi } = require("../api")
       //   // })
       // ]
 
-// const connectEpic = (action$, store) => {
-//   return Observable.merge(
-//     action$.ofType("PATCH").map( () => ({type: "FOO"}) ),
-//     action$.ofType("FULFILLED").map( () => ({type: "FOOBAZ"}) )
-//   )
-// }
+const connectEpic = (action$, store) => {
+  return Observable.merge(
+    action$.ofType("PATCH").map( () => {
+      return {type: "FOO"}
+     }),
+    action$.ofType("FULFILLED").map( () => ({type: "FOOBAZ"}) )
+  )
+}
 // base:
 const patchEpic = (action$, store)  => {
   return action$.ofType("PATCH")
-    .switchMap((action) => patchApi() )
+    .mergeMap((action) => patchApi() )
     .withLatestFrom(action$.map( (action) => action.meta.uuid ))
     .mergeMap( ([{ data }, meta ]) => {
       return [
@@ -35,17 +37,11 @@ const patchEpic = (action$, store)  => {
 }
 
 describe("", () => {
-  it("sandbox", (done) => {
-    const mockAction = {
-      type: "PATCH",
-      meta: {
-        uuid: "beef-beef-beef-beef"
-      }
-    }
-    const action$ = ActionsObservable.of(mockAction)
+  it.only("2 - sandbox", (done) => {
+    const action$ = ActionsObservable.of(patchAction(), patchAction())
 
     const epic = combineEpics( 
-      // connectEpic,
+      connectEpic,
       patchEpic
     )
     const start = new Date().getTime()
