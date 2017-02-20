@@ -28,14 +28,11 @@ const sampleEpic = (action$, store)  => {
 
 
 describe("", () => {
-  it("sandbox", (done) => {
-    const mockAction = {
-      type: "PATCH",
-      meta: {
-        uuid: "beef-beef-beef-beef"
-      }
-    }
-    const action$ = ActionsObservable.of(mockAction)
+  it.only("sandbox", (done) => {
+    const action$ = ActionsObservable.of(
+      patchAction(),
+      patchAction()
+    )
     
     const epic = combineEpics( 
       sampleEpic,
@@ -48,7 +45,7 @@ describe("", () => {
       // .toPromise()
       // .then( result => {
       .subscribe( (r) => {
-        // console.log((new Date().getTime() - start) ,r)
+        console.log((new Date().getTime() - start) ,r)
       }, (e) => {} , (result) => {
         done()
       })
