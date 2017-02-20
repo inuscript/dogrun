@@ -31,37 +31,30 @@ const patchApi = () => {
   })
 }
 
-      // console.log(ation)
-      // return [
-      //   action$.ofType("PATCH").map( () => {
-      //     return {} //startConnection("a")
-      //   })
-      //   // action$.ofType("FULFILLED").map( () => {
-      //   //   return finishConnection("a")
-      //   // })
-      // ]
+const connectionEpic = (action$) => 
+  action$.filter( (action) => {
+    return action.meta && !!(action.meta.uuid)
+  }).map( (action) => {
+    return startConnection(action.meta.uuid)
+  })
 
-// const connectEpic = (action$, store) => {
-//   return Observable.merge(
-//     action$.ofType("PATCH").map( () => ({type: "FOO"}) ),
-//     action$.ofType("FULFILLED").map( () => ({type: "FOOBAZ"}) )
-//   )
-// }
-// base:
+const createFinish = (action$) => 
+  action$.map( (action) => finishConnection(action.meta.uuid ) )
+
 const patchEpic = (action$, store)  => {
+  // return Observable.create(
+
   return action$.ofType("PATCH")
     .switchMap((action) => patchApi() )
-    .withLatestFrom(action$.map( (action) => action.meta.uuid ))
-    .mergeMap( ([{ data }, meta ]) => {
-      return [
-        fullfiledAction(data.member),
-        finishConnection(meta)
-      ]  
+    .map( ({ data }) => {
+      return fullfiledAction(data.member)
     })
+    .withLatestFrom(createFinish(action$))
+    .concatMap( ( a ) => a )
 }
 
 describe("", () => {
-  it("sandbox", (done) => {
+  it.only("4", (done) => {
     const mockAction = {
       type: "PATCH",
       meta: {
@@ -71,7 +64,7 @@ describe("", () => {
     const action$ = ActionsObservable.of(mockAction)
 
     const epic = combineEpics( 
-      // connectEpic,
+      connectionEpic,
       patchEpic
     )
     const start = new Date().getTime()
