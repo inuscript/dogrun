@@ -31,37 +31,17 @@ const patchApi = () => {
   })
 }
 
-      // console.log(ation)
-      // return [
-      //   action$.ofType("PATCH").map( () => {
-      //     return {} //startConnection("a")
-      //   })
-      //   // action$.ofType("FULFILLED").map( () => {
-      //   //   return finishConnection("a")
-      //   // })
-      // ]
-
-// const connectEpic = (action$, store) => {
-//   return Observable.merge(
-//     action$.ofType("PATCH").map( () => ({type: "FOO"}) ),
-//     action$.ofType("FULFILLED").map( () => ({type: "FOOBAZ"}) )
-//   )
-// }
 // base:
 const patchEpic = (action$, store)  => {
   return action$.ofType("PATCH")
     .switchMap((action) => patchApi() )
-    .withLatestFrom(action$.map( (action) => action.meta.uuid ))
-    .mergeMap( ([{ data }, meta ]) => {
-      return [
-        fullfiledAction(data.member),
-        finishConnection(meta)
-      ]  
+    .map( ({ data }) => {
+      return fullfiledAction(data.member)
     })
 }
 
 describe("", () => {
-  it.only("sandbox", (done) => {
+  it("base", (done) => {
     const mockAction = {
       type: "PATCH",
       meta: {
@@ -71,7 +51,6 @@ describe("", () => {
     const action$ = ActionsObservable.of(mockAction)
 
     const epic = combineEpics( 
-      // connectEpic,
       patchEpic
     )
     const start = new Date().getTime()
