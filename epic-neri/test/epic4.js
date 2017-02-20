@@ -1,5 +1,5 @@
 require("rxjs")
-const uuid = require("uuid")
+
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
 const { Observable } = require("rxjs")
 const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
@@ -33,7 +33,7 @@ const patchEpic = (action$, store) =>
 
 
 describe("", () => {
-  it("3", (done) => {
+  it("4--", (done) => {
     const initActionMock = { type: "@INIT"}
     const action$ = ActionsObservable.of(
       patchAction(),

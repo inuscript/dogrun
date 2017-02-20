@@ -1,27 +1,7 @@
 require("rxjs")
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
 const { Observable } = require("rxjs")
-
-const startConnection = (id) => {
-  return {
-    type: "START_CONNECTION",
-    id: id
-  }  
-}
-
-const finishConnection = (id) => {
-  return {
-    type: "FINISH_CONNECTION",
-    id: id
-  }  
-}
-
-const fullfiledAction = (data) => {
-  return {
-    type: "FULFILLED",
-    data: data
-  }
-}
+const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
 
 const patchApi = () => {
   return new Promise( (res) => {
