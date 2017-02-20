@@ -75,10 +75,6 @@ describe("", () => {
     )
     const start = new Date().getTime()
     epic(action$, {})
-      // .toArray()
-      // .subscribe( result => {
-      // .toPromise()
-      // .then( result => {
       .subscribe( (r) => {
         console.log((new Date().getTime() - start) ,r)
       }, (e) => {} , (result) => {
