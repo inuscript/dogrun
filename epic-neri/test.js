@@ -4,14 +4,14 @@ const { Observable } = require("rxjs")
 
 const startConnection = (id) => {
   return {
-    type: "START",
+    type: "START_CONNECTION",
     id: id
   }  
 }
 
 const finishConnection = (id) => {
   return {
-    type: "FINISH",
+    type: "FINISH_CONNECTION",
     id: id
   }  
 }
@@ -31,6 +31,12 @@ const patchApi = () => {
   })
 }
 
+const connectEpic = (action$) => {
+  return action$.ofType("PATCH")
+    .map( ({ meta }) => {
+      return startConnection(meta)
+    })
+}
 // base:
 const sampleEpic1 = (action$, store)  => {
   return action$.ofType("PATCH")
@@ -65,8 +71,12 @@ describe("", () => {
       }
     }
     const action$ = ActionsObservable.of(mockAction)
-    const epic = sampleEpic1(action$, {})
-    epic.subscribe( result => {
+    
+    const epic = combineEpics( 
+      sampleEpic1,
+      connectEpic
+    )
+    epic(action$, {}).subscribe( result => {
       console.log(result)
       done()
     })
