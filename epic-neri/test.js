@@ -27,7 +27,7 @@ const patchApi = () => {
   return new Promise( (res) => {
     setTimeout( () => {
       res({data: { member: "foo"} })
-    }, 10)
+    }, 100)
   })
 }
 
@@ -74,13 +74,14 @@ describe("", () => {
       sampleEpic,
       connectEpic
     )
+    const start = new Date().getTime()
     epic(action$, {})
-      .toArray()
+      // .toArray()
       // .subscribe( result => {
       // .toPromise()
       // .then( result => {
       .subscribe( (r) => {
-        console.log(r)
+        console.log((new Date().getTime() - start) ,r)
       }, (e) => {} , (result) => {
         done()
       })
