@@ -18,9 +18,15 @@ const createFinish = (action$) =>
 const patchEpic = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap((action) => patchApi() )
-    .withLatestFrom((aciton) => createFinish(action.meta.uuid))
+    .withLatestFrom(
+      createFinish(action$)
+    )
     // .mergeMap( ( [{ data }, f] ) => {
     .mergeMap( ( [ { data }, f] ) => {
+      console.log([
+        fullfiledAction(data.member),
+        f
+      ])
       return [
         fullfiledAction(data.member),
         f
