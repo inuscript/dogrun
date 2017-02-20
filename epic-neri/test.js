@@ -1,6 +1,20 @@
 require("rxjs")
-const { ActionsObservable } = require("redux-observable")
+const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
+const { Observable } = require("rxjs")
 
+const startConnection = (id) => {
+  return {
+    type: "START",
+    id: id
+  }  
+}
+
+const finishConnection = (id) => {
+  return {
+    type: "FINISH",
+    id: id
+  }  
+}
 
 const fullfiledAction = (data) => {
   return {
@@ -17,25 +31,33 @@ const patchApi = () => {
   })
 }
 
-const _sampleEpic = (action$, store)  => {
+// base:
+const sampleEpic1 = (action$, store)  => {
   return action$.ofType("PATCH")
     .switchMap((action) => patchApi() )
     .map( ({ data }) => {
       return fullfiledAction(data.member)
     })
 }
-const sampleEpic = (action$, store)  => {
-  return action$.ofType("PATCH")
-    .switchMap( (action, meta) => patchApi() )
-    .map( ({ data }, meta) => {
-      return [
-        fullfiledAction(data.member),
-      ]
-    })
-}
+
+// const sampleEpic = (action$, store)  => {
+//   return action$.ofType("PATCH")
+//     .combineLatest( 
+//       patchApi(),
+//       ( {meta} , {data}) => {
+//         return { meta, data }
+//       })
+//     .map( ( {meta, data} ) => {
+//       return fullfiledAction(data)
+//       // return Observable.from(
+//       //   fullfiledAction(data),
+//       //   finishConnection(meta.uuid)
+//       // )
+//     })
+// }
 
 describe("", () => {
-  it.only("sandbox", () => {
+  it.only("sandbox", (done) => {
     const mockAction = {
       type: "PATCH",
       meta: {
@@ -43,10 +65,10 @@ describe("", () => {
       }
     }
     const action$ = ActionsObservable.of(mockAction)
-    return sampleEpic(action$, {})
-      .toPromise()
-      .then( result => {
-        console.log(result)
-      })
+    const epic = sampleEpic1(action$, {})
+    epic.subscribe( result => {
+      console.log(result)
+      done()
+    })
   })
 })
