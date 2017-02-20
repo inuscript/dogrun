@@ -37,14 +37,6 @@ const connectEpic = (action$) => {
       return startConnection(meta)
     })
 }
-// base:
-// const sampleEpic1 = (action$, store)  => {
-//   return action$.ofType("PATCH")
-//     .switchMap((action) => patchApi() )
-//     .map( ({ data }) => {
-//       return fullfiledAction(data.member)
-//     })
-// }
 
 const sampleEpic = (action$, store)  => {
   return action$.ofType("PATCH")
@@ -60,8 +52,9 @@ const sampleEpic = (action$, store)  => {
     })
 }
 
+
 describe("", () => {
-  it.only("sandbox", (done) => {
+  it("sandbox", (done) => {
     const mockAction = {
       type: "PATCH",
       meta: {
@@ -81,7 +74,7 @@ describe("", () => {
       // .toPromise()
       // .then( result => {
       .subscribe( (r) => {
-        console.log((new Date().getTime() - start) ,r)
+        // console.log((new Date().getTime() - start) ,r)
       }, (e) => {} , (result) => {
         done()
       })
