@@ -1,4 +1,5 @@
 require("rxjs")
+const uuid = require("uuid")
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
 const { Observable } = require("rxjs")
 
@@ -14,6 +15,15 @@ const finishConnection = (id) => {
     type: "FINISH_CONNECTION",
     id: id
   }  
+}
+
+const patchAction = (id) => {
+  return {
+    type: "PATCH",
+    meta: {
+      uuid: uuid.v4()
+    }
+  }
 }
 
 const fullfiledAction = (data) => {
@@ -41,27 +51,23 @@ const connectionEpic = (action$) =>
 const createFinish = (action$) => 
   action$.map( (action) => finishConnection(action.meta.uuid ) )
 
-const patchEpic = (action$, store)  => {
-  // return Observable.create(
-
-  return action$.ofType("PATCH")
+const patchEpic = (action$, store) =>
+  action$.ofType("PATCH")
     .switchMap((action) => patchApi() )
     .map( ({ data }) => {
       return fullfiledAction(data.member)
     })
     .withLatestFrom(createFinish(action$))
     .concatMap( ( a ) => a )
-}
+
 
 describe("", () => {
   it.only("4", (done) => {
-    const mockAction = {
-      type: "PATCH",
-      meta: {
-        uuid: "beef-beef-beef-beef"
-      }
-    }
-    const action$ = ActionsObservable.of(mockAction)
+    const initActionMock = { type: "@INIT"}
+    const action$ = ActionsObservable.of(
+      patchAction(),
+      patchAction()
+    )
 
     const epic = combineEpics( 
       connectionEpic,
