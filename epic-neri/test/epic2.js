@@ -37,7 +37,7 @@ const patchEpic = (action$, store)  => {
 }
 
 describe("", () => {
-  it.only("2 - sandbox", (done) => {
+  it("2 - sandbox", (done) => {
     const action$ = ActionsObservable.of(patchAction(), patchAction())
 
     const epic = combineEpics( 
