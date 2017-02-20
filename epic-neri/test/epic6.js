@@ -15,28 +15,27 @@ const connectionEpic = (action$) =>
 const createFinish = (action$) => 
   action$.map( (action) => finishConnection(action.meta.uuid ) )
 
-const patchEpic = (action$, store) =>
-  action$.ofType("PATCH")
-    .mergeMap((action) => patchApi() )
-    .withLatestFrom(
-      createFinish(action$)
-    )
-    // .mergeMap( ( [{ data }, f] ) => {
-    .mergeMap( ( [ { data }, f] ) => {
-      console.log([
-        fullfiledAction(data.member),
-        f
-      ])
+const patchEpic = (action$, store) => {
+  const finishAction = createFinish(action$)
+  return action$.ofType("PATCH")
+    .map((action) => {
+      return Observable.merge(
+        Observable.fromPromise(patchApi),
+        Observable.of(action)
+      )
+    })
+    .mergeMap( (a) => {
+    // .mergeMap( a => {
+      console.log(a)
       return [
         fullfiledAction(data.member),
-        f
+        finishConnection(action.meta.uuid )
       ]
     })
-    // .concatMap( ( a ) => a )
-
+}
 
 describe("", () => {
-  it("5", (done) => {
+  it.only("6", (done) => {
     const initActionMock = { type: "@INIT"}
     const action$ = ActionsObservable.of(
       patchAction(),
@@ -51,7 +50,9 @@ describe("", () => {
     epic(action$, {})
       .subscribe( (r) => {
         console.log((new Date().getTime() - start) ,r)
-      }, (e) => {} , (result) => {
+      }, (e) => {
+        throw e
+      } , (result) => {
         done()
       })
   })
