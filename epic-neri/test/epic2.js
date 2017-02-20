@@ -33,11 +33,10 @@ const patchApi = () => {
 
 const connectEpic = (action$, store) => {
   return action$.ofType("PATCH")
-    .merge( () => {
-      return [
-        action$.ofType("PATCH").map( () => ({type: "FOO"}) )
-      ]
-    })
+    .merge(
+      action$.ofType("PATCH").map( () => ({type: "FOO"}) ),
+      action$.ofType("PATCH").map( () => ({type: "FOOBAZ"}) )
+    )
 }
 // base:
 const patchEpic = (action$, store)  => {
