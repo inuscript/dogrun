@@ -38,29 +38,27 @@ const connectEpic = (action$) => {
     })
 }
 // base:
-const sampleEpic1 = (action$, store)  => {
-  return action$.ofType("PATCH")
-    .switchMap((action) => patchApi() )
-    .map( ({ data }) => {
-      return fullfiledAction(data.member)
-    })
-}
-
-// const sampleEpic = (action$, store)  => {
+// const sampleEpic1 = (action$, store)  => {
 //   return action$.ofType("PATCH")
-//     .combineLatest( 
-//       patchApi(),
-//       ( {meta} , {data}) => {
-//         return { meta, data }
-//       })
-//     .map( ( {meta, data} ) => {
-//       return fullfiledAction(data)
-//       // return Observable.from(
-//       //   fullfiledAction(data),
-//       //   finishConnection(meta.uuid)
-//       // )
+//     .switchMap((action) => patchApi() )
+//     .map( ({ data }) => {
+//       return fullfiledAction(data.member)
 //     })
 // }
+
+const sampleEpic = (action$, store)  => {
+  return action$.ofType("PATCH")
+    .combineLatest( 
+      patchApi(),
+      ( {meta} , {data}) => ({ meta, data })
+    )
+    .mergeMap( ( {meta, data} ) => {
+      return [
+        fullfiledAction(data),
+        finishConnection(meta.uuid)
+      ]
+    })
+}
 
 describe("", () => {
   it.only("sandbox", (done) => {
@@ -73,12 +71,18 @@ describe("", () => {
     const action$ = ActionsObservable.of(mockAction)
     
     const epic = combineEpics( 
-      sampleEpic1,
+      sampleEpic,
       connectEpic
     )
-    epic(action$, {}).subscribe( result => {
-      console.log(result)
-      done()
-    })
+    epic(action$, {})
+      .toArray()
+      // .subscribe( result => {
+      // .toPromise()
+      // .then( result => {
+      .subscribe( (r) => {
+        console.log(r)
+      }, (e) => {} , (result) => {
+        done()
+      })
   })
 })
