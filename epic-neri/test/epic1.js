@@ -2,14 +2,8 @@ require("rxjs")
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
 const { Observable } = require("rxjs")
 const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
+const { patchApi } = require("../api")
 
-const patchApi = () => {
-  return new Promise( (res) => {
-    setTimeout( () => {
-      res({data: { member: "foo"} })
-    }, 100)
-  })
-}
 
 const connectEpic = (action$) => {
   return action$.ofType("PATCH")

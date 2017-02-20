@@ -3,14 +3,7 @@ const uuid = require("uuid")
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
 const { Observable } = require("rxjs")
 const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
-
-const patchApi = () => {
-  return new Promise( (res) => {
-    setTimeout( () => {
-      res({data: { member: "foo"} })
-    }, 100)
-  })
-}
+const { patchApi } = require("../api")
 
 const connectionEpic = (action$) => 
   action$.filter( (action) => {
