@@ -17,7 +17,7 @@ const createFinish = (action$) =>
 
 const patchEpic = (action$, store) =>
   action$.ofType("PATCH")
-    .switchMap((action) => patchApi() )
+    .mergeMap((action) => patchApi() )
     .map( ({ data }) => {
       return fullfiledAction(data.member)
     })
@@ -26,7 +26,7 @@ const patchEpic = (action$, store) =>
 
 
 describe("", () => {
-  it("4--", (done) => {
+  it.only("4--", (done) => {
     const initActionMock = { type: "@INIT"}
     const action$ = ActionsObservable.of(
       patchAction(),

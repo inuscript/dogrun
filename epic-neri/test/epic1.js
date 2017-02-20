@@ -28,7 +28,7 @@ const sampleEpic = (action$, store)  => {
 
 
 describe("", () => {
-  it.only("sandbox", (done) => {
+  it("sandbox", (done) => {
     const action$ = ActionsObservable.of(
       patchAction(),
       patchAction()
