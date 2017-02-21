@@ -1,20 +1,20 @@
 const uuid = require("uuid")
 
-const startConnection = (id) => {
+const startConnection = (uuid) => {
   return {
     type: "START_CONNECTION",
-    id: id
+    uuid
   }  
 }
 
-const finishConnection = (id) => {
+const finishConnection = (uuid) => {
   return {
     type: "FINISH_CONNECTION",
-    id: id
+    uuid
   }  
 }
 
-const patchAction = (id) => {
+const patchAction = () => {
   return {
     type: "PATCH",
     meta: {
