@@ -6,40 +6,35 @@ const { startConnection, finishConnection, patchAction, fullfiledAction } = requ
 const { patchApi } = require("../api")
 const configureStore = require('redux-mock-store').default
 
-
-const connectionEpic = (action$) =>
+const connectionEpic = (action$) => 
   action$.filter( (action) => {
     return action.meta && !!(action.meta.uuid)
   }).map( (action) => {
     return startConnection(action.meta.uuid)
   })
 
-const patchEpic = (action$, store) => {
-  return action$
-    .ofType("PATCH")
-    .switchMap((action) => patchApi() )
+const createFinish = (action$) =>
+  action$.ofType("PATCH").map( (action) => finishConnection(action.meta.uuid ) )
+
+const patchEpic = (action$, store) =>
+  action$.ofType("PATCH")
+    .mergeMap((action) => patchApi() )
     .map( ({ data }) => fullfiledAction(data.member) )
-}
-
-const booEpic = (action$, store) => {
-  return action$
-    .ofType("FULFILLED")
-    .do( a => console.log("BOOO", a))
-    .ignoreElements()
-}
-
+    .withLatestFrom(createFinish(action$))
+    .concatMap( ( a ) => a )
 
 describe("", () => {
   const epics = combineEpics(
     connectionEpic,
-    patchEpic,
-    booEpic
+    patchEpic 
+    // booEpic
   )
   const start = new Date().getTime()
 
   const logger = store => next => action => {
     const t = new Date().getTime() - start
     console.log(t, action)
+    console.log("===================")
     return next(action)
   }
 
@@ -52,5 +47,15 @@ describe("", () => {
     const initActionMock = { type: "@INIT" }
     const store = mockStore({})
     store.dispatch(patchAction())
+    store.dispatch(patchAction())
+    let count = 0
+    const unsubscribe = store.subscribe( a => {
+      // console.log(store.getActions())
+      count++
+      if(count > 3){
+        unsubscribe()
+        done()
+      }
+    })
   })
 })
