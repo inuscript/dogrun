@@ -5,44 +5,64 @@ const { Observable } = require("rxjs")
 const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
 const { patchApi } = require("../api")
 
-const connectionEpic = (action$) => 
+
+const connectionEpic = (action$) =>
   action$.filter( (action) => {
     return action.meta && !!(action.meta.uuid)
   }).map( (action) => {
     return startConnection(action.meta.uuid)
   })
 
-const createFinish = (action$) =>
-  action$.map( (action) => finishConnection(action.meta.uuid ) )
-
-const patchEpic = (action$, store) =>
-  action$.ofType("PATCH")
-    .mergeMap((action) => patchApi() )
+const patchEpic = (action$, store) => {
+  return action$
+    .ofType("PATCH")
+    .switchMap((action) => patchApi() )
     .map( ({ data }) => fullfiledAction(data.member) )
-    .withLatestFrom(createFinish(action$))
-    .concatMap( ( a ) => a )
+}
+
+const booEpic = (action$, store) => {
+  return action$
+    .ofType("FULFILLED")
+    .do( a => console.log("BOOO", a))
+    .ignoreElements()
+}
 
 
 describe("", () => {
+  const epic = combineEpics(
+    connectionEpic,
+    patchEpic,
+    booEpic
+  )
+
   it.only("12" ,(done) => {
     const initActionMock = { type: "@INIT"}
     const action$ = ActionsObservable.of(
-      patchAction(),
+      // patchAction(),
       patchAction()
     )
-
-    const epic = combineEpics(
-      connectionEpic,
-      patchEpic
-    )
     const start = new Date().getTime()
-    epic(action$, {})
+    const source = epic(action$, {})
+    source
       .subscribe( (r) => {
         console.log((new Date().getTime() - start) ,r)
       }, (e) => {
         throw e
-      } , (result) => {
+      }, (result) => {
         done()
+      })
+  })
+  it.only("12 - 2" ,(done) => {
+    const source = epic(ActionsObservable.of(
+      fullfiledAction("foo")
+    ), {})
+    source
+      .subscribe( (r) => {
+        console.log((new Date().getTime() - start) ,r)
+      }, (e) => {
+        throw e
+      }, (result) => {
+        // done()
       })
   })
 })
