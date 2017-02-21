@@ -12,15 +12,13 @@ const connectionEpic = (action$) =>
     return startConnection(action.meta.uuid)
   })
 
-const createFinish = (action$) => 
+const createFinish = (action$) =>
   action$.map( (action) => finishConnection(action.meta.uuid ) )
 
 const patchEpic = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap((action) => patchApi() )
-    .map( ({ data }) => {
-      return fullfiledAction(data.member)
-    })
+    .map( ({ data }) => fullfiledAction(data.member) )
     .withLatestFrom(createFinish(action$))
     .concatMap( ( a ) => a )
 
@@ -33,7 +31,7 @@ describe("", () => {
       patchAction()
     )
 
-    const epic = combineEpics( 
+    const epic = combineEpics(
       connectionEpic,
       patchEpic
     )
@@ -41,7 +39,9 @@ describe("", () => {
     epic(action$, {})
       .subscribe( (r) => {
         console.log((new Date().getTime() - start) ,r)
-      }, (e) => {} , (result) => {
+      }, (e) => {
+        throw e
+      } , (result) => {
         done()
       })
   })

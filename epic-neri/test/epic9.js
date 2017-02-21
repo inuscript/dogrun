@@ -12,18 +12,33 @@ const { patchApi } = require("../api")
 //     return startConnection(action.meta.uuid)
 //   })
 
-// const createFinish = (action$) => 
+// const createFinish = (action$) =>
 //   action$.map( (action) => finishConnection(action.meta.uuid ) )
 
-const patchEpic = (action$, store) =>
-  action$.ofType("PATCH")
-    .mergeMap((action) => patchApi() )
-    .map( ({ data }) => {
-      return fullfiledAction(data.member)
-    })
-    // .withLatestFrom(createFinish(action$))
-    // .concatMap( ( a ) => a )
+const connectionEpic = (action$) =>
+  action$.filter( (action) => {
+    return action.meta && !!(action.meta.uuid)
+  }).map( (action) => {
+    return startConnection(action.meta.uuid)
+  })
 
+const patchEpicBase = (action$, store) => {
+  return action$.ofType("PATCH")
+    .mergeMap((action) => patchApi() )
+    .map( ({ data }) => fullfiledAction(data.member) )
+}
+
+const patchEpic = (action$, store) => {
+  return action$.combineLatest(
+    patchEpicBase(action$, store),
+    action$.map( (action) => action ),
+    (fullfiledAction, meta) => {
+      return [
+        fullfiledAction,
+        finishConnection(meta)
+      ]
+    }).concatAll()
+}
 
 describe("", () => {
   it.only("9", (done) => {
@@ -33,15 +48,17 @@ describe("", () => {
       patchAction()
     )
 
-    const epic = combineEpics( 
-      // connectionEpic,
+    const epic = combineEpics(
+      connectionEpic,
       patchEpic
     )
     const start = new Date().getTime()
     epic(action$, {})
       .subscribe( (r) => {
         console.log((new Date().getTime() - start) ,r)
-      }, (e) => {} , (result) => {
+      }, (e) => {
+        throw e
+      } , (result) => {
         done()
       })
   })
