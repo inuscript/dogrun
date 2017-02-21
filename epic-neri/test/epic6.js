@@ -35,7 +35,7 @@ const patchEpic = (action$, store) => {
 }
 
 describe("", () => {
-  it.only("6", (done) => {
+  it.skip("6", (done) => {
     const initActionMock = { type: "@INIT"}
     const action$ = ActionsObservable.of(
       patchAction(),
