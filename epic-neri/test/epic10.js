@@ -22,7 +22,7 @@ const connectionEpic = (action$) =>
     return startConnection(action.meta.uuid)
   })
 
-const patchEpicBase = (action$, store, baseAction) => {
+const patchEpicBase = (action$, store) => {
   return action$.ofType("PATCH")
     .mergeMap((action) => patchApi() )
     .map( ({ data }) => fullfiledAction(data.member) )
@@ -30,19 +30,27 @@ const patchEpicBase = (action$, store, baseAction) => {
 
 const patchEpic = (action$, store) => {
   return action$
-    .map( nest$ => {
-      return new ActionsObservable(nest$).combineLatest(
-        patchEpicBase(action$, store),
-        nest$.map( (action) => action ),
-        (fullfiledAction, meta) => {
-          return [
-            fullfiledAction,
-            finishConnection(meta)
-          ]
-        })
-    }).mergeAll()
+    .combineLatest(
+      patchEpicBase(action$, store),
+      action$.map( (action) => {
+        // console.log("MMMM", action)
+        return action
+      }),
+      (a, fullfiledAction, action) => {
+        console.log("XXXXXXXXXXXXXXXXXXXXXXX")
+        console.log("XXX",a, action)
+        console.log("XXXXXXXXXXXXXXXXXXXXXXX")
+        
+        return [
+          fullfiledAction,
+          finishConnection(action)
+        ]
+      })
+      .concatAll()
+//       .do( a => {
+//         console.log("XXXX", a)
+//       })
 }
-
 describe("", () => {
   it.only("10", (done) => {
     const initActionMock = { type: "@INIT"}
