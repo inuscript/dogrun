@@ -52,7 +52,7 @@ const patchEpic = (action$, store) => {
 //       })
 }
 describe("", () => {
-  it.only("10", (done) => {
+  it("10", (done) => {
     const initActionMock = { type: "@INIT"}
     const action$ = ActionsObservable.of(
       patchAction(),
