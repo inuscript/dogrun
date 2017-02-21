@@ -5,44 +5,50 @@ const { Observable } = require("rxjs")
 const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
 const { patchApi } = require("../api")
 
-const connectionEpic = (action$) => 
+// const connectionEpic = (action$) => 
+//   action$.filter( (action) => {
+//     return action.meta && !!(action.meta.uuid)
+//   }).map( (action) => {
+//     return startConnection(action.meta.uuid)
+//   })
+
+// const createFinish = (action$) =>
+//   action$.map( (action) => finishConnection(action.meta.uuid ) )
+
+const connectionEpic = (action$) =>
   action$.filter( (action) => {
     return action.meta && !!(action.meta.uuid)
   }).map( (action) => {
     return startConnection(action.meta.uuid)
   })
 
-const createFinish = (action$) => 
-  action$.map( (action) => finishConnection(action.meta.uuid ) )
+const patchEpicBase = (action$, store) => {
+  return action$.ofType("PATCH")
+    .mergeMap((action) => patchApi() )
+    .map( ({ data }) => fullfiledAction(data.member) )
+}
 
 const patchEpic = (action$, store) => {
-  const finishAction = createFinish(action$)
-  return action$.ofType("PATCH")
-    .map((action) => {
-      return Observable.merge(
-        Observable.fromPromise(patchApi),
-        Observable.of(action)
-      )
-    })
-    .mergeMap( (a) => {
-    // .mergeMap( a => {
-      console.log(a)
+  return action$.combineLatest(
+    patchEpicBase(action$, store),
+    action$.map( (action) => action ),
+    (fullfiledAction, meta) => {
       return [
-        fullfiledAction(data.member),
-        finishConnection(action.meta.uuid )
+        fullfiledAction,
+        finishConnection(meta)
       ]
-    })
+    }).concatAll()
 }
 
 describe("", () => {
-  it("6", (done) => {
+  it("9", (done) => {
     const initActionMock = { type: "@INIT"}
     const action$ = ActionsObservable.of(
       patchAction(),
       patchAction()
     )
 
-    const epic = combineEpics( 
+    const epic = combineEpics(
       connectionEpic,
       patchEpic
     )

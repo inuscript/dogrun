@@ -1,53 +1,65 @@
 require("rxjs")
-
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
 const { Observable } = require("rxjs")
 const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
 const { patchApi } = require("../api")
 
-const connectionEpic = (action$) => 
+// base:
+const _patchEpic = (action$, store)  => {
+  return action$.ofType("PATCH")
+    // .do( a => console.log(a))
+    .mergeMap((action) => patchApi() )
+    .map( ({ data }) => {
+      return fullfiledAction(data.member)
+    })
+}
+
+const connectionEpic = (action$) =>
   action$.filter( (action) => {
     return action.meta && !!(action.meta.uuid)
   }).map( (action) => {
     return startConnection(action.meta.uuid)
   })
 
-const createFinish = (action$) => 
+const createFinish = (action$) =>
   action$.map( (action) => finishConnection(action.meta.uuid ) )
 
-const patchEpic = (action$, store) => {
-  const finishAction = createFinish(action$)
-  return action$.ofType("PATCH")
-    .map((action) => {
+const patchEpic = (action$, store)  => {
+  return action$
+    .let( obs$ => {
       return Observable.merge(
-        Observable.fromPromise(patchApi),
-        Observable.of(action)
+        _patchEpic(obs$),
+        obs$.map( act => {
+          return {type: "XXX", uuid: act.meta.uuid}
+        })
       )
     })
-    .mergeMap( (a) => {
-    // .mergeMap( a => {
-      console.log(a)
-      return [
-        fullfiledAction(data.member),
-        finishConnection(action.meta.uuid )
-      ]
-    })
+
 }
 
 describe("", () => {
-  it("6", (done) => {
-    const initActionMock = { type: "@INIT"}
+  it("8", (done) => {
+    const mockAction = {
+      type: "PATCH",
+      meta: {
+        uuid: "beef-beef-beef-beef"
+      }
+    }
     const action$ = ActionsObservable.of(
       patchAction(),
       patchAction()
     )
 
-    const epic = combineEpics( 
+    const epic = combineEpics(
       connectionEpic,
       patchEpic
     )
     const start = new Date().getTime()
     epic(action$, {})
+      // .toArray()
+      // .subscribe( result => {
+      // .toPromise()
+      // .then( result => {
       .subscribe( (r) => {
         console.log((new Date().getTime() - start) ,r)
       }, (e) => {
