@@ -4,6 +4,7 @@ const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux
 const { Observable } = require("rxjs")
 const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
 const { patchApi } = require("../api")
+const configureStore = require('redux-mock-store').default
 
 
 const connectionEpic = (action$) =>
@@ -29,40 +30,27 @@ const booEpic = (action$, store) => {
 
 
 describe("", () => {
-  const epic = combineEpics(
+  const epics = combineEpics(
     connectionEpic,
     patchEpic,
     booEpic
   )
+  const start = new Date().getTime()
 
-  it("12" ,(done) => {
-    const initActionMock = { type: "@INIT"}
-    const action$ = ActionsObservable.of(
-      // patchAction(),
-      patchAction()
-    )
-    const start = new Date().getTime()
-    const source = epic(action$, {})
-    source
-      .subscribe( (r) => {
-        console.log((new Date().getTime() - start) ,r)
-      }, (e) => {
-        throw e
-      }, (result) => {
-        done()
-      })
-  })
-  it("12 - 2" ,(done) => {
-    const source = epic(ActionsObservable.of(
-      fullfiledAction("foo")
-    ), {})
-    source
-      .subscribe( (r) => {
-        console.log((new Date().getTime() - start) ,r)
-      }, (e) => {
-        throw e
-      }, (result) => {
-        // done()
-      })
+  const logger = store => next => action => {
+    const t = new Date().getTime() - start
+    console.log(t, action)
+    return next(action)
+  }
+
+  const mockStore = configureStore([
+    createEpicMiddleware(epics),
+    logger
+  ])
+
+  it.only("13" ,(done) => {
+    const initActionMock = { type: "@INIT" }
+    const store = mockStore({})
+    store.dispatch(patchAction())
   })
 })
