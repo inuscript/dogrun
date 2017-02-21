@@ -7,7 +7,7 @@ const { patchApi } = require("../api")
 // base:
 const _patchEpic = (action$, store)  => {
   return action$.ofType("PATCH")
-    .do( a => console.log(a))
+    // .do( a => console.log(a))
     .mergeMap((action) => patchApi() )
     .map( ({ data }) => {
       return fullfiledAction(data.member)
@@ -26,18 +26,19 @@ const createFinish = (action$) =>
 
 const patchEpic = (action$, store)  => {
   return action$
-    .window(action$.ofType("PATCH"))
-      .map( action$ => {
-        return _patchEpic(new ActionsObservable(action$))
-          .withLatestFrom(createFinish(action$))
-          .concatMap( ( a ) => a )
-      })
+    .let( obs$ => {
+      return Observable.merge(
+        _patchEpic(obs$),
+        obs$.map( act => {
+          return {type: "XXX", uuid: act.meta.uuid}
+        })
+      )
+    })
 
-    .mergeAll()
 }
 
 describe("", () => {
-  it.only("8", (done) => {
+  it("8", (done) => {
     const mockAction = {
       type: "PATCH",
       meta: {
