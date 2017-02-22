@@ -16,28 +16,56 @@ const connectionEpic = (action$) =>
 // const createFinish = (action$) =>
 //   action$.ofType("PATCH").map( (action) => finishConnection(action.meta.uuid ) )
 
-const patchEpicBase = (meta) => {
-  return Observable.fromPromise( patchApi() )
-    .map( ({ data }) => fullfiledAction(data.member) )
+// const patchEpicBase = (meta) => {
+//   return Observable.fromPromise( patchApi() )
+//     .map( ({ data }) => fullfiledAction(data.member) )
     // .do( a => console.log("XXX", a) )
     // .withLatestFrom(finishConnection(meta))
-}
-// const patchEpicBase = (action$, store) =>
-//   action$.ofType("PATCH")
-//     .mergeMap((action) => patchApi() )
-//     .map( ({ data }) => fullfiledAction(data.member) )
+// }
+const patchEpicBase = (action$, store) =>
+  action$.ofType("PATCH")
+    .mergeMap((action) => patchApi() )
+    .map( ({ data }) => fullfiledAction(data.member) )
     // .withLatestFrom(createFinish(action$))
     // .concatMap( ( a ) => a )
+
+    // .withLatestFrom(createFinish(action$))
 
 const patchEpic = (action$, store) =>
   action$
     .ofType("PATCH")
-    .mergeMap( action => {
-      return patchEpicBase(action.id)
+    .map( (action) => {
+      return patchEpicBase(new ActionsObservable(action))
+          .merge()
+        // finishConnection(action.meta.uuid)
+    
     })
+    //   Observable.from(        
+    //     patchEpicBase(new ActionsObservable(action))
+    //   )
+    //     patchEpicBase(new ActionsObservable(action))
+    //   )
+    // })
+    // .mergeAll()
+    // .do( a => console.log(a))
+    // .let( obs$ => {
+    //   return Observable.from(
+    //     patchEpicBase(new ActionsObservable(obs$))
+    //       .mergeMap( (f) => {
+    //         return [ 
+    //           f, 
+    //           finishConnection(action.id)
+    //         ]
+    //       })
+    //     // ,
+    //     // new ActionsObservable(finishConnection(action.id))
+    //   )
+    // })
+    // .concatAll()
+    // .do(a => console.log("a"))
 
 describe("", () => {
-  it.only("1" ,(done) => {
+  it("1" ,(done) => {
     const epics = combineEpics(
       connectionEpic,
       patchEpic
