@@ -17,10 +17,7 @@ const patchEpicBase = (action$, store) =>
     .map( ({ data }) => fullfiledAction(data.member) )
     .do( a => console.log("FINISH patchEpic"))
 
-const patchSource$ = Observable.fromPromise(patchApi())
-  .map( ({ data }) => fullfiledAction(data.member) )
-
-const patchEpic = (action$, store) =>
+const patchWithConnectionEpic = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap( (action) => {
       return Observable.concat(
