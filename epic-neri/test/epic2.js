@@ -1,7 +1,7 @@
 require("rxjs")
 
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
-const { Observable } = require("rxjs")
+const { Observable, Subject } = require("rxjs")
 const { startConnection, finishConnection, patchAction, fullfiledAction } = require("../actions")
 const { patchApi } = require("../api")
 const { createMockStore } = require("../store")
@@ -12,7 +12,7 @@ const { createMockStore } = require("../store")
 
 const patchEpicBase = (action$, store) =>
   action$
-    // .ofType("PATCH")
+    .ofType("PATCH")
     .mergeMap((action) => patchApi() )
     .map( ({ data }) => fullfiledAction(data.member) )
     .do( a => console.log("FINISH patchEpic"))
@@ -23,17 +23,12 @@ const patchSource$ = Observable.fromPromise(patchApi())
 const patchEpic = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap( (action) => {
-      // const s = patchEpicBase(new ActionsObservable(action), store)
-      // const s = patchEpicBase(action$, store)
-      // const s = Observable.fromPromise(patchApi())
-      //   .map( ({ data }) => fullfiledAction(data.member) )
       return Observable.concat(
         Observable.of(startConnection(action.meta.uuid)),
-        patchSource$,
+        patchEpicBase(ActionsObservable.of(action)),
         Observable.of(finishConnection(action.meta.uuid))
       )
     })
-    // .do(a => console.log("DOOO", a) )
 
 
 describe("", () => {
