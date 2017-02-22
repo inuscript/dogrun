@@ -17,17 +17,19 @@ const patchEpicBase = (action$, store) =>
     .map( ({ data }) => fullfiledAction(data.member) )
     .do( a => console.log("FINISH patchEpic"))
 
+const patchSource$ = Observable.fromPromise(patchApi())
+  .map( ({ data }) => fullfiledAction(data.member) )
+
 const patchEpic = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap( (action) => {
       // const s = patchEpicBase(new ActionsObservable(action), store)
       // const s = patchEpicBase(action$, store)
-      const s = Observable.fromPromise(patchApi())
-        .map( ({ data }) => fullfiledAction(data.member) )
-
+      // const s = Observable.fromPromise(patchApi())
+      //   .map( ({ data }) => fullfiledAction(data.member) )
       return Observable.concat(
         Observable.of(startConnection(action.meta.uuid)),
-        s,
+        patchSource$,
         Observable.of(finishConnection(action.meta.uuid))
       )
     })
