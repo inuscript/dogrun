@@ -5,10 +5,10 @@
   "author": "inuscript <inuscript@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node test/index.ts",
-    "test": "ts-node test/index.ts"
+    "test": "ava"
   },
   "dependencies": {
+    "ava": "^0.18.2",
     "mocha": "^3.2.0",
     "redux-observable": "^0.13.0",
     "rxjs": "^5.2.0",

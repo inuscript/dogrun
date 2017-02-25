@@ -1,7 +1,8 @@
-import "rxjs"
+import "rxjs" 
 import { patchApi } from "../api"
-import { ActionsObservable, combineEpics, Epic } from "redux-observable"
+import { ActionsObservable, combineEpics } from "redux-observable"
 import { Observable } from "rxjs"
+import test from "ava"
 
 function mySimpleOperator(someCallback) {
    return ActionsObservable.create(subscriber => {
@@ -23,28 +24,24 @@ function mySimpleOperator(someCallback) {
    });
 }
 
-const patchEpicBase: Epic<any, any> = (action$, store) =>
+const patchEpicBase = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap((action) => patchApi() )
     .map( ({ data }) => ({type: "FULLFILL", data }) )
 
-const patch2Epic: Epic<any, any> = (action$, store) =>
+const patch2Epic= (action$, store) =>
   action$.ofType("PATCH")
     .lift(mySimpleOperator(a => console.log(a)))
     .ignoreElements()
 
-const it = () => {
+test((t) => {
   console.log("start")
   const seedAction$ = ActionsObservable.of({type: "PATCh"})
   const epics = combineEpics(patchEpicBase, patch2Epic)
-  epics(seedAction$, {})
+  return epics(seedAction$, {})
     .toArray()
-    .subscribe( r => {
+    .toPromise()
+    .then( r => {
       console.log(r)
-    }, 
-    e => { throw e }, 
-    () => {
-      console.log("complete")
     })
-}
-it()
+})
