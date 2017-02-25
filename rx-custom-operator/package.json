@@ -1,0 +1,19 @@
+{
+  "name": "rx-custom-operator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "inuscript <inuscript@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node test/index.ts"
+  },
+  "dependencies": {
+    "mocha": "^3.2.0",
+    "redux-observable": "^0.13.0",
+    "rxjs": "^5.2.0",
+    "typescript": "^2.2.1"
+  },
+  "devDependencies": {
+    "ts-node": "^2.1.0"
+  }
+}
