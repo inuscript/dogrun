@@ -5,7 +5,8 @@
   "author": "inuscript <inuscript@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node test/index.ts"
+    "start": "ts-node test/index.ts",
+    "test": "ts-node test/index.ts"
   },
   "dependencies": {
     "mocha": "^3.2.0",
