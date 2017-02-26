@@ -4,15 +4,13 @@ import { ActionsObservable, combineEpics } from "redux-observable"
 import { Observable } from "rxjs"
 import test from "ava"
 
-function mySimpleOperator(someCallback) {
-   console.log("1111111111111")
+function mySimpleOperator() {
    return ActionsObservable.create(subscriber => {
-     console.log("HEEEE")
      var source = this;
 
      var subscription = source.subscribe(value => {
        try {
-         subscriber.next(someCallback(value));
+         subscriber.next({type: "CUSTOM_FOO"});
        } catch(err) {
          subscriber.error(err);
        }
@@ -25,21 +23,26 @@ function mySimpleOperator(someCallback) {
    });
 }
 
+// const $$myOperatorSymbol = Symbol("myOperator")
 ActionsObservable.prototype.mySimpleOperator = mySimpleOperator
+
 const patchEpicBase = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap((action) => patchApi() )
     .map( ({ data }) => ({type: "FULLFILL", data }) )
-
+    
 const patch2Epic= (action$, store) =>
   action$.ofType("PATCH")
     .mySimpleOperator()
-    .ignoreElements()
+    // .ignoreElements()
 
 test((t) => {
   console.log("start")
-  const seedAction$ = ActionsObservable.of({type: "PATCh"})
-  const epics = combineEpics(patchEpicBase, patch2Epic)
+  const seedAction$ = ActionsObservable.of({type: "PATCH"})
+  const epics = combineEpics(
+    patchEpicBase, 
+    patch2Epic
+  )
   return epics(seedAction$, {})
     .toArray()
     .toPromise()
