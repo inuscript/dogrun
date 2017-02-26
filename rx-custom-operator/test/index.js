@@ -5,6 +5,7 @@ import { Observable } from "rxjs"
 import test from "ava"
 
 function mySimpleOperator(someCallback) {
+   console.log("1111111111111")
    return ActionsObservable.create(subscriber => {
      console.log("HEEEE")
      var source = this;
