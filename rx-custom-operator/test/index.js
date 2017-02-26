@@ -25,6 +25,7 @@ function mySimpleOperator(someCallback) {
    });
 }
 
+ActionsObservable.prototype.mySimpleOperator = mySimpleOperator
 const patchEpicBase = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap((action) => patchApi() )
@@ -32,7 +33,7 @@ const patchEpicBase = (action$, store) =>
 
 const patch2Epic= (action$, store) =>
   action$.ofType("PATCH")
-    .lift(mySimpleOperator(a => console.log(a)))
+    .mySimpleOperator()
     .ignoreElements()
 
 test((t) => {
