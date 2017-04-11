@@ -7,10 +7,9 @@ import test from "ava"
 function mySimpleOperator() {
    return ActionsObservable.create(subscriber => {
      var source = this;
-
      var subscription = source.subscribe(value => {
        try {
-         subscriber.next({type: "CUSTOM_FOO"});
+         subscriber.next({type: "CUSTOM_OPERATOR_TYPE"});
        } catch(err) {
          subscriber.error(err);
        }
@@ -23,25 +22,26 @@ function mySimpleOperator() {
    });
 }
 
-// const $$myOperatorSymbol = Symbol("myOperator")
-ActionsObservable.prototype.mySimpleOperator = mySimpleOperator
+const $$myOperatorSymbol = Symbol("myOperator")
+Observable.prototype[$$myOperatorSymbol] = mySimpleOperator
 
 const patchEpicBase = (action$, store) =>
   action$.ofType("PATCH")
     .mergeMap((action) => patchApi() )
     .map( ({ data }) => ({type: "FULLFILL", data }) )
     
-const patch2Epic= (action$, store) =>
-  action$.ofType("PATCH")
-    .mySimpleOperator()
-    // .ignoreElements()
+const patchEpic = (action$, store) => {
+  return action$.ofType("PATCH")
+    [$$myOperatorSymbol]()
+    // .apply(action$, mySimpleOperator)
+}
 
 test((t) => {
   console.log("start")
   const seedAction$ = ActionsObservable.of({type: "PATCH"})
   const epics = combineEpics(
     patchEpicBase, 
-    patch2Epic
+    patchEpic
   )
   return epics(seedAction$, {})
     .toArray()
