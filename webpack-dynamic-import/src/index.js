@@ -1,4 +1,6 @@
 const main = () => {
-  const lib = require("bundle-loader?lazy!./lib")
-  lib()
+  require.ensure([], (require) => {
+    const lib = require("./lib")
+    lib()
+  })
 }
