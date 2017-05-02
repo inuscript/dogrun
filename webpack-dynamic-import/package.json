@@ -3,6 +3,7 @@
     "build": "webpack"
   },
   "devDependencies": {
+    "bundle-loader": "^0.5.5",
     "webpack": "^2.4.1"
   }
 }
