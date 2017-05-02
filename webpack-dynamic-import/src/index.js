@@ -1,6 +1,4 @@
 const main = () => {
-  require.ensure([], (require) => {
-    const lib = require("./lib")
-    lib()
-  })
+  const lib = import("./lib")
+  lib()
 }
