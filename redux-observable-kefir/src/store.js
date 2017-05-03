@@ -2,7 +2,8 @@ import { combineReducers, createStore, applyMiddleware } from "redux"
 import { combineEpics, createEpicMiddleware } from "redux-observable"
 import mostAdapter from 'redux-observable-adapter-most';
 import { ofType } from 'redux-observable-adapter-most';
-
+import { from } from 'rxjs/observable/from';
+import ZenObservable from "zen-observable"
 // reducer
 const number = (state = 0, action ) => {
   switch(action.type){
@@ -19,17 +20,38 @@ export const changeNumber = (number) => ({
 })
 
 // epics
-const randomEpic = (action$) => (
-  ofType("RANDOM", action$)
+const randomEpic = (action$) => {
+  return ZenObservable.from(action$)
+    .filter((action) => {
+      return action.type === "RANDOM"
+    })
     .map(() => {
       return changeNumber(Math.random())
     })
-)
+}
 // middleware
 const epics = combineEpics(randomEpic)
 const middleware = createEpicMiddleware(epics, {
-  adapter: mostAdapter
+  // adapter: mostAdapter
+  adapter : {
+    input : input$ => (new ZenObservable(observer => {
+      input$.subscribe(
+        (x) => observer.next(x),
+        (err) => observer.error(err),
+        (x) => observer.complete(x)
+      )
+      }))
+    ,
+    output : output$ => from(output$)
+  }
 })
+
+const logger = store => next => action => {
+  console.log('dispatching', action)
+  let result = next(action)
+  // console.log('next state', store.getState())
+  return result
+}
 
 
 
@@ -39,5 +61,5 @@ const reducer = combineReducers({
 })
 
 export const configureStore = () => {
-  return createStore(reducer, applyMiddleware(middleware))
+  return createStore(reducer, applyMiddleware(middleware, logger))
 }
