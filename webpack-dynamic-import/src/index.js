@@ -1,4 +1,5 @@
+const react = require("react")
 const main = () => {
-  const lib = import("./lib")
-  lib()
+  console.log("This is main")
+  console.log(react)
 }
