@@ -1,5 +1,10 @@
-const react = require("react")
+
+/**
+ * @template T
+ * @return {Promise<T>}
+ */
+export const lib = () => import("./lib")
+
 const main = () => {
-  console.log("This is main")
-  console.log(react)
+  lib()
 }
