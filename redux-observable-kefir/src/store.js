@@ -10,8 +10,9 @@ const number = (state = 0, action ) => {
   switch(action.type){
     case "CHANGE":
       return action.payload
+    default:
+      return state
   }
-  return state
 }
 
 const logger = store => next => action => {
