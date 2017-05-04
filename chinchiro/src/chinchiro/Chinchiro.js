@@ -3,16 +3,8 @@ import './App.css';
 import { connect, Provider } from "react-redux"
 import { configureStore } from "./redux/store"
 import { startRoll } from "./redux/action"
+import { Dice } from "./Dice"
 
-class Dice extends Component {
-  render(){
-    const { value } = this.props
-    if(value === null){
-      return "-"
-    }
-    return value
-  }
-}
 
 const Money = ({money}) => <div>money: ${money}</div>
 

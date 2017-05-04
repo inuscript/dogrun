@@ -12,7 +12,6 @@ const startRoll$ = (action$) =>
       Observable.of(betMoney(10)),
       Observable.of(stopRoll())
         .delay(100)
-
     ))
 
 const stopRoll$ = (action$) => 
