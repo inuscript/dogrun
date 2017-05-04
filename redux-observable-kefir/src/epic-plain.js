@@ -7,14 +7,51 @@ class MyObserver {
   constructor(destination){
     this.destination = destination
   }
-  next(value){
-    return this.destination.next(value)
+  next(value) {
+    // only try to next if you're subscribed have a handler
+    if (!this.isUnsubscribed && this.destination.next) {
+      try {
+        this.destination.next(value);
+      } catch (err) {
+        // if the provided handler errors, teardown resources, then throw
+        this.unsubscribe();
+        throw err;
+      }
+    }
   }
+  
   error(err) {
-    return this.destination.error(err)
+    // only try to emit error if you're subscribed and have a handler
+    if (!this.isUnsubscribed && this.destination.error) {
+      try {
+        this.destination.error(err);
+      } catch (e2) {
+        // if the provided handler errors, teardown resources, then throw
+        this.unsubscribe();
+        throw e2;
+      }
+      this.unsubscribe();
+    }
   }
-  complete(){
-    return this.destination.complete()
+
+  complete() {
+    // only try to emit completion if you're subscribed and have a handler
+    if (!this.isUnsubscribed && this.destination.complete) {
+      try {
+        this.destination.complete();
+      } catch (err) {
+        // if the provided handler errors, teardown resources, then throw
+        this.unsubscribe();
+        throw err;
+      }
+      this.unsubscribe();
+    }
+  }
+  unsubscribe() {
+    this.isUnsubscribed = true;
+    if (this.unsub) {
+      this.unsub();
+    }
   }
 }
 
@@ -23,9 +60,9 @@ class MyObservable {
     this._subscribe = _subscribe;
   }
   subscribe(observer) {
-    console.log("subscr")
-    const myObserver = new MyObserver(observer);
-    this._subscribe(myObserver)
+    const safeObserver = new MyObserver(observer);
+    safeObserver.unsub = this._subscribe(safeObserver);
+    return safeObserver.unsubscribe.bind(safeObserver);
   }
 }
 MyObservable.prototype.filter = (fn) => {
@@ -67,7 +104,8 @@ export const middleware = createEpicMiddleware(epics, {
   adapter: {
     input : input$ => {
       // input$.subscribe((n) => console.log("debug",n))
-      const myObs = new MyObservable(observer =>{
+      const myObs = new MyObservable(observer => {
+        console.log("subs")
         input$.subscribe(
           (n) => {
             console.log(n)
