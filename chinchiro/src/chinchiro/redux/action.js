@@ -3,6 +3,10 @@ export const startRoll = () => ({
   type: "START_ROLL",
 })
 
+export const stopRoll = () => ({
+  type: "STOP_ROLL",
+})
+
 export const rollDice = (number, value) => ({
   type: "ROLL_DICE",
   payload: {
