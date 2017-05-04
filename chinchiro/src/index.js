@@ -1,9 +1,10 @@
+import "rxjs"
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Chinchiro from './chinchiro/Chinchiro';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <Chinchiro />,
   document.getElementById('root')
 );
