@@ -16,7 +16,24 @@ const startRoll = (action$) =>
       ])
     })
 
+const checkDices = (action$) => 
+  Observable.zip(
+    action$.ofType("ROLL_DICE")
+      .filter( action => action.payload.number === 0)
+      .map( action => action.payload.value),
+    action$.ofType("ROLL_DICE")
+      .filter( action => action.payload.number === 1)
+      .map( action => action.payload.value),
+    action$.ofType("ROLL_DICE")
+      .filter( action => action.payload.number === 2)
+      .map( action => action.payload.value),
+  ).map( (dices) => {
+    console.log(dices.sum())
+  })
+  .ignoreElements()
+
 export const epics = combineEpics(
-  startRoll
+  startRoll,
+  checkDices
 )
 
