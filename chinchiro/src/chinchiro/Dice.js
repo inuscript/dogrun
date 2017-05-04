@@ -4,7 +4,7 @@ import styled from "styled-components"
 const DiceItem = styled.div`
   display: inline-block;
   border-radius: 20px;
-  background: red;
+  background: #f44141;
   color: white;
   margin: 0.2em;
   padding: 10px;
