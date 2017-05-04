@@ -14,11 +14,14 @@ class Dice extends Component {
   }
 }
 
+const Money = ({money}) => <div>money: ${money}</div>
+
 class App extends Component {
   render() {
-    const { dices, dispatch } = this.props
+    const { dices, dispatch , money } = this.props
     return (
       <div className="App">
+        <Money money={money} />
         {Object.entries(dices).map( ([i, d]) => {
           return <Dice value={d} key={i} />
         })}

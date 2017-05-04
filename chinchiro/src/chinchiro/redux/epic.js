@@ -1,6 +1,6 @@
 import { combineEpics } from "redux-observable"
 import { Observable } from "rxjs"
-import { rollDice } from "./action"
+import { rollDice, betMoney } from "./action"
 
 // util
 const randomDice = () => Math.floor(Math.random() * 6) + 1
@@ -10,6 +10,7 @@ const startRoll = (action$) =>
   action$.ofType("START_ROLL")
     .mergeMap( () => {
       return Observable.from([
+        betMoney(10),
         rollDice(0, randomDice()),
         rollDice(1, randomDice()),
         rollDice(2, randomDice()),

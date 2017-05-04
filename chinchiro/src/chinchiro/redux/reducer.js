@@ -14,13 +14,16 @@ const dices = (state = initialDice, action) => {
   }
 }
 
-// const money = (state = 500, action) => {
-//   switch(action.type){
-//     case "ADD_MONEY":
-//       return state + action.payload
-//   }
-// }
+const money = (state = 500, action) => {
+  switch(action.type){
+    case "CACL_MONEY":
+      return state + action.payload
+    default: 
+      return state
+  }
+}
 
 export const reducer = combineReducers({
-  dices
+  dices,
+  money
 })

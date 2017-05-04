@@ -11,6 +11,11 @@ export const rollDice = (number, value) => ({
 })
 
 export const addMoney = ( value) => ({
-  type: "ADD_MONEY",
+  type: "CACL_MONEY",
   payload: value
+})
+
+export const betMoney = (value) => ({
+  type: "CACL_MONEY",
+  payload: -1 * value
 })
