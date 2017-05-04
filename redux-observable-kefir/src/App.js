@@ -7,7 +7,6 @@ import { changeRandom } from "./action"
 
 class App extends Component {
   render() {
-    console.log(this.props)
     return (
       <div className="App">
         <div>{this.props.number}</div>

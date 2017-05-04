@@ -1,7 +1,9 @@
 import { combineReducers, createStore, applyMiddleware } from "redux"
 // import { middleware } from "./epic-zen"
 // import { middleware } from "./epic-rxjs"
-import { middleware } from "./epic-most"
+// import { middleware } from "./epic-most"
+import { middleware } from "./epic-plain"
+// import { middleware } from "./epic-promise"
 
 // reducer
 const number = (state = 0, action ) => {
