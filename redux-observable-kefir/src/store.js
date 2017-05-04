@@ -34,14 +34,7 @@ const epics = combineEpics(randomEpic)
 const middleware = createEpicMiddleware(epics, {
   // adapter: mostAdapter
   adapter : {
-    input : input$ => (new ZenObservable(observer => {
-      input$.subscribe(
-        (x) => observer.next(x),
-        (err) => observer.error(err),
-        (x) => observer.complete(x)
-      )
-      }))
-    ,
+    input : input$ => (new ZenObservable(obs => input$.subscribe(obs))),
     output : output$ => from(output$)
   }
 })
