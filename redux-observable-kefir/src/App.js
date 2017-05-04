@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { connect, Provider } from "react-redux"
 import { configureStore } from "./store"
+import { changeRandom } from "./action"
 
 class App extends Component {
   render() {
@@ -11,7 +12,7 @@ class App extends Component {
       <div className="App">
         {this.props.number}
         <button onClick={
-          () => this.props.dispatch({type: "RANDOM"})
+          () => this.props.dispatch(changeRandom())
         }>random</button>
       </div>
     );
