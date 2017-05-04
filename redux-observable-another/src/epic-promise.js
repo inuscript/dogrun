@@ -15,6 +15,8 @@ const randomPromise = (actionPromise) => {
       return changeNumber(Math.random())
     }
     return {}
+  }).catch(e => {
+    console.log(e)
   })
 }
 
@@ -22,13 +24,7 @@ const randomPromise = (actionPromise) => {
 const epics = combineEpics(randomPromise)
 export const middleware = createEpicMiddleware(epics, {
   adapter : {
-    input : action$ => {
-      return Observable.from(action$).map( (v) => {
-        // toPromise()
-        console.log(v)
-        return v
-      })
-    },
+    input : action$ => new Promise( (resolve, reject) => action$.subscribe((v) => resolve(v), err => reject(err))),
     output : promise => {
       // console.log("out", promise)
       return Observable.from(promise)
