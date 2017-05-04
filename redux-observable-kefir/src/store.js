@@ -1,7 +1,8 @@
 import { combineReducers, createStore, applyMiddleware } from "redux"
-// import mostAdapter from 'redux-observable-adapter-most';
-// import { ofType } from 'redux-observable-adapter-most';
-import { middleware } from "./epic-zen"
+// import { middleware } from "./epic-zen"
+// import { middleware } from "./epic-rxjs"
+import { middleware } from "./epic-most"
+
 // reducer
 const number = (state = 0, action ) => {
   switch(action.type){

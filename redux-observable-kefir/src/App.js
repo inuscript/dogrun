@@ -10,10 +10,12 @@ class App extends Component {
     console.log(this.props)
     return (
       <div className="App">
-        {this.props.number}
-        <button onClick={
-          () => this.props.dispatch(changeRandom())
-        }>random</button>
+        <div>{this.props.number}</div>
+        <div>
+          <button onClick={
+            () => this.props.dispatch(changeRandom())
+          }>random</button>
+        </div>
       </div>
     );
   }
