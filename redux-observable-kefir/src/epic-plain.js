@@ -67,7 +67,7 @@ export const middleware = createEpicMiddleware(epics, {
   adapter: {
     input : input$ => {
       // input$.subscribe((n) => console.log("debug",n))
-      const myObs = new MyObservable(observer => {
+      const myObs = new MyObservable(observer =>{
         input$.subscribe(
           (n) => {
             console.log(n)
