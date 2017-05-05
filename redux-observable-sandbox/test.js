@@ -1,6 +1,6 @@
 require("rxjs")
 const { Observable } = require("rxjs")
-const { ActionsObservable } = require("redux-observable")
+const { ActionsObservable, combineEpics } = require("redux-observable")
 
 const fetchBook = (id) => new Promise( (res) => res({
   data: {
@@ -17,7 +17,23 @@ const fetchAuthor = (name) => new Promise( (res) => res({
   }
 }))
 
-const fetchBookAndAuthor = (action$) => 
+// const fetchBookAndAuthor = (action$) => 
+//   action$.ofType("FETCH_BOOK_REQUEST")
+//     .mergeMap( action => fetchBook(action.id) )
+//     .map( response => response.data )
+//     .mergeMap( data => Observable.merge(
+//       Observable.of({
+//         type: "FULLFILLED_BOOK",
+//         data
+//       }),
+//       Observable.fromPromise(fetchAuthor(data.author) )
+//         .map( response => response.data )
+//         .map( data => ({
+//           type: "FULLFILLED_AUTHOR",
+//           data
+//         }))
+//     ))
+const fetchBookEpic = (action$) => 
   action$.ofType("FETCH_BOOK_REQUEST")
     .mergeMap( action => fetchBook(action.id) )
     .map( response => response.data )
@@ -26,18 +42,31 @@ const fetchBookAndAuthor = (action$) =>
         type: "FULLFILLED_BOOK",
         data
       }),
-      Observable.fromPromise(fetchAuthor(data.author) )
-        .map( response => response.data )
-        .map( data => ({
-          type: "FULLFILLED_AUTHOR",
-          data
-        }))
+
+      Observable.of({
+        type: "FETCH_AUTHOR_REQUEST",
+        author: data.author
+      })
     ))
+
+const fetchAuthorEpic = (action$) => 
+  action$.ofType("FETCH_AUTHOR_REQUEST")
+    .mergeMap(action => fetchAuthor(action.author) )
+    .map( response => response.data )
+    .map( data => ({
+      type: "FULLFILLED_AUTHOR",
+      data
+    }))
+
+const someLoading = combineEpics(
+  fetchBookEpic,
+  fetchAuthorEpic
+)
 
 describe("",() => {
   it("",(done) => {
     const input$ = ActionsObservable.of({
-      type: "FETCH_REQUEST",
+      type: "FETCH_BOOK_REQUEST",
       id: 100
     })
     return someLoading(input$)
