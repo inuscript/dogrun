@@ -28,5 +28,5 @@ const reducer = combineReducers({
 })
 
 export const configureStore = () => {
-  return createStore(reducer, applyMiddleware(middleware, logger))
+  return createStore(reducer, applyMiddleware(logger, middleware))
 }
