@@ -1,6 +1,7 @@
 require("rxjs")
 const { Observable } = require("rxjs")
-const { ActionsObservable, combineEpics } = require("redux-observable")
+const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
+const configureMockStore = require('redux-mock-store').default
 
 const fetchBook = (id) => new Promise( (res) => res({
   data: {
@@ -37,17 +38,19 @@ const fetchBookEpic = (action$) =>
   action$.ofType("FETCH_BOOK_REQUEST")
     .mergeMap( action => fetchBook(action.id) )
     .map( response => response.data )
-    .mergeMap( data => Observable.merge(
-      Observable.of({
+    .map( data => ({
         type: "FULLFILLED_BOOK",
         data
-      }),
+      })
+    )
 
-      Observable.of({
+const fetchAuthorWhenBookFullfilledEpic = (action$) => 
+  action$.ofType("FULLFILLED_BOOK")
+    .map(data => ({
         type: "FETCH_AUTHOR_REQUEST",
         author: data.author
       })
-    ))
+    )
 
 const fetchAuthorEpic = (action$) => 
   action$.ofType("FETCH_AUTHOR_REQUEST")
@@ -58,10 +61,14 @@ const fetchAuthorEpic = (action$) =>
       data
     }))
 
-const someLoading = combineEpics(
+const rootEpic = combineEpics(
   fetchBookEpic,
+  fetchAuthorWhenBookFullfilledEpic,
   fetchAuthorEpic
 )
+
+const epicMiddleware = createEpicMiddleware(rootEpic);
+const mockStore = configureMockStore([epicMiddleware]);
 
 describe("",() => {
   it("",(done) => {
@@ -69,11 +76,7 @@ describe("",() => {
       type: "FETCH_BOOK_REQUEST",
       id: 100
     })
-    return someLoading(input$)
-      .toArray()
-      .subscribe(result => {
-        console.log(result)
-        done()
-      })
+    rootEpic(input$)
+      .next( v => console.log(v))
   })
 })
