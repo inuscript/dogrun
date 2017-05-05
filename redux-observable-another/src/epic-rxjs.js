@@ -1,10 +1,9 @@
 import { combineEpics, createEpicMiddleware } from "redux-observable"
 import { changeNumber } from "./action"
-import "rxjs" // needs
+import Rx from "rxjs/Rx" // needs
 
 // epics
 const randomEpic = (action$) => {
-  console.log(action$)
   return action$
     .filter((action) => {
       return action.type === "RANDOM"
@@ -13,11 +12,21 @@ const randomEpic = (action$) => {
       return changeNumber(Math.random())
     })
 }
+
+const pongEpic = (action$) => action$
+  .filter(({type}) => type === "PING")
+  .mapTo({
+    type: "PONG"
+  })
+
+const timerEpic = () => {
+  return Rx.Observable.interval(1000).map(time => ({
+    type: "INTERVAL",
+    payload: time
+  }))
+}
+
 // middleware
-const epics = combineEpics(randomEpic)
-export const middleware = createEpicMiddleware(epics, {
-  adapter: {
-    input : input$ => (new ZenObservable(obs => input$.subscribe(obs))),
-    output : output$ => from(output$)
-  }
-})
+const epics = combineEpics(randomEpic, timerEpic)
+export const middleware = createEpicMiddleware(epics)
+
