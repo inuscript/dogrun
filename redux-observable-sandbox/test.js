@@ -17,8 +17,8 @@ const fetchAuthor = (name) => new Promise( (res) => res({
   }
 }))
 
-const someLoading = (action$) => 
-  action$.ofType("FETCH_REQUEST")
+const fetchBookAndAuthor = (action$) => 
+  action$.ofType("FETCH_BOOK_REQUEST")
     .mergeMap( action => fetchBook(action.id) )
     .map( response => response.data )
     .mergeMap( data => Observable.merge(
