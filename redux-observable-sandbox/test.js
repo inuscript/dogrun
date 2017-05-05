@@ -1,5 +1,5 @@
 require("rxjs")
-const { Observable } = require("rxjs")
+const { Observable, Subject } = require("rxjs")
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
 const configureMockStore = require('redux-mock-store').default
 
@@ -37,33 +37,29 @@ const fetchAuthor = (name) => new Promise( (res) => res({
 const fetchBookEpic = (action$) => 
   action$.ofType("FETCH_BOOK_REQUEST")
     .mergeMap( action => fetchBook(action.id) )
-    .map( response => response.data )
-    .map( data => ({
-        type: "FULLFILLED_BOOK",
-        data
-      })
-    )
+    .map( response => ({
+      type: "FULLFILLED_BOOK",
+      data: response.data
+    }))
 
-const fetchAuthorWhenBookFullfilledEpic = (action$) => 
+const requestAuthorEpic = (action$) => 
   action$.ofType("FULLFILLED_BOOK")
-    .map(data => ({
-        type: "FETCH_AUTHOR_REQUEST",
-        author: data.author
-      })
-    )
+    .map(({data}) => ({
+      type: "FETCH_AUTHOR_REQUEST",
+      author: data.author
+    }))
 
 const fetchAuthorEpic = (action$) => 
   action$.ofType("FETCH_AUTHOR_REQUEST")
     .mergeMap(action => fetchAuthor(action.author) )
-    .map( response => response.data )
-    .map( data => ({
+    .map( response => ({
       type: "FULLFILLED_AUTHOR",
-      data
+      data: response.data
     }))
 
 const rootEpic = combineEpics(
   fetchBookEpic,
-  fetchAuthorWhenBookFullfilledEpic,
+  requestAuthorEpic,
   fetchAuthorEpic
 )
 
@@ -72,11 +68,20 @@ const mockStore = configureMockStore([epicMiddleware]);
 
 describe("",() => {
   it("",(done) => {
-    const input$ = ActionsObservable.of({
+    const subject = new Subject()
+    const actions$ = new ActionsObservable(subject)
+ 
+    const initialAction = {
       type: "FETCH_BOOK_REQUEST",
       id: 100
-    })
-    rootEpic(input$)
-      .next( v => console.log(v))
+    }
+    rootEpic(actions$)
+      // .take(3)
+      // .toArray()
+      .subscribe( a => {
+        console.log("sub", a)
+        subject.next(a)
+      })
+    subject.next(initialAction)
   })
 })
