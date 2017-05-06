@@ -69,7 +69,7 @@ const epicMiddleware = createEpicMiddleware(rootEpic);
 const mockStore = configureMockStore([epicMiddleware]);
 
 describe("Action chain sample",() => {
-  it("chain", (done) => {
+  it("chain", () => {
     const initialActions = []
     const subject = testSubject(rootEpic)
 
@@ -79,7 +79,7 @@ describe("Action chain sample",() => {
       id: 100
     })
 
-    subject
+    return subject
       .take(3)
       .toArray()
       .toPromise()
@@ -90,7 +90,6 @@ describe("Action chain sample",() => {
           { type: 'FULLFILLED_AUTHOR', data: { name: '夏目漱石', birthday: '1867-02-09' } } 
         ]
         assert.deepEqual(expect, actions)
-        return done()
       })
   })
 })
