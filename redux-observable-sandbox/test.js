@@ -66,22 +66,35 @@ const rootEpic = combineEpics(
 const epicMiddleware = createEpicMiddleware(rootEpic);
 const mockStore = configureMockStore([epicMiddleware]);
 
+const testHelper = (initialActions, epic) => {
+  const subject = new Subject()
+  const actions$ = new ActionsObservable(subject)
+  
+  // emulate action loop
+  epic(actions$).subscribe(v => subject.next(v))
+  // kick
+  initialActions.map( act => {
+    subject.next(act)
+  })
+  return subject
+}
+
 describe("",() => {
-  it("",(done) => {
+  it("", (done) => {
     const subject = new Subject()
     const actions$ = new ActionsObservable(subject)
- 
-    const initialAction = {
+    
+    const initialActions = [{
       type: "FETCH_BOOK_REQUEST",
       id: 100
-    }
-    rootEpic(actions$)
-      // .take(3)
-      // .toArray()
-      .subscribe( a => {
-        console.log("sub", a)
-        subject.next(a)
+    }]
+    testHelper(initialActions, rootEpic)
+      .take(3)
+      .toArray()
+      .toPromise()
+      .then( actions => {
+        console.log(actions)
+        return done()
       })
-    subject.next(initialAction)
   })
 })
