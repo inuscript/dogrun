@@ -2,7 +2,7 @@ require("rxjs")
 const { Observable, Subject } = require("rxjs")
 const { ActionsObservable, combineEpics, createEpicMiddleware } = require("redux-observable")
 const configureMockStore = require('redux-mock-store').default
-
+const testSubject = require("./testHelper")
 const fetchBook = (id) => new Promise( (res) => res({
   data: {
     id,
@@ -66,20 +66,10 @@ const rootEpic = combineEpics(
 const epicMiddleware = createEpicMiddleware(rootEpic);
 const mockStore = configureMockStore([epicMiddleware]);
 
-const testHelper = (epic) => {
-  const subject = new Subject()
-  const actions$ = new ActionsObservable(subject)
-  
-  // emulate action loop
-  epic(actions$).subscribe(v => subject.next(v))
-  // kick
-  return subject
-}
-
 describe("",() => {
   it("", (done) => {
     const initialActions = []
-    const subject = testHelper(rootEpic)
+    const subject = testSubject(rootEpic)
 
     // kick
     subject.next({
