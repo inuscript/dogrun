@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/@webcomponents/custom-elements@1.0.0-rc.3/src/native-shim.js"></script>
+    <script src="https://unpkg.com/@skatejs/web-components/umd/@skatejs/web-components.min.js"></script>
+    <script src="https://unpkg.com/skatejs/umd/skatejs.min.js"></script>
+  </head>
+  <body>
+    <x-hello name="Bob"></x-hello>
+    <script>
+      class Hello extends skate.Component {
+        static get props () {
+          return {
+            name: { attribute: true }
+          };
+        }
+        renderCallback () {
+          return skate.h('div', `Hello, ${this.name}`);
+        }
+      }
+      customElements.define('x-hello', Hello)
+    </script>
+  </body>
+</html>
