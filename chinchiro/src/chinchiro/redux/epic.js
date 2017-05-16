@@ -27,8 +27,3 @@ export const epics = combineEpics(
   stopRoll$
 )
 
-
-const someLoading = (action$) => 
-  action$.ofType("FETCH_REQUEST")
-    .mergeMap( action => axios.get(`/api/user/${action.id}`) )
-    

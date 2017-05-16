@@ -7,7 +7,7 @@ const testSubject = (epic) => {
   
   // emulate action loop
   epic(actions$)
-    // .do(a => console.log("aaa",a))
+    .do(console.log)
     .subscribe(
       v => subject.next(v),
       err => subject.error(err),

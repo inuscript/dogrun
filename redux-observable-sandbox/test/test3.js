@@ -5,15 +5,15 @@ const testSubject = require("./testHelper")
 
 const pingEpic = (action$) => 
   action$.ofType("PING")
-    .mapTo({type: "PONG"})
+    .concat(() => ({type: "PONG"}))
 
-const pongEpic = (action$) => 
-  action$.ofType("PONG")
-    .mapTo({type: "PUNG"})
+// const pongEpic = (action$) => 
+//   action$.ofType("PONG")
+//     .concat(() => ({type: "PUNG"}))
 
 const rootEpic = combineEpics(
-  pingEpic,
-  pongEpic
+  pingEpic//,
+  // pongEpic
 )
 
 describe('Epic test', () => {
@@ -21,15 +21,15 @@ describe('Epic test', () => {
     const subject = testSubject(rootEpic)
 
     const promise = subject
-      .take(3)
+      .take(2)
       .toArray()
       .toPromise()
       .then( result => {
-        // console.log(result)
+        console.log(result)
         const expect = [ 
           { type: 'PING' },
           { type: 'PONG' }, 
-          { type: 'PUNG' }, 
+          // { type: 'PUNG' }, 
         ]
         assert.deepEqual(expect, result)
       })
