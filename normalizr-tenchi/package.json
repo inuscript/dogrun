@@ -1,0 +1,15 @@
+{
+  "name": "normalizr-tenchi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "inuscript <inuscript@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "mocha": "^3.4.1",
+    "normalizr": "^3.2.3"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}
