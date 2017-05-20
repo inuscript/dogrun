@@ -6,6 +6,8 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.4",
+    "lodash.groupby": "^4.6.0",
+    "lodash.mapvalues": "^4.6.0",
     "mocha": "^3.4.1",
     "normalizr": "^3.2.3"
   },

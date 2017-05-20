@@ -1,5 +1,7 @@
+const assert = require("assert")
 const { groupBy, mapValues } = require("lodash")
 const { normalize, schema, denormalize } = require("normalizr")
+const mydeno = require("./index")
 const areasData = [
   { id: 1, name: "tohoku" },
   { id: 2, name: "kanto" },
@@ -18,6 +20,9 @@ const createMockState = () => {
     normalize(prefsData, prefs).entities
   )
 }
+const connectSchema = (state, entity) => {
+
+}
 
 describe("", () => {
   // it("1", () => {
@@ -35,16 +40,41 @@ describe("", () => {
   //   console.log(state)
   //   console.log(de)
   // })
-  it("1", () => {
+
+  // it("connect", () => {
+  //   const state = createMockState()
+
+  // })
+  // it("1", () => {
+  //   const state = createMockState()
+  //   const areaGrouped = groupBy(state.prefs, "areaId")
+  //   const expand = (data, fn) => {
+  //     return Object.values(data).map( item => {
+  //       return Object.assign({},  
+  //         item,
+  //         fn(item)
+  //       )
+  //     })
+  //   }
+  //   const result = expand(state.areas, (area) => {
+  //     return { prefs: areaGrouped[area.id] }
+  //   })
+  //   const exp = [{"id":1,"name":"tohoku","prefs":[{"id":1,"name":"aomori","areaId":1},{"id":2,"name":"akita","areaId":1}]},{"id":2,"name":"kanto","prefs":[{"id":3,"name":"tokyo","areaId":2}]}]
+  //   assert.deepEqual(result ,exp)
+  // })
+  it("lib", () => {
     const state = createMockState()
-    const areaGrouped = groupBy(state.prefs, "areaId")
-    const a = mapValues(state.areas, area => {
-      return Object.assign({}, 
-        area,
-        { prefs: areaGrouped[area.id] }
-      )
+    const pref = new schema.Entity("prefs", {
+      areaId: new schema.Entity("areas")
     })
-    console.log(JSON.stringify(a, null, 2))
+    const area = new schema.Entity("areas", {
+      prefs: [pref]
+    })
+    const entity = {
+      areas: area
+    }
+    const de = mydeno({ areas: [1] }, entity, state)
+
   })
   // it("2", () => {
   //   const prefs = [new schema.Entity("prefs")]
