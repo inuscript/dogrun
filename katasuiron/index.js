@@ -1,3 +1,4 @@
+"use strict";
 const someFn = (foo, baz) => {
     return () => {
         return {

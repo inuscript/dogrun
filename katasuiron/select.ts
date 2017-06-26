@@ -60,11 +60,11 @@ const itemSumPrice = createSelector(
 // )
 
 
-// const invalidCreator= createSelector( 
-//   (state: number): number => state,
-//   (state: string): string => state,
-//   (item1, item2): string => {
-//     return `${item1} ${item2}`
-//   }
-// )
+const invalidCreator= createSelector( 
+  (state: number): number => state,
+  (state: string): string => state,
+  (item1, item2): string => {
+    return `${item1} ${item2}`
+  }
+)
 
