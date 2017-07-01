@@ -1,0 +1,16 @@
+{
+  "name": "graphql-to-mysql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "inuscript <inuscript@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-connector-mongodb": "^1.1.14",
+    "graphql": "^0.10.3",
+    "graphql-sequelize": "^5.3.3",
+    "sequelize": "^4.2.1"
+  },
+  "devDependencies": {
+    "graphql-relay": "^0.5.2"
+  }
+}
