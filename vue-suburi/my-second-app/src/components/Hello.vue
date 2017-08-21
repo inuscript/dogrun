@@ -3,6 +3,7 @@
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <Woo />
+    <List />
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
@@ -23,11 +24,13 @@
 
 <script>
 import Woo from '@/components/Woo'
+import List from '@/components/List'
 
 export default {
   name: 'hello',
   components: {
-    Woo
+    Woo,
+    List
   },
   data () {
     return {
