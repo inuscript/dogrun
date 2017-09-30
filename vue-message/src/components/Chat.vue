@@ -3,9 +3,11 @@
     <div>hello</div>
 
     <!-- message -->
-    <div class="msg-box" v-for="msg in messages">
-      <span>{{msg.user}}</span>:<span>{{msg.message}}</span>
-    </div>
+    <template class="msg-box" v-for="(msg, i) in messages">
+      <div :key="i">
+        <span>{{msg.user}}</span>:<span>{{msg.message}}</span>
+      </div>
+    </template>
 
   </div>
 </template>
