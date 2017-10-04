@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@kadira/storybook": "^2.35.3"
+  }
+}

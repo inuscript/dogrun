@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "mocha": "^3.3.0",
+    "redux": "^3.6.0",
+    "redux-mock-store": "^1.2.3",
+    "redux-observable": "^0.14.1",
+    "rxjs": "^5.3.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
+}

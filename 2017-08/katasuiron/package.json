@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@types/react-redux": "^4.4.42",
+    "react-redux": "^5.0.5",
+    "reselect": "^3.0.1",
+    "typescript": "^2.3.4"
+  }
+}
