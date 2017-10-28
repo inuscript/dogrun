@@ -7,15 +7,20 @@
       <div :key="i">
         <span>{{msg.user}}</span>:<span>{{msg.message}}</span>
       </div>
+      <message-box v-bind="msg" :key="i"></message-box>
     </template>
-
   </div>
 </template>
 
 <script>
 
+const MessageBox = {
+  template: `<div>{{ this.props }}</div>`
+  
+}
+
 export default {
-  // components: { MessageBox },
+  components: { MessageBox },
   data: () => {
     return {
       messages: [{
