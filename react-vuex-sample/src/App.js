@@ -2,21 +2,28 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import store from "./store"
+// import { mapActions } from "vuex"
 
-store.subscribe( (_, state) => {
-  console.log("aaa", state)
-})
-const Item = ({ store, state }) => {
+const Item = ({ state, actions }) => {
   return (
     <div className="App">
-      <div>
-        count: {state.count}
-      </div>
-      <button onClick={() => {
-        store.commit("increment")
-      }}>Increment</button>
+      <div>count: {state.count}</div>
+      <button onClick={actions.increment}>
+        Increment
+      </button>
     </div>
   )
+}
+
+const mapActions = (keys, store) => {
+  let dispatch = store.dispatch
+  const res = {}
+  keys.forEach( (key) => {
+    res[key] = function (...args) {
+      dispatch.apply(store, [key].concat(args))
+    }
+  })
+  return res
 }
 
 class App extends Component {
@@ -27,11 +34,11 @@ class App extends Component {
       this.setState(state)
     })
   }
-
   render() {
+    const actions = mapActions(["increment"], store)
     return (
       <div className="App">
-        <Item store={store} state={this.state} />
+        <Item state={this.state} actions={actions} />
       </div>
     );
   }
