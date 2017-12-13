@@ -1,10 +1,15 @@
-import { filter } from 'rxjs/operator';
+import { filter } from 'rxjs/operators';
 
-export function ofActionName(...keys) {
-  return function ofTypeOperatorFunction(source) {
-    return source.pipe$(
-      filter((action) => {
-        action.functionName
+const keyHasType = (type, key) => {
+  return type === key || typeof key === 'function' && type === key.toString();
+};
+
+export function ofType(...keys) {
+  return function ofTypeOperatorFunction(source$) {
+    return source$.pipe(
+      filter( (arg) => {
+        const { type } = arg
+        console.log(arg, type)
         const len = keys.length;
         if (len === 1) {
           return keyHasType(type, keys[0]);
@@ -18,5 +23,5 @@ export function ofActionName(...keys) {
         return false;
       })
     )
-  };
+  }
 }

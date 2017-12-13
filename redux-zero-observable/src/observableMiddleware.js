@@ -1,10 +1,11 @@
 import { map, switchMap } from "rxjs/operators"
-import { ActionsObservable } from "redux-observable";
+// import { ActionsObservable } from "redux-observable";
 import { Subject } from "rxjs/Subject";
+import { Observable } from "rxjs/Observable";
 
 export const observableMiddleware = (rootEpic) => {
   const input$ = new Subject()
-  const action$ = new ActionsObservable(input$)
+  const action$ = new Observable(input$)
   const epic$ = new Subject()
   let store
   return (_store) => (next) => {
