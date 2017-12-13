@@ -24,7 +24,8 @@ export const observableMiddleware = (rootEpic) => {
     store = _store
     const subject = epic$.pipe(
       map(epic => {
-        return epic(action$, store)
+        const state = store.getState()
+        return epic(action$, state, store)
       }),
       switchMap( output$ => output$ )
       // switchMap( output$ => {
@@ -39,7 +40,7 @@ export const observableMiddleware = (rootEpic) => {
     epic$.next(rootEpic)
     return action => {
       const result = next(action)
-      input$.next(action)
+      input$.next({ type: action.name })
       return result
     }
   }

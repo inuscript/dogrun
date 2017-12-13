@@ -13,10 +13,10 @@ const epic = (action$) => {
     // tap( e => {
     //   console.log(e.name)
     // } ),
-    map( s => {
-      console.log(s)
+    map( (a, b, c) => {
+      console.log(a,b ,c)
       return {
-        count: s.count + 1
+        count: b.count + 1
       }
     }),
     // ignoreElements()
