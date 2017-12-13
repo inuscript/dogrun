@@ -1,7 +1,7 @@
-import { map, switchMap } from "rxjs/operators"
+import { map, switchMap, mergeMap } from "rxjs/operators"
 // import { ActionsObservable } from "redux-observable";
 import { Subject } from "rxjs/Subject";
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable'
 
 export const observableMiddleware = (rootEpic) => {
   const input$ = new Subject()
@@ -10,13 +10,16 @@ export const observableMiddleware = (rootEpic) => {
   let store
   return (_store) => (next) => {
     store = _store
-    epic$.pipe(
-      map(epic => {
-        const output$ = epic(action$)
-        return output$
-      }),
+    const subject = epic$.pipe(
+      map(epic =>  epic(action$, store)),
       switchMap( output$ => output$ )
-    ).subscribe((state) => {
+      // switchMap( output$ => {
+      //   console.log(output$)
+      //   return output$
+      // })
+    )
+    subject.subscribe(function(state){
+      console.log(state)
       store.setState(state)
     })
     epic$.next(rootEpic)
