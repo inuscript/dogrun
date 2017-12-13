@@ -3,15 +3,29 @@ import { map, switchMap, mergeMap } from "rxjs/operators"
 import { Subject } from "rxjs/Subject";
 import { Observable } from 'rxjs/Observable'
 
+class ZeroObservable extends Observable{
+  constructor(subject) {
+    super();
+    this.source = subject;
+  }
+  lift(operator) {
+    const observable = new ZeroObservable(this);
+    observable.operator = operator;
+    return observable;
+  }
+}
+
 export const observableMiddleware = (rootEpic) => {
   const input$ = new Subject()
-  const action$ = new Observable(input$)
+  const action$ = new ZeroObservable(input$)
   const epic$ = new Subject()
   let store
   return (_store) => (next) => {
     store = _store
     const subject = epic$.pipe(
-      map(epic =>  epic(action$, store)),
+      map(epic => {
+        return epic(action$, store)
+      }),
       switchMap( output$ => output$ )
       // switchMap( output$ => {
       //   console.log(output$)
