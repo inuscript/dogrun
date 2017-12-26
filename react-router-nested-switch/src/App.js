@@ -3,23 +3,35 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 
-const AppRoute = () => (
-  <Route path="/aaa" render={(props) => {
-    console.log(props)
-    return <div>aaa1</div>
-  }} />
+const SwitchWithNotFound = ({prefix, children}) => (
+  <Switch>
+    {children}
+    <Route path={prefix} render={(props) => {
+      return <div>not found</div>
+    }} />
+  </Switch>
 )
-const AppRoute2 = () => (
-  <div>
-    <Route path="/aaa2" render={(props) => {
+
+const CommentRoute = () => (
+  <SwitchWithNotFound prefix="/comment">
+    <Route path="/comment/aaa" render={(props) => {
+      console.log(props)
+      return <div>aaa1</div>
+    }} />
+  </SwitchWithNotFound>
+  
+)
+const MenuRoute = () => (
+  <SwitchWithNotFound prefix="/menu">
+    <Route path="/menu/aaa2" render={(props) => {
       console.log(props)
       return <div>aaa2</div>
     }} >
     </Route>
-    <Route path="/bbb">
+    <Route path="/menu/bbb">
       <div>bbb2</div>
     </Route>
-  </div>
+  </SwitchWithNotFound>
 )
 
 class App extends Component {
@@ -27,10 +39,8 @@ class App extends Component {
     return (
       <BrowserRouter>    
         <div className="App">
-          <Switch>
-            <AppRoute />
-            <AppRoute2 />
-          </Switch>
+          <CommentRoute />
+          <MenuRoute />
         </div>
       </BrowserRouter>
 
